@@ -250,9 +250,10 @@
             var str = "";
             for(var ei = 0; ei < this.getEdgeCount(); ++ei){
                 var edge = this.getEdge(ei);
-                str += "," + edge.a + "," + edge.b;
+                str += edge.a.toString(NODE_POS.length) +
+                       edge.b.toString(NODE_POS.length);
             }
-            return "[" + str.substr(1) + "]";
+            return str;
         }
     };
     Glyph.compare = function(glyphA, glyphB){
@@ -271,12 +272,11 @@
         return Glyph.compare(glyphA, glyphB) == 0;
     };
     Glyph.fromString = function(str){
-        return Glyph.fromArray(JSON.parse(str));
-    };
-    Glyph.fromArray = function(arr){
         var glyph = new Glyph();
-        for(var i = 1; i < arr.length; i += 2){
-            glyph.addEdge(new Edge(arr[i-1], arr[i]));
+        for(var i = 1; i < str.length; i += 2){
+            glyph.addEdge(new Edge(
+                parseInt(str.charAt(i-1), NODE_POS.length),
+                parseInt(str.charAt(i-0), NODE_POS.length)));
         }
         return glyph;
     };

@@ -14,25 +14,25 @@
     // ref: http://glyphtionary.com/
     var DIC =
             [
-                [1,6,3,4,4,8,6,10,8,10], ["Abandon"]
-                ,[5,8,7,10,8,10], ["Adapt"]
-                ,[0,9,4,9], ["Advance"]
-                ,[4,9,6,7,6,10,8,9,8,10], ["Again", "Repeat"]
-                ,[0,1,0,5,1,2,2,3,3,4,4,5], ["All"]
-                ,[6,7,6,9,7,10], ["Answer"]
-                ,[0,6,0,9,2,6,4,9], ["War", "Attack"]
-                ,[0,5,0,6,1,6,1,7], ["Avoid", "Struggle"]
-                ,[0,10,2,7,7,10], ["Barrier", "Obstacle"]
-                ,[0,8,3,7,3,8], ["Begin"]
-                ,[3,7,3,8,6,7,6,9,8,9], ["Being", "Human"]
-                ,[6,9,6,10,9,10], ["Body", "Shell"]
-                ,[1,6,5,9,6,10,9,10], ["Breathe"]
-                ,[1,7,3,4,4,8,7,10,8,10], ["Capture"]
+                "1634486a8a", ["Abandon"]
+                ,"587a8a", ["Adapt"]
+                ,"0949", ["Advance"]
+                ,"49676a898a", ["Again", "Repeat"]
+                ,"010512233445", ["All"]
+                ,"67697a", ["Answer"]
+                ,"06092649", ["War", "Attack"]
+                ,"05061617", ["Avoid", "Struggle"]
+                ,"0a277a", ["Barrier", "Obstacle"]
+                ,"083738", ["Begin"]
+                ,"3738676989", ["Being", "Human"]
+                ,"696a9a", ["Body", "Shell"]
+                ,"16596a9a", ["Breathe"]
+                ,"1734487a8a", ["Capture"]
             ];
 
     var dic = new Dictionary();
     for(var ei = 0; ei < DIC.length; ei += 2){
-        dic.add(Glyph.fromArray(DIC[ei+0]), DIC[ei+1]);
+        dic.add(Glyph.fromString(DIC[ei+0]), DIC[ei+1]);
     }
     igt.glyphtionary = dic;
 })();
