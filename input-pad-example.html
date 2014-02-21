@@ -17,11 +17,9 @@
     <div id="control">
       <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
       <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
-      <input type="button" value="SetFromCode" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" />
-      <input type="button" value="SetFromWord" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" />
     </div>
-    Code:<textarea id="glyph-code" rows="1"></textarea><br />
-    Word:<textarea id="glyph-word" rows="1"></textarea><br />
+    Code:<textarea id="glyph-code" rows="1"></textarea><input type="button" value="Set" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" /><br />
+    Word:<textarea id="glyph-word" rows="1"></textarea><input type="button" value="Set" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" /><br />
 
     <script>
       var gm9igt = gm9.IngressGlyphTools;
