@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=300">
+    <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
+    <style>
+      html { margin:0;}
+      body { margin:0;}
+    </style>
+    <title>Input Pad Example - Ingress Glyph Tools</title>
+  </head>
+  <body>
+    <div id="glyph-pad">
+    </div>
+    <div id="control">
+      <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
+      <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
+      <input type="button" value="TextToGlyph" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphText.value))" />
+    </div>
+    <textarea id="glyph-text">
+    </textarea><br />
+    <textarea id="glyph-translated" disabled="disabled" rows="1">
+    </textarea>
+
+    <script>
+      var gm9igt = gm9.IngressGlyphTools;
+      var glyphPad = gm9igt.createInputPad({size:300});
+      document.getElementById("glyph-pad").appendChild(glyphPad);
+      glyphPad.addEventListener("glyphchange", function(e){
+        var glyph = glyphPad.getGlyph();
+        glyphText.value = glyph.toString();
+        glyphTranslated.value = gm9igt.glyphtionary.get(glyph);
+      }, false);
+
+      var glyphText = document.getElementById("glyph-text");
+
+      var glyphTranslated = document.getElementById("glyph-translated");
+    </script>
+  </body>
+</html>
