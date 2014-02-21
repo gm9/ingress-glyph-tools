@@ -322,7 +322,7 @@
         }
     }
 
-    function createGlyphImage(glyphSize, glyph)
+    function createGlyphImage(glyph, glyphSize)
     {
         var glyphCenter = glyphSize/2;
         var glyphRadius = glyphSize*48/100;
@@ -554,6 +554,9 @@
         },
         getEntryCount: function(){
             return this.entries.size();
+        },
+        getEntryAt: function(i){
+            return this.entries.at(i);
         }
     };
 
@@ -637,6 +640,7 @@
         drawGrid: drawGrid,
         drawEdge: drawEdge,
         drawGlyph: drawGlyph,
+        createGlyphImage: createGlyphImage,
         createInputPad: createInputPad,
         placeInputPadExample: placeInputPadExample
     };

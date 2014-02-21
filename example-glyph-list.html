@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
+    <title>Glyph List - Ingress Glyph Tools</title>
+  </head>
+  <body>
+    <script>
+      (function(){
+          var gm9igt = gm9.IngressGlyphTools;
+
+          var table = document.createElement("table");
+          table.setAttribute("border", "1");
+
+          for(var i = 0; i < gm9igt.glyphtionary.getEntryCount(); ++i){
+              var entry = gm9igt.glyphtionary.getEntryAt(i);
+              var tr = document.createElement("tr");
+
+              var tdGlyph = document.createElement("td");
+              tdGlyph.appendChild(gm9igt.createGlyphImage(entry.keyGlyph, 64));
+              tr.appendChild(tdGlyph);
+
+              var tdWord = document.createElement("td");
+              tdWord.appendChild(document.createTextNode(entry.value));
+              tr.appendChild(tdWord);
+
+              table.appendChild(tr);
+          }
+
+          gm9igt.getLastScriptNode().parentNode.appendChild(table);
+      })();
+    </script>
+  </body>
+</html>
