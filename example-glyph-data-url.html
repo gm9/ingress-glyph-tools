@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=300">
+    <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
+    <style>
+      html { margin:0;}
+      body { margin:0;}
+    </style>
+    <title>Glyph to Data URL - Ingress Glyph Tools</title>
+  </head>
+  <body>
+    <div id="glyph-pad">
+    </div>
+    <div id="control">
+      <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
+      <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
+    </div>
+    <div id="glyph-word"></div>
+    <textarea id="glyph-url">
+    </textarea>
+
+    <script>
+      var gm9igt = gm9.IngressGlyphTools;
+
+      var glyphPad = gm9igt.createInputPad({size:300});
+      document.getElementById("glyph-pad").appendChild(glyphPad);
+      glyphPad.addEventListener("glyphchange", function(e){
+          var glyph = glyphPad.getGlyph();
+          if(glyphWordText){
+              glyphWordText.parentNode.removeChild(glyphWordText);
+          }
+          glyphWord.appendChild(glyphWordText = document.createTextNode(gm9igt.glyphtionary.get(glyph)));
+
+          var glyphCanvas = gm9igt.createGlyphImage(glyph, 64);
+          glyphURL.value = glyphCanvas.toDataURL();
+      }, false);
+
+      var glyphWord = document.getElementById("glyph-word");
+      var glyphWordText = null;
+      var glyphURL = document.getElementById("glyph-url");
+    </script>
+  </body>
+</html>
