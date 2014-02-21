@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2014 gm9
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
 (function(){
 
     //
