@@ -17,12 +17,15 @@
     <div id="control">
       <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
       <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
-      <input type="button" value="TextToGlyph" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphText.value))" />
+      <input type="button" value="SetFromCode" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" />
+      <input type="button" value="SetFromWord" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" />
     </div>
-    <textarea id="glyph-text">
+    Code:<br />
+    <textarea id="glyph-code" rows="1">
     </textarea><br />
-    <textarea id="glyph-translated" disabled="disabled" rows="1">
-    </textarea>
+    Word:<br />
+    <textarea id="glyph-word" rows="1">
+    </textarea><br />
 
     <script>
       var gm9igt = gm9.IngressGlyphTools;
@@ -30,13 +33,13 @@
       document.getElementById("glyph-pad").appendChild(glyphPad);
       glyphPad.addEventListener("glyphchange", function(e){
         var glyph = glyphPad.getGlyph();
-        glyphText.value = glyph.toString();
-        glyphTranslated.value = gm9igt.glyphtionary.get(glyph);
+        glyphCode.value = glyph.toString();
+        glyphWord.value = gm9igt.glyphtionary.get(glyph);
       }, false);
 
-      var glyphText = document.getElementById("glyph-text");
+      var glyphCode = document.getElementById("glyph-code");
 
-      var glyphTranslated = document.getElementById("glyph-translated");
+      var glyphWord = document.getElementById("glyph-word");
     </script>
   </body>
 </html>

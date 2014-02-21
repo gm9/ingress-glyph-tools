@@ -357,7 +357,7 @@
         }
         function setGlyph(newGlyph)
         {
-            glyph = newGlyph.clone();
+            glyph = newGlyph ? newGlyph.clone() : new Glyph();
             redraw();
             fireGlyphChangeEvent();
         }
@@ -557,6 +557,18 @@
         },
         getEntryAt: function(i){
             return this.entries.at(i);
+        },
+        createIndex: function(){
+            var index = {};
+            for(var ei = 0; ei < this.getEntryCount(); ++ei){
+                var entry = this.getEntryAt(ei);
+                for(var wi = 0; wi < entry.value.length; ++wi){
+                    var word = entry.value[wi].toLowerCase();
+                    if(!index[word]){index[word] = [];}
+                    index[word].push(entry.keyGlyph);
+                }
+            }
+            return index;
         }
     };
 

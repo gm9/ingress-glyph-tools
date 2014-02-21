@@ -135,4 +135,5 @@
         dic.add(Glyph.fromString(DIC[ei+0]), DIC[ei+1]);
     }
     igt.glyphtionary = dic;
+    igt.glyphtionaryIndex = dic.createIndex();
 })();
