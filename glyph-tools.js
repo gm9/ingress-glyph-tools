@@ -17,6 +17,8 @@
         return n;
     }
 
+        // Mouse Position
+
     function getElementAbsPos(elem)
     {
         var x = 0;
@@ -48,6 +50,8 @@
         }
     };
 
+        // Canvas
+
     function limitContext(targetCtx, funCtx, funDraw)
     {
         targetCtx.save();
@@ -55,6 +59,53 @@
         if(funDraw){funDraw(targetCtx);}
         targetCtx.restore();
     }
+
+        // Viewport
+
+    function aquireViewportMetaElement()
+    {
+        var metaArray = document.getElementsByTagName("meta");
+        var index = 0;
+        while(index < metaArray.length){
+            var elem = metaArray[index++];
+            if(elem.getAttribute("name") == "viewport"){
+                return elem;
+            }
+        }
+
+        elem = document.createElement("meta");
+        elem.setAttribute("name", "viewport");
+        document.getElementsByTagName("head")[0].appendChild(elem);
+        return elem;
+    }
+    function updateViewportMetaElement(funGetHeight, funGetWidth)
+    {
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var fitToWindowHeight = windowWidth * funGetHeight() > windowHeight * funGetWidth();
+        var metaSize
+            = fitToWindowHeight
+            ? "width=" + (Math.ceil(funGetHeight()*windowWidth/windowHeight))
+            : "width=" + funGetWidth();
+
+        var meta = aquireViewportMetaElement();
+        meta.setAttribute("content", metaSize + ", user-scalable=no");
+    }
+    function controlViewportMetaElement(targetElement)
+    {
+        function onResize(e)
+        {
+            updateViewportMetaElement(
+                function(){return targetElement.getBoundingClientRect().width;},
+                function(){return targetElement.getBoundingClientRect().height;}
+            );
+        }
+        window.addEventListener("resize", onResize, false);
+        window.addEventListener("orientationchange", onResize, false);
+        targetElement.addEventListener("resize", onResize, false);
+        onResize();
+    }
+
 
     //
     // Set(ordered container)
@@ -709,6 +760,7 @@
 
         // Functions
         getLastScriptNode: getLastScriptNode,
+        controlViewportMetaElement: controlViewportMetaElement,
         getNodePosX: getNodePosX,
         getNodePosY: getNodePosY,
         getNodeIndexAtPosition: getNodeIndexAtPosition,
