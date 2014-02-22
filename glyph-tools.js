@@ -428,8 +428,7 @@
         }
         function defaultBrushNodeInput(targetCtx)
         {
-            targetCtx.strokeStyle = options.style.color;
-            targetCtx.globalAlpha = 0.0;
+            targetCtx.strokeStyle = "rgba(0,0,0,0)";//options.style.color;
         }
         function defaultBrushGlyph(targetCtx)
         {
@@ -452,7 +451,7 @@
             ctx.clearRect(0, 0, inputPadSize, inputPadSize);
             limitContext(
                 ctx,
-                options.style.brushNodeInput || defaultBrushNodeInput,
+                null,
                 function(){
                     drawGrid(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusInput, options.style.drawNodeGradient || defaultDrawNodeGradient);
                 });
