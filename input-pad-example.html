@@ -6,7 +6,11 @@
     <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
     <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
     <style>
-      html { margin:0;}
+      html {
+        margin:0;
+        background: black;
+        color: white;
+      }
       body { margin:0;}
     </style>
     <title>Input Pad Example - Ingress Glyph Tools</title>
@@ -18,12 +22,17 @@
       <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
       <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
     </div>
-    Code:<textarea id="glyph-code" rows="1"></textarea><input type="button" value="Set" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" /><br />
-    Word:<textarea id="glyph-word" rows="1"></textarea><input type="button" value="Set" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" /><br />
+    Code:<input type="text" id="glyph-code" /><input type="button" value="Set" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" /><br />
+    Word:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" /><br />
 
     <script>
       var gm9igt = gm9.IngressGlyphTools;
-      var glyphPad = gm9igt.createInputPad({size:300});
+      var glyphPad = gm9igt.createInputPad({
+        size: 300,
+        style: {
+          color: "white"
+        }
+      });
       document.getElementById("glyph-pad").appendChild(glyphPad);
       glyphPad.addEventListener("glyphchange", function(e){
         var glyph = glyphPad.getGlyph();

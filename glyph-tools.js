@@ -48,6 +48,14 @@
         }
     };
 
+    function limitContext(targetCtx, funCtx, funDraw)
+    {
+        targetCtx.save();
+        if(funCtx){funCtx(targetCtx);}
+        if(funDraw){funDraw(targetCtx);}
+        targetCtx.restore();
+    }
+
     //
     // Set(ordered container)
     //
@@ -287,15 +295,21 @@
     // Drawing
     //
 
-    function drawGrid(ctx, glyphCenterX, glyphCenterY, glyphRadius, nodeRadius)
+    function drawGrid(ctx, glyphCenterX, glyphCenterY, glyphRadius, nodeRadius, funDraw)
     {
+        if(!funDraw){
+            funDraw = function(ctx, x, y, r){
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, 2*Math.PI, false);
+                ctx.stroke();
+            };
+        }
         for(var ni = 0; ni < NODE_POS.length; ++ni){
-            ctx.beginPath();
-            ctx.arc(
+            funDraw(
+                ctx,
                 getNodePosX(glyphCenterX, glyphRadius, ni),
                 getNodePosY(glyphCenterY, glyphRadius, ni),
-                nodeRadius, 0, 2*Math.PI, false);
-            ctx.stroke();
+                nodeRadius);
         }
     }
 
@@ -341,6 +355,8 @@
     function createInputPad(options)
     {
         if(!options){options = {};}
+        if(!options.style){options.style = {};}
+        if(!options.style.color){options.style.color = "black";}
 
         // Glyph
 
@@ -371,7 +387,8 @@
         {
             var edge = new Edge(nodeIndexA, nodeIndexB);
             if(edge.isValid() && glyph.addEdgeForced(edge)){ // able to 'undo'
-                drawEdge(ctx, glyphCenter, glyphCenter, glyphRadius, edge);
+                //drawEdge(ctx, glyphCenter, glyphCenter, glyphRadius, edge);
+                redraw();
 
                 fireGlyphChangeEvent();
             }
@@ -394,22 +411,69 @@
         var inputPadSize = options.size || 300;
         var glyphRadius = inputPadSize * 80 / 200;
         var glyphCenter = inputPadSize/2;
-        var nodeRadiusGrid = 2;
-        var nodeRadiusInput = inputPadSize/20;
+        var nodeRadiusGrid = inputPadSize*2/100;
+        var nodeRadiusInput = inputPadSize*5/100;
 
         var canvas = document.createElement("canvas");
         canvas.setAttribute("width", inputPadSize);
         canvas.setAttribute("height", inputPadSize);
-        canvas.style.border = "1px solid black";
+        canvas.style.border = options.style.border || "1px solid "+options.style.color;
 
         var ctx = canvas.getContext("2d");
 
+        function defaultBrushNodeGrid(targetCtx)
+        {
+            targetCtx.strokeStyle = options.style.color;
+            targetCtx.lineWidth = 2;
+        }
+        function defaultBrushNodeInput(targetCtx)
+        {
+            targetCtx.strokeStyle = options.style.color;
+            targetCtx.globalAlpha = 0.0;
+        }
+        function defaultBrushGlyph(targetCtx)
+        {
+            targetCtx.strokeStyle = options.style.color;
+            targetCtx.lineWidth = inputPadSize*2/100;
+            targetCtx.lineCap = "round";
+            targetCtx.lineJoin = "round";
+        }
+        function defaultDrawNodeGradient(targetCtx, x, y, r)
+        {
+            var gradient = targetCtx.createRadialGradient(x, y, nodeRadiusGrid, x, y, nodeRadiusInput);
+            gradient.addColorStop(0.0, "rgba(147,116,149,0.0)");
+            gradient.addColorStop(0.01, "rgba(147,116,149,0.9)");
+            gradient.addColorStop(1.0, "rgba(147,116,149,0.0)");
+            targetCtx.fillStyle = gradient;
+            targetCtx.fillRect(0, 0, inputPadSize, inputPadSize);
+        }
         function redraw()
         {
             ctx.clearRect(0, 0, inputPadSize, inputPadSize);
-            drawGrid(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusGrid);
-            drawGrid(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusInput);
-            drawGlyph(ctx, glyphCenter, glyphCenter, glyphRadius, glyph);
+            limitContext(
+                ctx,
+                options.style.brushNodeInput || defaultBrushNodeInput,
+                function(){
+                    drawGrid(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusInput, options.style.drawNodeGradient || defaultDrawNodeGradient);
+                });
+            limitContext(
+                ctx,
+                options.style.brushNodeInput || defaultBrushNodeInput,
+                function(){
+                    drawGrid(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusInput);
+                });
+            limitContext(
+                ctx,
+                options.style.brushNodeGrid || defaultBrushNodeGrid,
+                function(){
+                    drawGrid(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusGrid);
+                });
+            limitContext(
+                ctx,
+                options.style.brushGlyph || defaultBrushGlyph,
+                function(){
+                    drawGlyph(ctx, glyphCenter, glyphCenter, glyphRadius, glyph);
+                });
         }
         redraw();
 
