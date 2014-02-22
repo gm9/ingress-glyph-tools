@@ -12,6 +12,7 @@
         color: white;
       }
       body { margin:0;}
+      a { color: #5050ff;}
     </style>
     <title>Input Pad Example - Ingress Glyph Tools</title>
   </head>
@@ -21,9 +22,11 @@
     <div id="control">
       <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
       <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
+      <br />
+      Code:<input type="text" id="glyph-code" /><input type="button" value="Set" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" /><br />
+      Word:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" /><br />
+      <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
     </div>
-    Code:<input type="text" id="glyph-code" /><input type="button" value="Set" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" /><br />
-    Word:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" /><br />
 
     <script>
       var gm9igt = gm9.IngressGlyphTools;
