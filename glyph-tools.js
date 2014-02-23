@@ -432,6 +432,20 @@
         }
     }
 
+    function drawHexagon(ctx, centerX, centerY, radius)
+    {
+        ctx.beginPath();
+        ctx.moveTo(
+            getNodePosX(centerX, radius, 0),
+            getNodePosY(centerY, radius, 0));
+        for(var i = 1; i < 6; ++i){
+            ctx.lineTo(
+            getNodePosX(centerX, radius, i),
+            getNodePosY(centerY, radius, i));
+        }
+        ctx.closePath();
+    }
+
     function createGlyphImage(glyph, glyphSize)
     {
         var glyphCenter = glyphSize/2;
@@ -817,12 +831,15 @@
         // Functions
         getLastScriptNode: getLastScriptNode,
         controlViewportMetaElement: controlViewportMetaElement,
+        limitContext: limitContext,
         getNodePosX: getNodePosX,
         getNodePosY: getNodePosY,
         getNodeIndexAtPosition: getNodeIndexAtPosition,
         drawGrid: drawGrid,
         drawEdge: drawEdge,
         drawGlyph: drawGlyph,
+        drawNodes: drawNodes,
+        drawHexagon: drawHexagon,
         createGlyphImage: createGlyphImage,
         createInputPad: createInputPad,
         placeInputPadExample: placeInputPadExample
