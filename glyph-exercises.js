@@ -18,6 +18,10 @@
         exercisesElement.style.marginLeft = "auto";
         exercisesElement.style.marginRight = "auto";
         exercisesElement.style.position = "relative";
+        function setBGColor(color)
+        {
+            pad.style.background = color;
+        }
 
         var wordDiv = document.createElement("div");
         exercisesElement.appendChild(wordDiv);
@@ -61,7 +65,7 @@
         }
         function showQuestion()
         {
-            pad.style.background = "#202020";
+            setBGColor("#303030");
             showQuestionWord();
         }
         function showQuestionWord()
@@ -81,7 +85,7 @@
         }
         function inputAnswer()
         {
-            pad.style.background = "";
+            setBGColor("");
             pad.clearGlyph();
             pad.setLimitInputStroke(1);
             pad.addEventListener("glyphstrokeend", onStrokeEnd, false);
@@ -93,15 +97,16 @@
         }
         function showResult(result){
             currentResult = result;
-            pad.style.background = result ? "#8ef7d7" : "#ff5a5a";
             if(result){
                 //correct
+                setBGColor("#8ef7d7");
                 showWord(currentWord);
                 setTimeout(nextQuestion, 1000);
             }
             else{
                 //incorrect
                 setTimeout(showQuestion, 1000);
+                setBGColor("#ff5a5a");
             }
         }
 
