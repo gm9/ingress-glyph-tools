@@ -104,8 +104,8 @@
             }
             else{
                 //incorrect
-                setTimeout(showQuestion, 1000);
                 setBGColor("#ff5a5a");
+                setTimeout(showQuestion, 1000);
             }
         }
 
