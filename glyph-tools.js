@@ -97,7 +97,7 @@
         document.getElementsByTagName("head")[0].appendChild(elem);
         return elem;
     }
-    function updateViewportMetaElement(funGetHeight, funGetWidth)
+    function updateViewportMetaElement(funGetWidth, funGetHeight)
     {
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
