@@ -50,6 +50,25 @@
         }
     };
 
+    function uniqueSortedArray(arr, funLess)
+    {
+        if(arr.length == 0){
+            return;
+        }
+        if(!funLess){funLess = function(a, b){return a < b;};}
+
+        var j = 1;
+        for(var i = 1; i < arr.length; ++i){
+            if(funLess(arr[j - 1], arr[i])){
+                if(j != i){
+                    arr[j] = arr[i];
+                }
+                ++j;
+            }
+        }
+        arr.splice(j, arr.length - j);
+    }
+
         // Canvas
 
     function limitContext(targetCtx, funCtx, funDraw)
@@ -167,13 +186,7 @@
         sortAndUnique: function(){
             if(this.values.length >= 1){
                 this.sort();
-                var newValues = [this.values[0]];
-                for(var i = 1; i < this.values.length; ++i){
-                    if(this.keyComp(this.values[i - 1], this.values[i])){
-                        newValues.push(this.values[i]);
-                    }
-                }
-                this.values = newValues;
+                uniqueSortedArray(this.values, this.keyComp);
             }
             return this;
         },
@@ -300,6 +313,17 @@
             this.edges.sortAndUnique();
             return this;
         },
+        getUniqueNodeIndices: function(additionalIndices){
+            var indices = additionalIndices || [];
+            for(var i = 0; i < this.edges.size(); ++i){
+                var edge = this.edges.at(i);
+                indices.push(edge.a);
+                indices.push(edge.b);
+            }
+            indices.sort(function(a, b){return a - b;});
+            uniqueSortedArray(indices);
+            return indices;
+        },
         clone: function(){
             var newGlyph = new Glyph();
             newGlyph.edges = this.edges.clone();
@@ -383,6 +407,27 @@
         if(glyph){
             for(var gi = 0; gi < glyph.getEdgeCount(); ++gi){
                 drawEdge(ctx, glyphCenterX, glyphCenterY, glyphRadius, glyph.getEdge(gi));
+            }
+        }
+    }
+
+    function drawNodes(ctx, glyphCenterX, glyphCenterY, glyphRadius, nodeRadius, indices, funDraw)
+    {
+        if(!funDraw){
+            funDraw = function(ctx, x, y, r){
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, 2*Math.PI, false);
+                ctx.fill();
+            };
+        }
+        if(indices){
+            for(var i = 0; i < indices.length; ++i){
+                var ni = indices[i];
+                funDraw(
+                    ctx,
+                    getNodePosX(glyphCenterX, glyphRadius, ni),
+                    getNodePosY(glyphCenterY, glyphRadius, ni),
+                    nodeRadius);
             }
         }
     }
@@ -502,6 +547,12 @@
             ctx.clearRect(0, 0, inputPadSize, inputPadSize);
             limitContext(
                 ctx,
+                options.style.brushGlyphNode || function(targetCtx){targetCtx.fillStyle = "#ffff00";},
+                function(){
+                    drawNodes(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusGrid, getTouchedNodeIndices());
+                });
+            limitContext(
+                ctx,
                 null,
                 function(){
                     drawGrid(ctx, glyphCenter, glyphCenter, glyphRadius, nodeRadiusInput, options.style.drawNodeGradient || defaultDrawNodeGradient);
@@ -573,8 +624,13 @@
                         addEdge(lastNodeIndex, newNodeIndex);
                     }
                     lastNodeIndex = newNodeIndex;
+                    redraw();
                 }
             }
+        }
+        function getTouchedNodeIndices()
+        {
+            return glyph.getUniqueNodeIndices(lastNodeIndex >= 0 ? [lastNodeIndex] : []);
         }
         function setLimitInputStroke(count)
         {
