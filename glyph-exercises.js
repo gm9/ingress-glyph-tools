@@ -33,6 +33,15 @@
         wordDiv.style.left = "0";
         wordDiv.style.top = (padSize - fontSize)/2 + "px";
         wordDiv.style.textShadow = "0 0 10px #000000";
+        function showWord(str)
+        {
+            hideWord();
+            wordDiv.appendChild(document.createTextNode(str));
+        }
+        function hideWord()
+        {
+            while(wordDiv.firstChild){wordDiv.removeChild(wordDiv.firstChild);}
+        }
 
         var pad = igt.createInputPad({
             size: padSize,
@@ -45,15 +54,7 @@
         var currentGlyph = null;
         var currentWord = null;
 
-        function showWord(str)
-        {
-            hideWord();
-            wordDiv.appendChild(document.createTextNode(str));
-        }
-        function hideWord()
-        {
-            while(wordDiv.firstChild){wordDiv.removeChild(wordDiv.firstChild);}
-        }
+
         function nextQuestion()
         {
             var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
