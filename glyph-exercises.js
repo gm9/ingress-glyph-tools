@@ -57,10 +57,13 @@
 
         function nextQuestion()
         {
-            var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
-            var entry = dic.getEntryAt(entryIndex);
+            do{
+                var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
+                var entry = dic.getEntryAt(entryIndex);
+            }
+            while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
             currentGlyph = entry.keyGlyph;
-            currentWord = entry.value[0]; ///@todo 
+            currentWord = entry.value[Math.floor(Math.random() * entry.value.length)];
             showQuestion();
         }
         function showQuestion()
