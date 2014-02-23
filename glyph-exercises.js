@@ -44,7 +44,6 @@
         var dic = igt.glyphtionary;
         var currentGlyph = null;
         var currentWord = null;
-        var currentResult = false;
 
         function showWord(str)
         {
@@ -96,7 +95,6 @@
             showResult(Glyph.equals(pad.getGlyph(), currentGlyph));
         }
         function showResult(result){
-            currentResult = result;
             if(result){
                 //correct
                 setBGColor("#8ef7d7");
