@@ -3,12 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=300" />
+    <link rel="stylesheet" href="black.css" />
     <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
     <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
-    <style>
-      html { margin:0;}
-      body { margin:0;}
-    </style>
     <title>Glyph to Data URL - Ingress Glyph Tools</title>
   </head>
   <body>
@@ -24,7 +21,7 @@
     <script>
       var gm9igt = gm9.IngressGlyphTools;
 
-      var glyphPad = gm9igt.createInputPad({size:300});
+      var glyphPad = gm9igt.createInputPad({size:300, style:{color:"white"}});
       document.getElementById("glyph-pad").appendChild(glyphPad);
       glyphPad.addEventListener("glyphchange", function(e){
           var glyph = glyphPad.getGlyph();
