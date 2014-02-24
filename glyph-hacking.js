@@ -6,13 +6,15 @@
     var GLYPH_INDICATOR_UNOPEN_HIGHLIGHT = 1;
     var GLYPH_INDICATOR_CORRECT = 2;
     var GLYPH_INDICATOR_INCORRECT = 3;
+    var COLOR_CORRECT = "#84ebcd";
+    var COLOR_INCORRECT = "#ff595a";
     function createGlyphIndicator(glyph, mode)
     {
         var modeColors = [
                 {line: "#ad6e0e", bgLight: "rgba(0,0,0,0)", bgDark: "rgba(0,0,0,0)"},
                 {line: "#fd9f15", bgLight: "#fd9f15", bgDark: "#543606"},
-                {line: "#84ebcd", bgLight: "#84ebcd", bgDark: "#31514a"},
-                {line: "#ff595a", bgLight: "#ff595a", bgDark: "#5a2021"}
+                {line: COLOR_CORRECT, bgLight: COLOR_CORRECT, bgDark: "#31514a"},
+                {line: COLOR_INCORRECT, bgLight: COLOR_INCORRECT, bgDark: "#5a2021"}
         ];
         var colors = modeColors[mode || 0];
 
@@ -57,10 +59,9 @@
     function createGameElement()
     {
         var padSize = 300;
-        var fontSize = 30;
 
         //
-        // Create Game Div
+        // Game Div
         //
 
         var gameElement = document.createElement("div");
@@ -68,6 +69,13 @@
         gameElement.style.marginLeft = "auto";
         gameElement.style.marginRight = "auto";
         gameElement.style.position = "relative";
+        gameElement.style.msUserSelect =
+        gameElement.style.MozUserSelect =
+        gameElement.style.webkitUserSelect =
+        gameElement.style.userSelect = "none";
+        gameElement.style.cursor = "default";
+
+            // Glyph Sequence Indicator
 
         var glyphSequenceIndicator = document.createElement("div");
         glyphSequenceIndicator.style.textAlign = "center";
@@ -87,12 +95,40 @@
             glyphSequenceIndicator.insertBefore(createGlyphIndicator(glyph, mode), node);
             glyphSequenceIndicator.removeChild(node);
         }
+        resetGlyphIndicator(1);
+
+            // Time Indicator
 
         var timeIndicator = document.createElement("div");
-        timeIndicator.style.color = "#807030";
         timeIndicator.style.fontSize = "40px";
         timeIndicator.style.textAlign = "center";
         gameElement.appendChild(timeIndicator);
+        function clearTimeIndicator()
+        {
+            while(timeIndicator.firstChild){
+                timeIndicator.removeChild(timeIndicator.firstChild);
+            }
+        }
+        function setTimeIndicator(msec)
+        {
+            clearTimeIndicator();
+            timeIndicator.style.color = "#807030";
+            timeIndicator.appendChild(document.createTextNode(
+                Math.floor(msec/10000).toString()+
+                (Math.floor(msec/1000)%10).toString()+
+                ":"+
+                (Math.floor(msec/100)%10).toString()+
+                (Math.floor(msec/10)%10).toString()));
+        }
+        setTimeIndicator(0);
+        function setGlyphWord(word, correct)
+        {
+            clearTimeIndicator();
+            timeIndicator.style.color = correct ? COLOR_CORRECT : COLOR_INCORRECT;
+            timeIndicator.appendChild(document.createTextNode(word));
+        }
+
+            // Glyph Pad
 
         var pad = igt.createInputPad({
             size: padSize,
@@ -102,148 +138,265 @@
         gameElement.appendChild(pad);
 
 
-        // Time Indicator
-        timeIndicator.appendChild(document.createTextNode("20:00"));
+        //
+        // Level Select
+        //
 
-        // 問題作成
-        var glyphCount = 3;
-        function chooseGlyph()
+        function inputLevel()
         {
-            var dic = igt.glyphtionary;
-            do{
-                var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
-                var entry = dic.getEntryAt(entryIndex);
-            }
-            while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
-            return {
-                glyph: entry.keyGlyph,
-                word: entry.value[Math.floor(Math.random() * entry.value.length)]
-            };
-        }
-        function createSequece()
-        {
-            var sequence = [];
-            for(var i = 0; i < glyphCount; ++i){
-                sequence.push(chooseGlyph());
-            }
-            return sequence;
-        }
-
-        // 問題提示
-        function presentSequence(sequence)
-        {
-            resetGlyphIndicator(glyphCount);
-
-            var index = 0;
-
-            function showGlyph()
+            var div;
+            function beginInputLevel()
             {
-                setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_HIGHLIGHT);
-                pad.setGlyph(sequence[index].glyph);
-                pad.setLimitInputStroke(0);
-            }
-            function hideGlyph()
-            {
-                setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_NORMAL);
-                pad.clearGlyph();
-            }
-
-            function beginShowGlyph()
-            {
-                if(index >= glyphCount){
-                    endPresentSequence();
+                div = document.createElement("div");
+                div.style.width = padSize + "px";
+                div.style.position = "absolute";
+                div.style.left = "0";
+                div.style.top = "0";
+                div.style.background = "rgba(40,40,40,0.8)";
+                div.style.textAlign = "center";
+                div.style.paddingTop = "20px";
+                div.style.paddingBottom = "20px";
+                div.style.lineHeight = "180%";
+                for(var lv = 0; lv <= 9; ++lv){
+                    var button = document.createElement("input");
+                    button.type = "button";
+                    button.value = "Hack L"+lv+" Portal";
+                    function setButtonLevel()
+                    {
+                        var buttonLevel = lv;
+                        button.addEventListener("click", function(e){
+                            endInputLevel(buttonLevel);
+                        }, false);
+                    }
+                    setButtonLevel();
+                    div.appendChild(button);
+                    div.appendChild(document.createElement("br"));
                 }
-                else{
-                    showGlyph();
-                    setTimeout(endShowGlyph, 1500);
-                }
+                gameElement.appendChild(div);
             }
-            function endShowGlyph()
+            function endInputLevel(lv)
             {
-                hideGlyph();
-                ++index;
-                beginShowGlyph();
+                div.parentNode.removeChild(div);
+                hack(lv);
             }
-            beginShowGlyph();
+            beginInputLevel();
         }
-        var sequence = createSequece();
-        presentSequence(sequence);
-        function endPresentSequence()
+        inputLevel();
+
+        //
+        // Hacking
+        //
+
+        function hack(lv)
         {
-            inputSequence();
-        }
+            var LEVEL_GLYPH_COUNT = [1,1,2,3,3,3,4,4,5, 6];
+            var LEVEL_TIME_LIMIT = [20,20,20,20,19,18,17,16,15, 15];
+            var glyphCount = LEVEL_GLYPH_COUNT[lv];
+            var timeLimit = LEVEL_TIME_LIMIT[lv] * 1000;
+            var sequence = createSequece();
+            var sequenceInputGlyphs = [];
+            presentSequence(sequence);
 
-        // ready go!
-
-        // 回答受付
-        var sequenceInputGlyphs = [];
-        function inputSequence()
-        {
-            var index = 0;
-
-            ///@todo use timer
-
-            function beginInputGlyph()
+            // 問題作成
+            function chooseGlyph()
             {
-                if(index >= glyphCount){
-                    endInputSequence();
+                var dic = igt.glyphtionary;
+                do{
+                    var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
+                    var entry = dic.getEntryAt(entryIndex);
                 }
-                else{
+                while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
+                return {
+                    glyph: entry.keyGlyph,
+                    word: entry.value[Math.floor(Math.random() * entry.value.length)]
+                };
+            }
+            function createSequece()
+            {
+                var sequence = [];
+                for(var i = 0; i < glyphCount; ++i){
+                    sequence.push(chooseGlyph());
+                }
+                return sequence;
+            }
+
+            // 問題提示
+            function presentSequence(sequence)
+            {
+                resetGlyphIndicator(glyphCount);
+                setTimeIndicator(timeLimit);
+
+                var index = 0;
+
+                function showGlyph()
+                {
                     setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_HIGHLIGHT);
-                    pad.setLimitInputStroke(1);
-                    pad.addEventListener("glyphstrokeend", onStrokeEnd, false);
+                    pad.setGlyph(sequence[index].glyph);
+                    pad.setLimitInputStroke(0);
                 }
-            }
-            function onStrokeEnd()
-            {
-                endInputGlyph();
-            }
-            function endInputGlyph()
-            {
-                sequenceInputGlyphs.push(pad.getGlyph());
-                pad.removeEventListener("glyphstrokeend", onStrokeEnd, false);
-                pad.clearGlyph();
-                setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_NORMAL);
-                ++index;
-                beginInputGlyph();
-            }
-            beginInputGlyph();
-        }
-        function endInputSequence()
-        {
-            presentResult();
-        }
+                function hideGlyph()
+                {
+                    setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_NORMAL);
+                    pad.clearGlyph();
+                }
 
-        // 結果表示
-        function presentResult()
-        {
-            var index = 0;
-
-            function beginShowGlyph()
-            {
-                if(index >= glyphCount){
-                    endPresentResult();
+                function beginShowGlyph()
+                {
+                    if(index >= glyphCount){
+                        endPresentSequence();
+                    }
+                    else{
+                        showGlyph();
+                        setTimeout(endShowGlyph, 1500);
+                    }
                 }
-                else{
-                    var correct = Glyph.equals(sequenceInputGlyphs[index], sequence[index].glyph);
-                    var glyph = sequence[index].glyph;
-                    var word = sequence[index].word;
-                    setGlyphIndicator(index, correct ? GLYPH_INDICATOR_CORRECT : GLYPH_INDICATOR_INCORRECT, glyph);
-                    pad.setGlyph(glyph);
-                    ///@todo show word
-                    setTimeout(endShowGlyph, 1000);
+                function endShowGlyph()
+                {
+                    hideGlyph();
+                    ++index;
+                    beginShowGlyph();
                 }
-            }
-            function endShowGlyph()
-            {
-                ++index;
                 beginShowGlyph();
             }
-            beginShowGlyph();
-        }
-        function endPresentResult()
-        {
-            ///@todo
+            function endPresentSequence()
+            {
+                presentGetReady();
+            }
+
+            // Get Ready
+            function presentGetReady()
+            {
+                var div = document.createElement("div");
+                div.style.position = "absolute";
+                div.style.top = "200px";
+                div.style.width = padSize + "px";
+                div.style.textAlign = "center";
+                div.style.color = "#fd9f15";
+                div.style.fontSize = "20px";
+                div.style.borderWidth = "1px 0 1px 0";
+                div.style.borderStyle = "solid";
+                div.style.background = "#543606";
+                div.appendChild(document.createTextNode("GET READY..."));
+
+                gameElement.appendChild(div);
+
+                function flush(beginTime){
+                    var opacity = 1.0;
+                    function fadeout(){
+                        opacity -= 0.1;
+                        if(opacity <= 0){
+                            opacity = 0;
+                        }
+                        gameElement.style.background = "rgba(253, 159, 21, "+opacity.toFixed(6)+")";
+                        if(opacity > 0){
+                            setTimeout(fadeout, 20);
+                        }
+                    }
+                    setTimeout(fadeout, beginTime);
+                }
+                flush(0);
+                flush(1000);
+                flush(2000);
+                setTimeout(endGetReady, 2000);
+
+                function endGetReady()
+                {
+                    div.parentNode.removeChild(div);
+                    inputSequence();
+                }
+            }
+
+            // 回答受付
+            function inputSequence()
+            {
+                var index = 0;
+
+                // Timer
+                var beginTime = Date.now();
+                var timerId = setInterval(progressTimer, 16);
+                function progressTimer()
+                {
+                    var currTime = Math.min(Date.now() - beginTime, timeLimit);
+                    setTimeIndicator(timeLimit - currTime);
+                    if(currTime >= timeLimit){
+                        endInputSequence(); //time is up
+                    }
+                }
+                function stopTimer()
+                {
+                    clearInterval(timerId);
+                }
+
+                // InputGlyph
+                pad.addEventListener("glyphstrokeend", onStrokeEnd, false);
+                function beginInputGlyph()
+                {
+                    if(index >= glyphCount){
+                        endInputSequence();
+                    }
+                    else{
+                        setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_HIGHLIGHT);
+                        pad.setLimitInputStroke(1);
+                    }
+                }
+                function onStrokeEnd()
+                {
+                    endInputGlyph();
+                }
+                function endInputGlyph()
+                {
+                    sequenceInputGlyphs.push(pad.getGlyph());
+                    pad.clearGlyph();
+                    setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_NORMAL);
+                    ++index;
+                    beginInputGlyph();
+                }
+                beginInputGlyph();
+
+                function endInputSequence()
+                {
+                    for(; index < glyphCount; ++index){
+                        sequenceInputGlyphs.push(new Glyph());
+                    }
+                    stopTimer();
+                    pad.clearGlyph();
+                    resetGlyphIndicator(glyphCount);
+                    pad.removeEventListener("glyphstrokeend", onStrokeEnd, false);
+                    presentResult();
+                }
+            }
+
+            // 結果表示
+            function presentResult()
+            {
+                var index = 0;
+
+                function beginShowGlyph()
+                {
+                    if(index >= glyphCount){
+                        endPresentResult();
+                    }
+                    else{
+                        var correct = Glyph.equals(sequenceInputGlyphs[index], sequence[index].glyph);
+                        var glyph = sequence[index].glyph;
+                        var word = sequence[index].word;
+                        setGlyphIndicator(index, correct ? GLYPH_INDICATOR_CORRECT : GLYPH_INDICATOR_INCORRECT, glyph);
+                        pad.setGlyph(glyph);
+                        setGlyphWord(word, correct);
+                        setTimeout(endShowGlyph, 1000);
+                    }
+                }
+                function endShowGlyph()
+                {
+                    ++index;
+                    beginShowGlyph();
+                }
+                setTimeout(beginShowGlyph, 1000);
+            }
+            function endPresentResult()
+            {
+                setTimeout(inputLevel, 1000);
+            }
         }
 
         return gameElement;
