@@ -1,6 +1,7 @@
 * Ingress Glyph Tools
+a JavaScript Library and Tools for Ingress Glyph.
 
-Example: [[http://gm9.github.io/ingress-glyph-tools]]
+Examples: [[http://gm9.github.io/ingress-glyph-tools]]
 
 * License
 This software is released under the [[http://opensource.org/licenses/mit-license.php][MIT license]], see LICENSE.txt.
