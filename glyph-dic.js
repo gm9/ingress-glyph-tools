@@ -122,12 +122,19 @@
                 ,"373848", ["Want"]
                 ,"3669", ["We","Us"]
                 ,"596769", ["Weak"]
-                ,"67697a898a", ["XM (Exotic Matter)"]
+                ,"67697a898a", ["XM"] //(Exotic Matter)
                 ,"070878", ["You","Other"]
                 //,"0109122334696a9a", ["[unknown]"]
                 //,"0609232734486789", ["[unknown]"]
                 //,"01061226", ["[unknown]"]
                 //,"090a373a69", ["[unknown]"]
+
+
+                //-----
+                // gm9
+                //-----
+                ,"387a8a", ["Have"] // Human Have Impure Civilization
+                ,"0a488a", ["Path"] // Shapers Have Strong Path
             ];
 
     var dic = new Dictionary();
