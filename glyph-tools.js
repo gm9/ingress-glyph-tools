@@ -204,11 +204,11 @@
     //
     // Node Indices:
     //         0
-    //   5           1
+    //   5            1
     //      9      6
     //         10
     //      8      7
-    //   4           2
+    //   4            2
     //         3
     //
 
@@ -679,22 +679,6 @@
         return canvas;
     }
 
-    function placeInputPadExample()
-    {
-        var div = document.createElement("div");
-        getLastScriptNode().parentNode.appendChild(div);
-
-        var pad = createInputPad();
-        div.appendChild(pad);
-
-        var output = document.createElement("textarea");
-        div.appendChild(output);
-
-        pad.addEventListener("glyphchange", function(e){
-            output.value = pad.getGlyphNormalized().toString();
-        }, false);
-    }
-
     //
     // Glyph Dictionary Entry
     //
@@ -757,68 +741,6 @@
     };
 
 
-    //
-    // Glyph Editor
-    //
-/*
-    function createEditor()
-    {
-        var dic = new Dictionary();
-        var currEntryText = [];
-
-        var editor = document.createElement("div");
-        editor.className = "glyph-editor";
-
-        var pad = createInputPad();
-        editor.appendChild(pad);
-
-        var output = document.createElement("textarea");
-        editor.appendChild(output);
-
-        pad.addEventListener("glyphchange", function(e){
-            output.value = pad.getGlyphNormalized().toString();
-        }, false);
-
-        var text = document.createElement("input");
-        text.type = "text";
-        editor.appendChild(text);
-        var buttonAddText = document.createElement("input");
-        buttonAddText.type = "button";
-        buttonAddText.value = "Add text";
-        buttonAddText.addEventListener("click", function(e){
-            addTextToEntry(text.value);
-            text.value = "";
-        }, false);
-        editor.appendChild(buttonAddText);
-        var buttonAddEntry = document.createElement("input");
-        buttonAddEntry.type = "button";
-        buttonAddEntry.value = "Add entry";
-        buttonAddEntry.addEventListener("click", function(e){
-            addEntryToDic();
-            text.value = "";
-        }, false);
-        editor.appendChild(buttonAddEntry);
-
-        function addTextToEntry(str)
-        {
-            currEntryText.push(str);
-        };
-        function addEntryToDic()
-        {
-            dic.add(new DictionaryEntry(pad.getGlyphNormalized(), currEntryText));
-            currEntryText = [];
-            pad.clearGlyph();
-        }
-
-        return editor;
-    }
-
-    function placeEditor()
-    {
-        getLastScriptNode().parentNode.appendChild(createEditor());
-    }
-*/
-
     if(!window.gm9){ window.gm9 = {};}
     window.gm9.IngressGlyphTools = {
         // Classes
@@ -841,7 +763,6 @@
         drawNodes: drawNodes,
         drawHexagon: drawHexagon,
         createGlyphImage: createGlyphImage,
-        createInputPad: createInputPad,
-        placeInputPadExample: placeInputPadExample
+        createInputPad: createInputPad
     };
 })();
