@@ -610,6 +610,16 @@
         var lastNodeIndex = -1;
         var limitInputStroke = -1;
 
+        function setLastNodeIndex(index)
+        {
+            lastNodeIndex = index;
+            redraw();
+            if(lastNodeIndex != -1){
+                if(options.vibrationEnabled !== false && window.navigator.vibrate){
+                    window.navigator.vibrate(50);
+                }
+            }
+        }
         function onMouseDown(ev)
         {
             if(!mouseDown && limitInputStroke != 0){
@@ -617,14 +627,14 @@
                     --limitInputStroke;
                 }
                 mouseDown = true;
-                lastNodeIndex = getNodeIndexAtMouseEvent(ev);
+                setLastNodeIndex(getNodeIndexAtMouseEvent(ev));
             }
         }
         function onMouseUp(ev)
         {
             if(mouseDown){
                 mouseDown = false;
-                lastNodeIndex = -1;
+                setLastNodeIndex(-1);
 
                 fireGlyphStrokeEndEvent();
             }
@@ -637,8 +647,7 @@
                     if(lastNodeIndex != -1){
                         addEdge(lastNodeIndex, newNodeIndex);
                     }
-                    lastNodeIndex = newNodeIndex;
-                    redraw();
+                    setLastNodeIndex(newNodeIndex);
                 }
             }
         }
