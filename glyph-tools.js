@@ -4,7 +4,7 @@
  * http://opensource.org/licenses/mit-license.php
  */
 
-(function(){
+(function(window){
 
     //
     // HTML Utility
@@ -774,4 +774,4 @@
         createGlyphImage: createGlyphImage,
         createInputPad: createInputPad
     };
-})();
+})(this);
