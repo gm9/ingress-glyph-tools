@@ -249,6 +249,56 @@
     }
 
     //
+    // EdgeDictionary
+    //
+
+    function EdgeDictionary(keyComp){
+        this.entries = {};
+        this.keyComp = keyComp;
+    }
+    EdgeDictionary.prototype = {
+        add: function(a, b, value){
+            if (!this.entries.hasOwnProperty(a)){
+                this.entries[a] = {};
+            }
+            this.entries[a][b] = value;
+        },
+        get: function(a, b){
+            return this.entries[a][b];
+        },
+        has: function(a){
+            return this.entries.hasOwnProperty(a) && Object.keys(this.entries[a]).length > 0;
+        },
+        pop: function(a, b){
+            if(!a){
+                if(this.size() > 0){
+                    a = Object.keys(this.entries)[0];
+                }else{
+                    return;
+                }
+            }
+            var values = this.entries[a];
+            if(!b){
+                var valueKeys = Object.keys(values);
+                if(valueKeys.length > 0){
+                  b = valueKeys[0];
+                }else{
+                  return;
+                }
+            }
+            var value = values[b];
+            delete values[b];
+            if(Object.keys(values).length == 0){
+                delete this.entries[a];
+            }
+            return value;
+        },
+        size: function(){
+            return Object.keys(this.entries).length;
+        }
+    };
+
+    //
     // Edge
     //
 
@@ -312,6 +362,48 @@
         normalize: function(){
             this.edges.sortAndUnique();
             return this;
+        },
+        getPaths: function(){
+            var aIndex = new EdgeDictionary(Edge.less);
+            var bIndex = new EdgeDictionary(Edge.less);
+            var edges = this.edges.clone();
+            for(var i = 0; i < edges.size(); ++i){
+                var edge = edges.at(i);
+                aIndex.add(edge.a, edge.b, edge);
+                bIndex.add(edge.b, edge.a, edge);
+            }
+            var paths = [];
+            var path = [];
+            while(aIndex.size() > 0){
+                if(path.length == 0){
+                    var edge = aIndex.pop();
+                    bIndex.pop(edge.b, edge.a);
+                    path.push(edge.a, edge.b);
+                }else if (aIndex.has(path[0])){
+                    var edge = aIndex.pop(path[0]);
+                    bIndex.pop(edge.b, edge.a);
+                    path.unshift(edge.b);
+                }else if (bIndex.has(path[0])){
+                    var edge = bIndex.pop(path[0]);
+                    aIndex.pop(edge.a, edge.b);
+                    path.unshift(edge.a);
+                }else if (aIndex.has(path[path.length - 1])){
+                    var edge = aIndex.pop(path[path.length - 1]);
+                    bIndex.pop(edge.b, edge.a);
+                    path.push(edge.b);
+                }else if (bIndex.has(path[path.length - 1])){
+                    var edge = bIndex.pop(path[path.length - 1]);
+                    aIndex.pop(edge.a, edge.b);
+                    path.push(edge.a);
+                }else{
+                    paths.push(path);
+                    path = [];
+                }
+            }
+            if(path.length > 0){
+                paths.push(path);
+            }
+            return paths;
         },
         getUniqueNodeIndices: function(additionalIndices){
             var indices = additionalIndices || [];
@@ -388,6 +480,22 @@
         }
     }
 
+    function drawPath(ctx, glyphCenterX, glyphCenterY, glyphRadius, path)
+    {
+        if(path && path.length > 1){
+            ctx.beginPath();
+            ctx.moveTo(
+                getNodePosX(glyphCenterX, glyphRadius, path[0]),
+                getNodePosY(glyphCenterY, glyphRadius, path[0]));
+            for(var pi = 1; pi < path.length; pi++){
+                ctx.lineTo(
+                    getNodePosX(glyphCenterX, glyphRadius, path[pi]),
+                    getNodePosY(glyphCenterY, glyphRadius, path[pi]));
+            }
+            ctx.stroke();
+        }
+    }
+
     function drawEdge(ctx, glyphCenterX, glyphCenterY, glyphRadius, edge)
     {
         if(edge && edge.isValid()){
@@ -405,8 +513,9 @@
     function drawGlyph(ctx, glyphCenterX, glyphCenterY, glyphRadius, glyph)
     {
         if(glyph){
-            for(var gi = 0; gi < glyph.getEdgeCount(); ++gi){
-                drawEdge(ctx, glyphCenterX, glyphCenterY, glyphRadius, glyph.getEdge(gi));
+            var paths = glyph.getPaths();
+            for(var pi = 0; pi < paths.length; ++pi){
+                drawPath(ctx, glyphCenterX, glyphCenterY, glyphRadius, paths[pi]);
             }
         }
     }
