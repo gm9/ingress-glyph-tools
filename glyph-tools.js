@@ -554,7 +554,7 @@
             gradient.addColorStop(0.01, "rgba(147,116,149,0.9)");
             gradient.addColorStop(1.0, "rgba(147,116,149,0.0)");
             targetCtx.fillStyle = gradient;
-            targetCtx.fillRect(0, 0, inputPadSize, inputPadSize);
+            targetCtx.fillRect(x-nodeRadiusInput, y-nodeRadiusInput, nodeRadiusInput*2, nodeRadiusInput*2);
         }
         function redraw()
         {
