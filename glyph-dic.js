@@ -41,7 +41,7 @@
                 ,"16486a8a", ["Create","Creation"]
                 ,"1216274548597a9a", ["Creativity","Thought","Idea"]//"Mind"
                 ,"093a9a", ["Danger"]
-                ,"06386a8a", ["Data","Signal","Message"]
+                ,"06386a8a", ["Data","Signal"]//"Message"
                 ,"17373858", ["Defend"]
                 ,"38676a789a", ["Destiny"]
                 ,"27597a9a", ["Destroy","Destruction"]
