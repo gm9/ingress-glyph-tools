@@ -46,6 +46,7 @@
                 ,"38676a789a", ["Destiny"]
                 ,"27597a9a", ["Destroy","Destruction"]
                 ,"488a9a", ["Deteriorate","Erode"]
+                ,"386a8a", ["Easy"]
                 ,"27487a8a", ["Die"]
                 ,"16677a8a", ["Difficult"]
                 ,"122334", ["Discover"]
@@ -68,6 +69,7 @@
                 ,"16176978", ["Hide"]
                 ,"363969", ["I","Me"] //"Self"
                 ,"27", ["Ignore"]
+                ,"6a898a9a", ["Imperfect"]
                 ,"166a7a", ["Improve"]
                 ,"3a898a9a", ["Impure"]
                 ,"163445596a9a", ["Journey"]
