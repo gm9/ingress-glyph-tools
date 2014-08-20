@@ -21,7 +21,7 @@
                 ,"010512233445", ["All"]
                 ,"67697a", ["Answer"]
                 ,"06092649", ["Attack", "War"]
-                ,"05061617", ["Avoid", "Struggle"]
+                ,"05061617", ["Avoid"] //"Struggle"
                 ,"0a277a", ["Barrier", "Obstacle"]
                 ,"083738", ["Begin"]
                 ,"3738676989", ["Being", "Human"]
@@ -39,7 +39,7 @@
                 ,"2667", ["Contract"]
                 ,"497889", ["Courage"]
                 ,"16486a8a", ["Create","Creation"]
-                ,"1216274548597a9a", ["Creativity","Mind","Thought","Idea"]
+                ,"1216274548597a9a", ["Creativity","Thought","Idea"]//"Mind"
                 ,"093a9a", ["Danger"]
                 ,"06386a8a", ["Data","Signal","Message"]
                 ,"17373858", ["Defend"]
@@ -66,7 +66,7 @@
                 ,"060937386a7a8a9a", ["Harmony","Peace"]
                 ,"59788a9a", ["Help"]
                 ,"16176978", ["Hide"]
-                ,"363969", ["I","Me","Self"]
+                ,"363969", ["I","Me"] //"Self"
                 ,"27", ["Ignore"]
                 ,"166a7a", ["Improve"]
                 ,"3a898a9a", ["Impure"]
