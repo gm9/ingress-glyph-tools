@@ -198,7 +198,7 @@
             presentSequence(sequence);
 
             // 問題作成
-            function chooseGlyph()
+            function chooseGlyphRandom()
             {
                 var dic = igt.glyphtionary;
                 do{
@@ -211,13 +211,33 @@
                     word: entry.value[Math.floor(Math.random() * entry.value.length)]
                 };
             }
-            function createSequece()
+            function createRandomSequence()
             {
                 var sequence = [];
                 for(var i = 0; i < glyphCount; ++i){
-                    sequence.push(chooseGlyph());
+                    sequence.push(chooseGlyphRandom());
                 }
                 return sequence;
+            }
+            function createSequece()
+            {
+                // シーケンス辞書から取得できればそれを出題する。
+                // 取得できなければ、完全にランダムでシーケンスを作る。
+                var sequenceStrs = igt.sequenceDic.getSequenceRandom(lv);
+                if(sequenceStrs && sequenceStrs.length > 0){
+                    var sequence = [];
+                    for(var i = 0; i < sequenceStrs.length; ++i){
+                        var word = sequenceStrs[i];
+                        var glyph = igt.glyphtionaryIndex[word.toLowerCase()];
+                        if(glyph && glyph.length > 0){
+                            sequence.push({glyph:glyph[0], word:word});
+                        }
+                    }
+                    return sequence;
+                }
+                else{
+                    return createRandomSequence();
+                }
             }
 
             // 問題提示
@@ -247,7 +267,7 @@
                     }
                     else{
                         showGlyph();
-                        setTimeout(endShowGlyph, 1500);
+                        setTimeout(endShowGlyph, 1000);
                     }
                 }
                 function endShowGlyph()
@@ -379,7 +399,7 @@
                     else{
                         var correct = Glyph.equals(sequenceInputGlyphs[index], sequence[index].glyph);
                         var glyph = sequence[index].glyph;
-                        var word = sequence[index].word;
+                        var word = sequence[index].word.toUpperCase();
                         setGlyphIndicator(index, correct ? GLYPH_INDICATOR_CORRECT : GLYPH_INDICATOR_INCORRECT, glyph);
                         pad.setGlyph(glyph);
                         setGlyphWord(word, correct);
