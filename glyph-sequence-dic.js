@@ -151,7 +151,7 @@
         getSequences: function(lv){ return LEVEL_SEQUENCES[lv];},
         getSequenceRandom: function(lv){
             var seqs = LEVEL_SEQUENCES[lv];
-            return seqs ? seqs[Math.floor(Math.random() * seqs.length)] : null;
+            return seqs && seqs.length > 0 ? seqs[Math.floor(Math.random() * seqs.length)] : null;
         }
     };
 })();
