@@ -81,7 +81,7 @@
 
         // Viewport
 
-    function aquireViewportMetaElement()
+    function acquireViewportMetaElement()
     {
         var metaArray = document.getElementsByTagName("meta");
         var index = 0;
@@ -107,7 +107,7 @@
             ? "width=" + (Math.ceil(funGetHeight()*windowWidth/windowHeight))
             : "width=" + funGetWidth();
 
-        var meta = aquireViewportMetaElement();
+        var meta = acquireViewportMetaElement();
         meta.setAttribute("content", metaSize + ", user-scalable=no");
     }
     function controlViewportMetaElement(targetElement)
