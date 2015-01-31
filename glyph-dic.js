@@ -100,7 +100,7 @@
                 ,"066989", ["Question"]
                 ,"27697a9a", ["React"]
                 ,"1216586a8a", ["Rebel"]
-                ,"050a599a", ["Recharge"]
+                ,"050a599a", ["Recharge","Repair"]
                 ,"090a383a69", ["Resist","Resistance","Struggle"]
                 ,"2327597a9a", ["Restraint"]
                 ,"0626", ["Retreat"]
