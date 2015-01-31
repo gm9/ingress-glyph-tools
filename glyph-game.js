@@ -557,7 +557,7 @@
         return gameObj;
     }
 
-    function insertAfterLastScriptNode()
+    function insertSimpleGameAfterLastScriptNode()
     {
         var gameObj = createGame();
         gameObj.onEndGame = function(){
@@ -570,8 +570,9 @@
         gameObj.inputLevel();
     }
 
-    igt.glyphHacking = insertAfterLastScriptNode;
+    igt.glyphHacking = insertSimpleGameAfterLastScriptNode;
     igt.glyphGame = {
-        createGame: createGame
+        createGame: createGame,
+        putSimpleGame: insertSimpleGameAfterLastScriptNode
     };
 })();
