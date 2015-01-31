@@ -71,6 +71,7 @@
                 ,"363969", ["I","Me"] //"Self"
                 ,"27", ["Ignore"]
                 ,"6a898a9a", ["Imperfect"]
+                ,"686a898a9a", ["Imperfect"] //NOTE: Scanner bug?
                 ,"166a7a", ["Improve"]
                 ,"3a898a9a", ["Impure"]
                 ,"163445596a9a", ["Journey"]
