@@ -126,7 +126,7 @@
             ["human", "not", "together", "civilization", "deteriorate"],
             ["human", "shapers", "together", "create", "DESTINY"],
             ["imperfect", "XM", "message", "human", "CHAOS"],
-            ["imperfect", "XM", "open", "complex", "ANSWER"],
+            ["imperfect", "TRUTH", "open", "complex", "ANSWER"],
             ["inside", "mind", "inside", "soul", "HARMONY"],
             ["liberate", "portal", "liberate", "human", "MIND"],
             ["liberate", "self", "liberate", "human", "CIVILIZATION"],
