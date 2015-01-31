@@ -97,7 +97,6 @@
             ["chaos", "war", "conflict", "discover", "PEACE"],
             ["civilization", "die", "new", "civilization", "BEGIN"],
             ["clear", "mind", "liberate", "barrier", "BODY"],
-            ["clear", "mind", "liberate", "barrier", "BODY"],
             ["clearall", "idea", "past", "present", "FUTURE"],
             ["contemplate", "future", "inside", "shapers", "PATH"],
             ["contemplate", "restraint", "discover", "more", "COURAGE"],
