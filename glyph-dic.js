@@ -12,6 +12,7 @@
     var DictionaryEntry = igt.DictionaryEntry;
 
     // ref: http://glyphtionary.com/
+    // ref: https://plus.google.com/u/1/+Ingress/posts/6Ey9jT3mhsD
     var DIC =
             [
                 "1634486a8a", ["Abandon"]
@@ -26,8 +27,7 @@
                 ,"083738", ["Begin"]
                 ,"3738676989", ["Being", "Human"]
                 ,"696a9a", ["Body", "Shell"]
-                ,"16596a9a", ["Breathe"]
-                //,"", ["Calibration Grid"]
+                ,"16596a9a", ["Breathe","Live"]
                 ,"1734487a8a", ["Capture"]
                 ,"373a8a", ["Change","Modify"]
                 ,"01051638456a8a", ["Chaos","Disorder"]
@@ -36,7 +36,6 @@
                 ,"698a9a", ["Complex"]
                 ,"2649677889", ["Conflict"]
                 ,"011223386a899a", ["Contemplate"]
-                ,"2667", ["Contract"]
                 ,"497889", ["Courage"]
                 ,"16486a8a", ["Create","Creation"]
                 ,"1216274548597a9a", ["Creativity","Thought","Idea"]//"Mind"
@@ -55,16 +54,18 @@
                 ,"01091223696a9a", ["Enlightened", "Enlightenment"]
                 ,"676989", ["Equal"]
                 ,"01166989", ["Escape"]
-                ,"0a899a", ["Evolution", "Success"]
+                ,"0a899a", ["Evolution","Progress","Success"]
                 ,"0a676a", ["Failure"]
                 ,"176769", ["Fear"]
                 ,"061216", ["Follow"]
                 ,"48", ["Forget"]
-                ,"162767", ["Future","Forward-Time"]
+                ,"162767", ["Future"] //"Forward-Time"
                 ,"58", ["Gain"]
                 ,"1659677889", ["Government","City","Civilization","Structure"]
+                ,"4989", ["Grow"]
                 ,"0609276a7a9a", ["Harm"]
                 ,"060937386a7a8a9a", ["Harmony","Peace"]
+                ,"387a8a", ["Have"]
                 ,"59788a9a", ["Help"]
                 ,"16176978", ["Hide"]
                 ,"363969", ["I","Me"] //"Self"
@@ -80,43 +81,46 @@
                 ,"676a7a899a", ["Lie"]
                 ,"17", ["Lose"]
                 ,"17497a9a", ["Message"]
-                ,"383a899a", ["Mind","Idea","Thought"]
+                ,"383a899a", ["Mind"] //"Idea","Thought"
                 ,"7a8a", ["More"]
                 ,"2748676989", ["Nature"]
                 ,"2767", ["New"]
-                ,"6769", ["No","Not","Absent","Inside"]
+                ,"6769", ["Not","Inside"] //"No", "Absent"
                 ,"343a488a", ["Nourish"]
                 ,"5989", ["Old"]
                 ,"373878", ["Open","Accept"]
                 ,"010512233437384578", ["Open All", "Openall"]
-                ,"1216274548596978", ["Opening","Doorway","Portal"]
+                ,"1216274548596978", ["Portal"] //"Opening","Doorway"
                 ,"485989", ["Past"]
+                ,"0a488a", ["Path"]
                 ,"0a232734487a8a", ["Perfection","Balance"]
                 ,"0a12277a", ["Potential"]
                 ,"677889", ["Present","Now"]
-                ,"0a676a7a", ["Pure","Purity"]
+                ,"0a676a7a", ["Pure"] //"Purity"
                 ,"060959", ["Pursue"]
                 ,"0a48899a", ["Pursue","Chase"]
                 ,"066989", ["Question"]
                 ,"27697a9a", ["React"]
                 ,"1216586a8a", ["Rebel"]
                 ,"050a599a", ["Recharge","Repair"]
+                ,"2667", ["Reduce"] //"Contract"
                 ,"090a383a69", ["Resist","Resistance","Struggle"]
                 ,"2327597a9a", ["Restraint"]
                 ,"0626", ["Retreat"]
                 ,"264969", ["Safety"]
-                ,"177a8a", ["Save","Rescue"]
+                ,"177a8a", ["Save"] //"Rescue"
                 ,"09", ["See"]
                 ,"696a7889", ["Seek","Search"]
-                ,"2334", ["Self"]
+                ,"2334", ["Self","Individual"]
                 ,"2759676a898a", ["Separate"]
-                ,"060927486789", ["Shaper","Shapers","Collective"]
+                ,"060927486789", ["Shapers","Collective"] //"Shaper"
                 //"060927373848676989", ["Shaper/Collective + Being/Human"]
                 ,"27344878", ["Share"]
                 ,"78", ["Simple"]
-                ,"373a676a", ["Soul","Spirit","Life Force"]
+                ,"373a676a", ["Soul"] //"Spirit","Life Force"
                 ,"274878", ["Stability", "Stay"]
                 ,"67697889", ["Strong"]
+                ,"0878", ["Them"]
                 ,"48696a8a9a", ["Together"]
                 ,"676a7a898a9a", ["Truth"]
                 ,"177a", ["Use"]
@@ -125,18 +129,11 @@
                 ,"3669", ["We","Us"]
                 ,"596769", ["Weak"]
                 ,"67697a898a", ["XM"] //(Exotic Matter)
-                ,"070878", ["You","Other"]
+                ,"070878", ["You","Your"] //"Other"
                 //,"0109122334696a9a", ["[unknown]"]
                 //,"0609232734486789", ["[unknown]"]
                 //,"01061226", ["[unknown]"]
                 //,"090a373a69", ["[unknown]"]
-
-
-                //-----
-                // gm9
-                //-----
-                ,"387a8a", ["Have"] // Human Have Impure Civilization
-                ,"0a488a", ["Path"] // Shapers Have Strong Path
             ];
 
     var dic = new Dictionary();
