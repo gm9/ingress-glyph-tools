@@ -1,6 +1,118 @@
+/*
+ * Copyright (c) 2014 gm9
+ * This software is released under the MIT License.
+ * http://opensource.org/licenses/mit-license.php
+ */
+
+// requires:
+// - glyph-tools.js
+// - glyph-dic.js
+// - glyph-sequence-dic.js
+
 (function(){
     var igt = gm9.IngressGlyphTools;
     var Glyph = igt.Glyph;
+
+    var LEVEL_GLYPH_COUNT = [1,1,2,3,3,3,4,4,5, 6];
+    var LEVEL_TIME_LIMIT = [20000,20000,20000,20000,19000,18000,17000,16000,15000, 15000];
+    var LEVEL_SPEED_BONUS_TIME = [10000,10000,10000,10000,9500,9000,8500,8000,7500, 7500];
+    var GLYPHS_TRANSLATOR_POINT = [0,1,2,4,8,15];
+
+    //
+    // 問題作成
+    //
+
+    function chooseGlyphRandom()
+    {
+        var dic = igt.glyphtionary;
+        do{
+            var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
+            var entry = dic.getEntryAt(entryIndex);
+        }
+        while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
+        return {
+            glyph: entry.keyGlyph,
+            word: entry.value[Math.floor(Math.random() * entry.value.length)]
+        };
+    }
+    function createRandomSequence(glyphCount)
+    {
+        var sequence = [];
+        for(var i = 0; i < glyphCount; ++i){
+            sequence.push(chooseGlyphRandom());
+        }
+        return sequence;
+    }
+    function chooseSequenceRandom(lv)
+    {
+        // シーケンス辞書から取得できればそれを出題する。
+        // 取得できなければ、完全にランダムでシーケンスを作る。
+        var sequenceStrs = igt.sequenceDic.getSequenceRandom(lv);
+        if(sequenceStrs && sequenceStrs.length > 0){
+            var sequence = [];
+            for(var i = 0; i < sequenceStrs.length; ++i){
+                var word = sequenceStrs[i];
+                var glyph = igt.glyphtionaryIndex[word.toLowerCase()];
+                if(glyph && glyph.length > 0){
+                    sequence.push({glyph:glyph[0], word:word});
+                }
+            }
+            return sequence;
+        }
+        else{
+            return createRandomSequence(LEVEL_GLYPH_COUNT[lv]);
+        }
+    }
+
+
+    //
+    // Level Selector UI
+    //
+
+    function createLevelSelector(onSelected)
+    {
+        var div;
+        div = document.createElement("div");
+        div.style.width = "100%";//padSize + "px";
+        div.style.position = "absolute";
+        div.style.left = "0";
+        div.style.top = "0";
+        div.style.background = "rgba(40,40,40,0.8)";
+        div.style.textAlign = "center";
+        div.style.paddingTop = "20px";
+        div.style.paddingBottom = "20px";
+        div.style.lineHeight = "180%";
+        for(var lv = 0; lv <= 9; ++lv){
+            var button = document.createElement("input");
+            button.type = "button";
+            button.value = "Hack L"+lv+" Portal";
+            function setButtonLevel()
+            {
+                var buttonLevel = lv;
+                button.addEventListener("click", function(e){
+                    endSelectLevel(buttonLevel);
+                }, false);
+            }
+            setButtonLevel();
+            div.appendChild(button);
+            div.appendChild(document.createElement("br"));
+        }
+        function endSelectLevel(lv)
+        {
+            div.parentNode.removeChild(div);
+            if(onSelected){
+                onSelected(lv);
+            }
+        }
+        return div;
+    }
+
+
+
+
+    //
+    // Glyph Indicator
+    //
 
     var GLYPH_INDICATOR_UNOPEN_NORMAL = 0;
     var GLYPH_INDICATOR_UNOPEN_HIGHLIGHT = 1;
@@ -56,15 +168,24 @@
         return canvas;
     }
 
-    function createGameElement()
+
+
+    //
+    // Game UI
+    //
+
+    function createGame()
     {
+        var gameObj = {
+            onEndGame: null
+        };
         var padSize = 300;
 
         //
         // Game Div
         //
 
-        var gameElement = document.createElement("div");
+        var gameElement = gameObj.element = document.createElement("div");
         gameElement.style.width = (padSize+2) + "px";
         gameElement.style.marginLeft = "auto";
         gameElement.style.marginRight = "auto";
@@ -109,16 +230,19 @@
                 timeIndicator.removeChild(timeIndicator.firstChild);
             }
         }
+        function msecToString(msec)
+        {
+            return Math.floor(msec/10000).toString()+
+                (Math.floor(msec/1000)%10).toString()+
+                ":"+
+                (Math.floor(msec/100)%10).toString()+
+                (Math.floor(msec/10)%10).toString();
+        }
         function setTimeIndicator(msec)
         {
             clearTimeIndicator();
             timeIndicator.style.color = "#807030";
-            timeIndicator.appendChild(document.createTextNode(
-                Math.floor(msec/10000).toString()+
-                (Math.floor(msec/1000)%10).toString()+
-                ":"+
-                (Math.floor(msec/100)%10).toString()+
-                (Math.floor(msec/10)%10).toString()));
+            timeIndicator.appendChild(document.createTextNode(msecToString(msec)));
         }
         setTimeIndicator(0);
         function setGlyphWord(word, correct)
@@ -142,103 +266,37 @@
         // Level Select
         //
 
+        gameObj.inputLevel = inputLevel;
         function inputLevel()
         {
-            var div;
             function beginInputLevel()
             {
-                div = document.createElement("div");
-                div.style.width = padSize + "px";
-                div.style.position = "absolute";
-                div.style.left = "0";
-                div.style.top = "0";
-                div.style.background = "rgba(40,40,40,0.8)";
-                div.style.textAlign = "center";
-                div.style.paddingTop = "20px";
-                div.style.paddingBottom = "20px";
-                div.style.lineHeight = "180%";
-                for(var lv = 0; lv <= 9; ++lv){
-                    var button = document.createElement("input");
-                    button.type = "button";
-                    button.value = "Hack L"+lv+" Portal";
-                    function setButtonLevel()
-                    {
-                        var buttonLevel = lv;
-                        button.addEventListener("click", function(e){
-                            endInputLevel(buttonLevel);
-                        }, false);
-                    }
-                    setButtonLevel();
-                    div.appendChild(button);
-                    div.appendChild(document.createElement("br"));
-                }
-                gameElement.appendChild(div);
+                gameElement.appendChild(createLevelSelector(endInputLevel));
             }
             function endInputLevel(lv)
             {
-                div.parentNode.removeChild(div);
-                hack(lv);
+                hackLevelRandom(lv);
             }
             beginInputLevel();
         }
-        inputLevel();
 
         //
         // Hacking
         //
 
-        function hack(lv)
+        gameObj.hackLevelRandom = hackLevelRandom;
+        function hackLevelRandom(lv)
         {
-            var LEVEL_GLYPH_COUNT = [1,1,2,3,3,3,4,4,5, 6];
-            var LEVEL_TIME_LIMIT = [20,20,20,20,19,18,17,16,15, 15];
-            var glyphCount = LEVEL_GLYPH_COUNT[lv];
-            var timeLimit = LEVEL_TIME_LIMIT[lv] * 1000;
-            var sequence = createSequece();
-            var sequenceInputGlyphs = [];
+            hack(chooseSequenceRandom(lv), LEVEL_TIME_LIMIT[lv], LEVEL_SPEED_BONUS_TIME[lv]);
+        }
+
+        gameObj.hack = hack;
+        function hack(sequence, timeLimit, speedBonusTime)
+        {
+            var glyphCount = sequence.length;
+            gameObj.sequence = sequence;
             presentSequence(sequence);
 
-            // 問題作成
-            function chooseGlyphRandom()
-            {
-                var dic = igt.glyphtionary;
-                do{
-                    var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
-                    var entry = dic.getEntryAt(entryIndex);
-                }
-                while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
-                return {
-                    glyph: entry.keyGlyph,
-                    word: entry.value[Math.floor(Math.random() * entry.value.length)]
-                };
-            }
-            function createRandomSequence()
-            {
-                var sequence = [];
-                for(var i = 0; i < glyphCount; ++i){
-                    sequence.push(chooseGlyphRandom());
-                }
-                return sequence;
-            }
-            function createSequece()
-            {
-                // シーケンス辞書から取得できればそれを出題する。
-                // 取得できなければ、完全にランダムでシーケンスを作る。
-                var sequenceStrs = igt.sequenceDic.getSequenceRandom(lv);
-                if(sequenceStrs && sequenceStrs.length > 0){
-                    var sequence = [];
-                    for(var i = 0; i < sequenceStrs.length; ++i){
-                        var word = sequenceStrs[i];
-                        var glyph = igt.glyphtionaryIndex[word.toLowerCase()];
-                        if(glyph && glyph.length > 0){
-                            sequence.push({glyph:glyph[0], word:word});
-                        }
-                    }
-                    return sequence;
-                }
-                else{
-                    return createRandomSequence();
-                }
-            }
 
             // 問題提示
             function presentSequence(sequence)
@@ -330,13 +388,15 @@
             function inputSequence()
             {
                 var index = 0;
+                var currTime = 0;
+                var inputGlyphs = [];
 
                 // Timer
                 var beginTime = Date.now();
-                var timerId = setInterval(progressTimer, 16);
-                function progressTimer()
+                var timerId = setInterval(progressTime, 16);
+                function progressTime()
                 {
-                    var currTime = Math.min(Date.now() - beginTime, timeLimit);
+                    currTime = Math.min(Date.now() - beginTime, timeLimit);
                     setTimeIndicator(timeLimit - currTime);
                     if(currTime >= timeLimit){
                         endInputSequence(); //time is up
@@ -365,7 +425,7 @@
                 }
                 function endInputGlyph()
                 {
-                    sequenceInputGlyphs.push(pad.getGlyph());
+                    inputGlyphs.push(pad.getGlyph());
                     pad.clearGlyph();
                     setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_NORMAL);
                     ++index;
@@ -373,31 +433,52 @@
                 }
                 beginInputGlyph();
 
-                function endInputSequence()
+                function createResultObject()
                 {
                     for(; index < glyphCount; ++index){
-                        sequenceInputGlyphs.push(new Glyph());
+                        inputGlyphs.push(new Glyph());
                     }
+                    var correctCount = 0;
+                    var correctArray = [];
+                    for(var i = 0; i < glyphCount; ++i){
+                        var correct = Glyph.equals(
+                            inputGlyphs[i],
+                            sequence[i].glyph);
+                        correctArray.push(correct);
+                        if(correct){
+                            ++correctCount;
+                        }
+                    }
+                    return {
+                        time: currTime,
+                        inputGlyphs: inputGlyphs,
+                        correctCount: correctCount,
+                        correctArray: correctArray
+                    };
+                }
+                function endInputSequence()
+                {
+                    gameObj.result = createResultObject();
                     stopTimer();
                     pad.clearGlyph();
                     resetGlyphIndicator(glyphCount);
                     pad.removeEventListener("glyphstrokeend", onStrokeEnd, false);
-                    presentResult();
+                    presentResult(gameObj.result);
                 }
             }
 
             // 結果表示
-            function presentResult()
+            function presentResult(gameResult)
             {
                 var index = 0;
 
                 function beginShowGlyph()
                 {
                     if(index >= glyphCount){
-                        endPresentResult();
+                        presentScore();
                     }
                     else{
-                        var correct = Glyph.equals(sequenceInputGlyphs[index], sequence[index].glyph);
+                        var correct = gameResult.correctArray[index];
                         var glyph = sequence[index].glyph;
                         var word = sequence[index].word.toUpperCase();
                         setGlyphIndicator(index, correct ? GLYPH_INDICATOR_CORRECT : GLYPH_INDICATOR_INCORRECT, glyph);
@@ -405,6 +486,58 @@
                         setGlyphWord(word, correct);
                         setTimeout(endShowGlyph, 1000);
                     }
+                }
+                function createScoreDiv()
+                {
+                    function tx(text){
+                        return document.createTextNode(text);
+                    }
+                    function sc(text){
+                        var span = document.createElement("span");
+                        span.style.fontSize = "24px";
+                        span.style.color = "white";
+                        span.appendChild(document.createTextNode(text));
+                        return span;
+                    }
+                    var div = document.createElement("div");
+                    div.style.fontSize = "16px";
+                    div.style.textAlign = "left";
+                    div.style.color = COLOR_CORRECT;
+                    div.style.position = "absolute";
+                    div.style.left = "10px";
+                    div.style.top = "160px";
+                    div.style.right = "10px";
+                    div.style.border = "solid 1px " + COLOR_CORRECT;
+                    div.style.background = "#002525";
+                    div.style.padding = "1em";
+                    div.style.lineHeight = "1.25";
+                    div.appendChild(tx("TIME: "));
+                    div.appendChild(sc(msecToString(gameResult.time)));
+                    div.appendChild(tx(" / " + msecToString(timeLimit)));
+                    div.appendChild(document.createElement("br"));
+                    div.appendChild(tx("CORRECT GLYPHS: "));
+                    div.appendChild(sc(gameResult.correctCount));
+                    div.appendChild(tx(" / " + glyphCount));
+                    div.appendChild(document.createElement("br"));
+                    if(speedBonusTime){
+                        div.appendChild(tx("SPEED BONUS(" + msecToString(speedBonusTime) + "): "));
+                        div.appendChild(sc(gameResult.time < speedBonusTime ? 1 : 0));
+                        div.appendChild(document.createElement("br"));
+                    }
+                    div.appendChild(tx("TRANSLATOR POINT: "));
+                    div.appendChild(sc(gameResult.correctCount == glyphCount && glyphCount < GLYPHS_TRANSLATOR_POINT.length ? GLYPHS_TRANSLATOR_POINT[glyphCount] : 0));
+
+                    var onClick = function(e){
+                        gameElement.removeEventListener("click", onClick, false);
+                        div.parentNode.removeChild(div);
+                        endPresentResult();
+                    };
+                    gameElement.addEventListener("click", onClick, false);
+                    return div;
+                }
+                function presentScore()
+                {
+                    gameElement.appendChild(createScoreDiv());
                 }
                 function endShowGlyph()
                 {
@@ -415,20 +548,30 @@
             }
             function endPresentResult()
             {
-                setTimeout(inputLevel, 1000);
+                if(gameObj.onEndGame){
+                    gameObj.onEndGame();
+                }
             }
         }
 
-        return gameElement;
+        return gameObj;
     }
 
     function insertAfterLastScriptNode()
     {
-        var gameElement = createGameElement();
-        igt.getLastScriptNode().parentNode.appendChild(gameElement);
+        var gameObj = createGame();
+        gameObj.onEndGame = function(){
+            gameObj.inputLevel();
+        };
+        igt.getLastScriptNode().parentNode.appendChild(gameObj.element);
 
-        igt.controlViewportMetaElement(gameElement);
+        igt.controlViewportMetaElement(gameObj.element);
+
+        gameObj.inputLevel();
     }
 
     igt.glyphHacking = insertAfterLastScriptNode;
+    igt.glyphGame = {
+        createGame: createGame
+    };
 })();
