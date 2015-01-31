@@ -7,29 +7,39 @@
     <title>Glyph List - Ingress Glyph Tools</title>
   </head>
   <body>
+    <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
     <script>
       (function(){
           var gm9igt = gm9.IngressGlyphTools;
 
-          var table = document.createElement("table");
-          table.setAttribute("border", "1");
+          var listDiv = document.createElement("div");
 
-          for(var i = 0; i < gm9igt.glyphtionary.getEntryCount(); ++i){
-              var entry = gm9igt.glyphtionary.getEntryAt(i);
-              var tr = document.createElement("tr");
+          var arrWordGlyph = [];
+          for(var key in gm9igt.glyphtionaryIndex){
+              var glyphs = gm9igt.glyphtionaryIndex[key];
+              for(var gi = 0; gi < glyphs.length; ++gi){
+                  arrWordGlyph.push({word:key, glyph:glyphs[gi]});
+              }
+          }
+          arrWordGlyph.sort(function(a,b){return a.word.localeCompare(b.word);});
 
-              var tdGlyph = document.createElement("td");
-              tdGlyph.appendChild(gm9igt.createGlyphImage(entry.keyGlyph, 64));
-              tr.appendChild(tdGlyph);
+          for(var i = 0; i < arrWordGlyph.length; ++i){
+              var entry = arrWordGlyph[i];
+              var entryDiv = document.createElement("div");
+              entryDiv.style.display = "inline-block";
+              entryDiv.style.margin = "8px";
+              entryDiv.style.textAlign = "center";
 
-              var tdWord = document.createElement("td");
-              tdWord.appendChild(document.createTextNode(entry.value));
-              tr.appendChild(tdWord);
+              entryDiv.appendChild(gm9igt.createGlyphImage(entry.glyph, 64));
 
-              table.appendChild(tr);
+              var wordDiv = document.createElement("div");
+              wordDiv.appendChild(document.createTextNode(entry.word.toUpperCase()));
+              entryDiv.appendChild(wordDiv);
+
+              listDiv.appendChild(entryDiv);
           }
 
-          gm9igt.getLastScriptNode().parentNode.appendChild(table);
+          gm9igt.getLastScriptNode().parentNode.appendChild(listDiv);
       })();
     </script>
   </body>
