@@ -2,9 +2,14 @@
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="black.css" />
     <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
     <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
     <title>Glyph List - Ingress Glyph Tools</title>
+    <style>
+        a { color: white;}
+    </style>
   </head>
   <body>
     <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
@@ -30,10 +35,18 @@
               entryDiv.style.margin = "8px";
               entryDiv.style.textAlign = "center";
 
-              entryDiv.appendChild(gm9igt.createGlyphImage(entry.glyph, 64));
+              var glyphUrl = "input-pad-example.html?c=" + entry.glyph.toString();
 
+              var glyphLink = document.createElement("a");
+              glyphLink.setAttribute("href", glyphUrl);
+              glyphLink.appendChild(gm9igt.createGlyphImage(entry.glyph, 64, {color: "white"}));
+              entryDiv.appendChild(glyphLink);
+
+              var wordLink = document.createElement("a");
+              wordLink.setAttribute("href", glyphUrl);
+              wordLink.appendChild(document.createTextNode(entry.word.toUpperCase()));
               var wordDiv = document.createElement("div");
-              wordDiv.appendChild(document.createTextNode(entry.word.toUpperCase()));
+              wordDiv.appendChild(wordLink);
               entryDiv.appendChild(wordDiv);
 
               listDiv.appendChild(entryDiv);
