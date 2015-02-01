@@ -18,6 +18,13 @@
     var LEVEL_SPEED_BONUS_TIME = [10000,10000,10000,10000,9500,9000,8500,8000,7500, 7500];
     var GLYPHS_TRANSLATOR_POINT = [0,1,2,4,8,15];
 
+    function getLevelTimeLimit(lv){
+        return LEVEL_TIME_LIMIT[lv];
+    }
+    function getLevelSpeedBonusTime(lv){
+        return LEVEL_SPEED_BONUS_TIME[lv];
+    }
+
     //
     // 問題作成
     //
@@ -573,6 +580,8 @@
     igt.glyphHacking = insertSimpleGameAfterLastScriptNode;
     igt.glyphGame = {
         createGame: createGame,
-        putSimpleGame: insertSimpleGameAfterLastScriptNode
+        putSimpleGame: insertSimpleGameAfterLastScriptNode,
+        getLevelTimeLimit: getLevelTimeLimit,
+        getLevelSpeedBonusTime: getLevelSpeedBonusTime
     };
 })();
