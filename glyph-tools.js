@@ -446,15 +446,33 @@
         ctx.closePath();
     }
 
-    function createGlyphImage(glyph, glyphSize)
+    function createGlyphImage(glyph, glyphSize, style)
     {
         var glyphCenter = glyphSize/2;
         var glyphRadius = glyphSize*48/100;
 
+        if(style===undefined){style = {};}
+        if(style.color===undefined){style.color = "black";}
+
         var canvas = document.createElement("canvas");
         canvas.setAttribute("width", glyphSize);
         canvas.setAttribute("height", glyphSize);
-        drawGlyph(canvas.getContext("2d"), glyphCenter, glyphCenter, glyphRadius, glyph);
+        var ctx = canvas.getContext("2d");
+
+        ///@todo drawNodes
+
+        limitContext(
+            ctx,
+            style.brushGlyph || function(targetCtx) {
+                targetCtx.strokeStyle = style.color;
+                targetCtx.lineWidth = style.glyphLineWidth || Math.ceil(glyphSize*2/100);
+                targetCtx.lineCap = "round";
+                targetCtx.lineJoin = "round";
+            },
+            function(){
+                drawGlyph(ctx, glyphCenter, glyphCenter, glyphRadius, glyph);
+            });
+
         return canvas;
     }
 
