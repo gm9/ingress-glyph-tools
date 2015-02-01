@@ -483,7 +483,7 @@
         canvas.setAttribute("height", glyphSize);
         var ctx = canvas.getContext("2d");
 
-        ///@todo drawNodes
+        ///@todo drawGrid
 
         limitContext(
             ctx,
