@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="black.css" />
+    <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-sequence-dic.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-game.js" charset="utf-8"></script>
+    <title>Glyph Sequence List - Ingress Glyph Tools</title>
+  </head>
+  <body>
+    <div id="list-page">
+      <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
+      <script>
+      //<![CDATA[
+      (function(){
+          var gm9igt = gm9.IngressGlyphTools;
+          var page = document.getElementById("list-page");
+          var lv;
+          var naviDiv = document.createElement("div");
+          for(lv = 0; lv <= 8; ++lv){
+              var levelLink = document.createElement("a");
+              levelLink.setAttribute("href", "#level" + lv);
+              levelLink.innerHTML = "Level" + lv;
+              naviDiv.appendChild(levelLink);
+              naviDiv.appendChild(document.createTextNode(" "));
+          }
+          page.appendChild(naviDiv);
+
+          for(lv = 0; lv <= 8; ++lv){
+
+              // Level Header
+              var levelHeader = document.createElement("h2");
+              levelHeader.id = "level" + lv;
+              levelHeader.appendChild(document.createTextNode("Level" + lv));
+              page.appendChild(levelHeader);
+
+              // Level Sequences Table
+              var seqs = gm9igt.sequenceDic.getSequences(lv);
+              var seqsTable = document.createElement("table");
+              seqsTable.setAttribute("border", "1");
+              page.appendChild(seqsTable);
+              for(var si = 0; si < seqs.length; ++si){
+                  var seqWords = seqs[si];
+                  var seqTr = document.createElement("tr");
+                  seqsTable.appendChild(seqTr);
+
+                  // Hack Button
+                  function addHackButton(seqWords, lv){
+                      var button = document.createElement("input");
+                      button.type = "button";
+                      button.value = "Hack";
+                      button.addEventListener("click", function(e){
+                          hack(seqWords, lv);
+                      }, false);
+                      var buttonTd = document.createElement("td");
+                      buttonTd.appendChild(button);
+                      seqTr.appendChild(buttonTd);
+                  }
+                  addHackButton(seqWords, lv);
+
+                  // Sequence Glyphs
+                  var seqTd = document.createElement("td");
+                  seqTr.appendChild(seqTd);
+                  for(var gi = 0; gi < seqWords.length; ++gi){
+                      var word = seqWords[gi]; //NOTE: Uppercase or Lowercase
+                      var glyphs = gm9igt.glyphtionaryIndex[word.toLowerCase()];
+                      var glyph = glyphs && glyphs.length > 0 ? glyphs[0] : null;
+                      var glyphDiv = document.createElement("div");
+                      glyphDiv.style.display = "inline-block";
+                      glyphDiv.style.textAlign = "center";
+                      if(glyph){
+                          glyphDiv.appendChild(gm9igt.createGlyphImage(
+                              glyph,
+                              24,
+                              {color: "white", glyphLineWidth: 2}));
+                      }
+                      var wordDiv = document.createElement("div");
+                      wordDiv.style.padding = "0 0.5em";
+                      wordDiv.appendChild(document.createTextNode(word.toUpperCase()));
+                      glyphDiv.appendChild(wordDiv);
+                      seqTd.appendChild(glyphDiv);
+                  }
+              }
+          }
+
+
+          function getSequenceFromWords(words){ ///@todo move to glyph-game.js ?
+              var seq = [];
+              for(var wi = 0; wi < words.length; ++wi){
+                  var word = words[wi];
+                  var glyphs = gm9igt.glyphtionaryIndex[word.toLowerCase()];
+                  if(!glyphs || glyphs.length == 0){
+                      return null; //error
+                  }
+                  seq.push({glyph:glyphs[0], word:word});
+              }
+              return seq;
+          }
+          function hack(words, lv){
+              var seq = getSequenceFromWords(words);
+              if(!seq){
+                  alert("Cannot resolve glyph sequence.");
+                  return;
+              }
+
+              page.style.display = "none";
+
+
+              var gameObj = gm9igt.glyphGame.createGame();
+              document.body.appendChild(gameObj.element);
+              var viewportController = gm9igt.controlViewportMetaElement(gameObj.element);
+              gameObj.hack(seq,
+                  gm9igt.glyphGame.getLevelTimeLimit(lv),
+                  gm9igt.glyphGame.getLevelSpeedBonusTime(lv));
+
+              gameObj.onEndGame = function(){
+                  viewportController.cancel();
+                  gameObj.element.parentNode.removeChild(gameObj.element);
+                  page.style.display = "";
+              };
+          }
+
+      })();
+      //]]>
+      </script>
+    </div>
+  </body>
+</html>
