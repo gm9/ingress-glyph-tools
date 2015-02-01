@@ -99,7 +99,7 @@
                 ,"677889", ["Present","Now"]
                 ,"0a676a7a", ["Pure"] //"Purity"
                 ,"060959", ["Pursue"]
-                ,"0a48899a", ["Pursue","Chase"]
+                ,"0a48899a", ["Chase"] //"Pursue"
                 ,"066989", ["Question"]
                 ,"27697a9a", ["React"]
                 ,"1216586a8a", ["Rebel"]
