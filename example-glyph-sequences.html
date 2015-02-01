@@ -48,22 +48,21 @@
                   seqsTable.appendChild(seqTr);
 
                   // Hack Button
-                  function addHackButton(seqWords, lv){
+                  function addHackButton(parent, seqWords, lv){
                       var button = document.createElement("input");
                       button.type = "button";
                       button.value = "Hack";
+                      button.style.float = "right";
                       button.addEventListener("click", function(e){
                           hack(seqWords, lv);
                       }, false);
-                      var buttonTd = document.createElement("td");
-                      buttonTd.appendChild(button);
-                      seqTr.appendChild(buttonTd);
+                      parent.appendChild(button);
                   }
-                  addHackButton(seqWords, lv);
 
                   // Sequence Glyphs
                   var seqTd = document.createElement("td");
                   seqTr.appendChild(seqTd);
+                  addHackButton(seqTd, seqWords, lv);
                   for(var gi = 0; gi < seqWords.length; ++gi){
                       var word = seqWords[gi]; //NOTE: Uppercase or Lowercase
                       var glyphs = gm9igt.glyphtionaryIndex[word.toLowerCase()];
