@@ -15,8 +15,8 @@
       <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
       <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
       <br />
-      Code:<input type="text" id="glyph-code" /><input type="button" value="Set" onclick="glyphPad.setGlyph(gm9igt.Glyph.fromString(glyphCode.value))" /><br />
-      Word:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="glyphPad.setGlyph((gm9igt.glyphtionaryIndex[glyphWord.value.toLowerCase()] || [null])[0])" /><br />
+      Code:<input type="text" id="glyph-code" /><input type="button" value="Set" onclick="setGlyphFromCode(glyphCode.value)" /><br />
+      Word:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="setGlyphFromWord(glyphWord.value)" /><br />
       <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
     </div>
 
@@ -36,8 +36,37 @@
       }, false);
 
       var glyphCode = document.getElementById("glyph-code");
-
       var glyphWord = document.getElementById("glyph-word");
+
+      function setGlyphFromCode(code){
+          glyphPad.setGlyph(gm9igt.Glyph.fromString(code))
+      }
+      function setGlyphFromWord(word){
+          glyphPad.setGlyph((gm9igt.glyphtionaryIndex[word.toLowerCase()] || [null])[0]);
+      }
+
+      // Parse Query String
+      function getQueryParams()
+      {
+          var result = {};
+          var q = document.location.search.substr(1);
+          if(q.length > 0){
+              var ps = q.split("&");
+              for(var pi = 0; pi < ps.length; ++pi){
+                  var nv = ps[pi].split("=");
+                  result[nv[0]] = decodeURI(nv[1].replace(/\+/g, " "));
+              }
+          }
+          return result;
+      }
+      var queryParams = getQueryParams();
+      if(queryParams["c"]){
+          setGlyphFromCode(queryParams["c"]);
+      }
+      if(queryParams["w"]){
+          setGlyphFromWord(queryParams["w"]);
+      }
+
     </script>
   </body>
 </html>
