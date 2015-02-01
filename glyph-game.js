@@ -528,7 +528,7 @@
                     div.appendChild(document.createElement("br"));
                     if(speedBonusTime){
                         div.appendChild(tx("SPEED BONUS(" + msecToString(speedBonusTime) + "): "));
-                        div.appendChild(sc(gameResult.time < speedBonusTime ? 1 : 0));
+                        div.appendChild(sc(gameResult.correctCount == glyphCount && gameResult.time < speedBonusTime ? 1 : 0));
                         div.appendChild(document.createElement("br"));
                     }
                     div.appendChild(tx("TRANSLATOR POINT: "));
