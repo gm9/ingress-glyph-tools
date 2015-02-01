@@ -108,21 +108,45 @@
             : "width=" + funGetWidth();
 
         var meta = acquireViewportMetaElement();
+        var oldContent = meta.getAttribute("content");
         meta.setAttribute("content", metaSize + ", user-scalable=no");
+        return oldContent;
     }
     function controlViewportMetaElement(targetElement)
     {
-        function onResize(e)
-        {
-            updateViewportMetaElement(
+        function updateViewport(){
+            return updateViewportMetaElement(
                 function(){return targetElement.getBoundingClientRect().width;},
                 function(){return targetElement.getBoundingClientRect().height;}
             );
         }
+        var oldContent = updateViewport();
+
+        var onResize = function(e) { updateViewport(); };
         window.addEventListener("resize", onResize, false);
         window.addEventListener("orientationchange", onResize, false);
         targetElement.addEventListener("resize", onResize, false);
-        onResize();
+
+        function cancel(){
+            if(onResize){
+                window.removeEventListener("resize", onResize, false);
+                window.removeEventListener("orientationchange", onResize, false);
+                targetElement.removeEventListener("resize", onResize, false);
+                onResize = null;
+
+                var meta = acquireViewportMetaElement();
+                if(oldContent){
+                    meta.setAttribute("content", oldContent);
+                }
+                else{
+                    meta.removeAttribute("content");
+                }
+            }
+        }
+
+        return {
+            cancel: cancel
+        };
     }
 
 
