@@ -105,6 +105,10 @@
                   return;
               }
 
+              var scrollPos = {
+                  x: document.documentElement.scrollLeft || document.body.scrollLeft,
+                  y: document.documentElement.scrollTop || document.body.scrollTop
+              };
               page.style.display = "none";
 
 
@@ -119,6 +123,7 @@
                   viewportController.cancel();
                   gameObj.element.parentNode.removeChild(gameObj.element);
                   page.style.display = "";
+                  window.scrollTo(scrollPos.x, scrollPos.y);
               };
           }
 
