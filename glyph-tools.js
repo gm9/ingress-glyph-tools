@@ -564,7 +564,7 @@
         var glyphRadius = inputPadSize * 80 / 200;
         var glyphCenter = inputPadSize/2;
         var nodeRadiusGrid = inputPadSize*2/100;
-        var nodeRadiusInput = inputPadSize*5/100;
+        var nodeRadiusInput = inputPadSize*6/100;
 
         var canvas = document.createElement("canvas");
         canvas.setAttribute("width", inputPadSize);
@@ -636,10 +636,13 @@
 
         // Input Event
 
+        function getNodeIndexAtMousePosition(pos)
+        {
+            return getNodeIndexAtPosition(glyphCenter, glyphCenter, glyphRadius, nodeRadiusInput, pos[0], pos[1]);
+        }
         function getNodeIndexAtMouseEvent(ev)
         {
-            var pos = getMousePosOnElement(canvas, ev);
-            return getNodeIndexAtPosition(glyphCenter, glyphCenter, glyphRadius, nodeRadiusInput, pos[0], pos[1]);
+            return getNodeIndexAtMousePosition(getMousePosOnElement(canvas, ev));
         }
         function fireGlyphStrokeEndEvent()
         {
@@ -651,6 +654,7 @@
         var mouseDown = false;
         var lastNodeIndex = -1;
         var limitInputStroke = -1;
+        var lastMousePos = null;
 
         function setLastNodeIndex(index)
         {
@@ -669,7 +673,9 @@
                     --limitInputStroke;
                 }
                 mouseDown = true;
-                setLastNodeIndex(getNodeIndexAtMouseEvent(ev));
+                var pos = getMousePosOnElement(canvas, ev);
+                setLastNodeIndex(getNodeIndexAtMousePosition(pos));
+                lastMousePos = pos;
             }
         }
         function onMouseUp(ev)
@@ -677,20 +683,40 @@
             if(mouseDown){
                 mouseDown = false;
                 setLastNodeIndex(-1);
+                lastMousePos = null;
 
                 fireGlyphStrokeEndEvent();
             }
         }
-        function onMouseMove(ev)
+        function onMouseMoveInner(pos)
         {
             if(mouseDown){
-                var newNodeIndex = getNodeIndexAtMouseEvent(ev);
+                var newNodeIndex = getNodeIndexAtMousePosition(pos);
                 if(newNodeIndex != -1 && newNodeIndex != lastNodeIndex){
                     if(lastNodeIndex != -1){
                         addEdge(lastNodeIndex, newNodeIndex);
                     }
                     setLastNodeIndex(newNodeIndex);
                 }
+            }
+        }
+        function onMouseMove(ev)
+        {
+            if(mouseDown){
+                // Interpolate mouse positions
+                var pos = getMousePosOnElement(canvas, ev);
+                var dx = pos[0] - lastMousePos[0];
+                var dy = pos[1] - lastMousePos[1];
+                var distance = Math.sqrt(dx*dx+dy*dy);
+                var maxSpan = nodeRadiusInput / 2;
+                var numDivisions = Math.ceil(distance / maxSpan);
+                for(var di = 1; di <= numDivisions; ++di){
+                    onMouseMoveInner([
+                        lastMousePos[0] + dx * di / numDivisions,
+                        lastMousePos[1] + dy * di / numDivisions
+                    ]);
+                }
+                lastMousePos = pos;
             }
         }
         function getTouchedNodeIndices()
