@@ -86,7 +86,6 @@
         ],
         //L8
         [
-            ["XM", "create", "complex", "shapers", "DESTINY"],
             ["advance", "civilization", "pursue", "shapers", "PATH"],
             ["answer", "question", "discover", "difficult", "TRUTH"],
             ["avoid", "balance", "stay", "human", "SELF"],
@@ -115,6 +114,7 @@
             ["easy", "path", "future", "follow", "SHAPERS"],
             ["end", "old", "civilization", "create", "NEW"],
             ["escape", "body", "journey", "distance", "PRESENT"],
+            ["escape", "body", "mind", "self", "WANT"],
             ["forget", "attack", "see", "outside", "harmony"],
             ["forget", "past", "see", "present", "DANGER"],
             ["gain", "truth", "open", "human", "SOUL"],
@@ -125,8 +125,8 @@
             ["hide", "struggle", "advance", "strong", "TOGETHER"],
             ["human", "not", "together", "civilization", "deteriorate"],
             ["human", "shapers", "together", "create", "DESTINY"],
-            ["imperfect", "XM", "message", "human", "CHAOS"],
             ["imperfect", "TRUTH", "open", "complex", "ANSWER"],
+            ["imperfect", "XM", "message", "human", "CHAOS"],
             ["inside", "mind", "inside", "soul", "HARMONY"],
             ["liberate", "portal", "liberate", "human", "MIND"],
             ["liberate", "self", "liberate", "human", "CIVILIZATION"],
@@ -149,7 +149,7 @@
             ["rebel", "idea", "evolution", "destiny", "NOW"],
             ["repair", "present", "repair", "human", "SOUL"],
             ["repair", "soul", "less", "human", "HARM"],
-            ["save", "human", "civilization", "destiny", "portal"],
+            ["save", "human", "civilization", "destroy", "PORTAL"],
             ["search", "destiny", "create", "pure", "future"],
             ["separate", "mind", "body", "discover", "ENLIGHTENMENT"],
             ["separate", "truth", "lie", "shapers", "future"],
@@ -167,7 +167,10 @@
             ["use", "mind", "use", "courage", "CHANGE"],
             ["use", "restraint", "follow", "easy", "PATH"],
             ["want", "truth", "pursue", "difficult", "PATH"],
-            ["weak", "human", "destiny", "destroy", "CIVILIZATION"]
+            ["weak", "human", "destiny", "destroy", "CIVILIZATION"],
+            ["XM", "create", "complex", "human", "DESTINY"],
+            //["XM", "create", "complex", "shapers", "DESTINY"],
+            ["XM", "PATH", "FUTURE", "DESTINY", "HARMONY"]
         ]
     ];
 
