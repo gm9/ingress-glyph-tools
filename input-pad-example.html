@@ -7,20 +7,23 @@
     <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
     <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
     <style>
+      #page { width: 302px;}
       #control { line-height: 1.5;}
     </style>
     <title>Input Pad Example - Ingress Glyph Tools</title>
   </head>
   <body>
-    <div id="glyph-pad">
-    </div>
-    <div id="control">
-      <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
-      <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
-      <br />
-      Code:<input type="text" id="glyph-code" /><input type="button" value="Set" onclick="setGlyphFromCode(glyphCode.value)" /><br />
-      Word:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="setGlyphFromWord(glyphWord.value)" /><br />
-      <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
+    <div id="page">
+      <div id="glyph-pad">
+      </div>
+      <div id="control">
+        <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
+        <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
+        <br />
+        Code:<input type="text" id="glyph-code" /><input type="button" value="Set" onclick="setGlyphFromCode(glyphCode.value)" /><br />
+        Word:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="setGlyphFromWord(glyphWord.value)" /><br />
+        <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
+      </div>
     </div>
 
     <script>
@@ -70,6 +73,8 @@
           setGlyphFromWord(queryParams["w"]);
       }
 
+      // Dynamic Viewport Controll
+      gm9igt.controlViewportMetaElement(document.getElementById("page"));
     </script>
   </body>
 </html>
