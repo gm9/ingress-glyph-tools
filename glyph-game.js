@@ -73,6 +73,28 @@
 
 
     //
+    // UI Parts
+    //
+    function createButton(text, onclick)
+    {
+        ///@todo ライブラリ化する。
+        ///@todo 見た目をIngress風にする。
+        var button = document.createElement("input");
+        button.type = "button";
+        button.value = text;
+        if(onclick){
+            button.addEventListener("click", onclick, false);
+        }
+        return button;
+    }
+    function putButton(parent, text, onclick)
+    {
+        var button = createButton(text, onclick);
+        parent.appendChild(button);
+        return button;
+    }
+
+    //
     // Level Selector UI
     //
 
@@ -90,18 +112,11 @@
         div.style.paddingBottom = "20px";
         div.style.lineHeight = "180%";
         for(var lv = 0; lv <= 9; ++lv){
-            var button = document.createElement("input");
-            button.type = "button";
-            button.value = "Hack L"+lv+" Portal";
-            function setButtonLevel()
-            {
+            (function(){
                 var buttonLevel = lv;
-                button.addEventListener("click", function(e){
-                    endSelectLevel(buttonLevel);
-                }, false);
-            }
-            setButtonLevel();
-            div.appendChild(button);
+                putButton(div, "Hack L"+lv+" Portal", function(){
+                    endSelectLevel(buttonLevel); });
+            })();
             div.appendChild(document.createElement("br"));
         }
         function endSelectLevel(lv)
@@ -184,6 +199,8 @@
     function createGame()
     {
         var gameObj = {
+            showRetryButton: true,
+            onUpdateResult: null,
             onEndGame: null
         };
         var padSize = 300;
@@ -466,6 +483,9 @@
                 function endInputSequence()
                 {
                     gameObj.result = createResultObject();
+                    if(gameObj.onUpdateResult){
+                        gameObj.onUpdateResult(gameObj.result);
+                    }
                     stopTimer();
                     pad.clearGlyph();
                     resetGlyphIndicator(glyphCount);
@@ -512,7 +532,7 @@
                     div.style.color = COLOR_CORRECT;
                     div.style.position = "absolute";
                     div.style.left = "10px";
-                    div.style.top = "160px";
+                    div.style.top = "140px";
                     div.style.right = "10px";
                     div.style.border = "solid 1px " + COLOR_CORRECT;
                     div.style.background = "#002525";
@@ -534,12 +554,27 @@
                     div.appendChild(tx("TRANSLATOR POINT: "));
                     div.appendChild(sc(gameResult.correctCount == glyphCount && glyphCount < GLYPHS_TRANSLATOR_POINT.length ? GLYPHS_TRANSLATOR_POINT[glyphCount] : 0));
 
-                    var onClick = function(e){
-                        gameElement.removeEventListener("click", onClick, false);
-                        div.parentNode.removeChild(div);
+                    var buttonBar = document.createElement("div");
+                    buttonBar.style.marginTop = "0.5em";
+                    buttonBar.style.textAlign = "right";
+                    div.appendChild(buttonBar);
+                    if(gameObj.showRetryButton){
+                        putButton(buttonBar, "RETRY", function(){
+                            closeScoreDiv();
+                            ///@todo call gameObj.onEndGame?
+                            hack(sequence, timeLimit, speedBonusTime);
+                        }).style.marginRight = "0.5em";
+                    }
+                    putButton(buttonBar, "DONE", function(){
+                        closeScoreDiv();
                         endPresentResult();
-                    };
-                    gameElement.addEventListener("click", onClick, false);
+                    });
+
+                    function closeScoreDiv()
+                    {
+                        div.parentNode.removeChild(div);
+                    }
+
                     return div;
                 }
                 function presentScore()
