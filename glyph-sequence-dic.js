@@ -34,6 +34,7 @@
         //L7
         [
             ["ATTACK", "WEAK", "SHAPERS", "LIE"],
+            ["BREATHE", "AGAIN", "JOURNEY", "AGAIN"],
             ["CAPTURE", "FEAR", "DISCOVER", "COURAGE"],
             ["CHANGE", "FUTURE", "CAPTURE", "DESTINY"],
             ["CHANGE", "HUMAN", "POTENTIAL", "USE"],
@@ -42,11 +43,14 @@
             ["CLEARALL", "OPENALL", "DISCOVER", "TRUTH"],
             ["CONTEMPLATE", "COMPLEX", "SHAPERS", "CIVILIZATION"],
             ["COURAGE", "attack", "shapers", "FUTURE"],
+            ["CREATE", "DISTANCE", "IMPURE", "PATH"],
             ["CREATE", "FUTURE", "NOT", "WAR"],
             ["DEFEND", "MESSAGE", "ANSWER", "IDEA"],
             ["DESTROY", "DESTINY", "HUMAN", "LIE"],
             ["DETERIORATE", "HUMAN", "WEAK", "REBEL"],
             ["ESCAPE", "SIMPLE", "HUMAN", "FUTURE"],
+            ["FOLLOW", "SHAPERS", "PORTAL", "MESSAGE"],
+            ["FORGET", "CONFLICT", "ACCEPT", "WAR"],
             ["HARMONY", "PATH", "NOURISH", "PRESENT"],
             ["HELP", "GAIN", "CREATE", "PURSUE"],
             ["HIDE", "IMPURE", "HUMAN", "THOUGHT"],
@@ -60,6 +64,7 @@
             ["LEAD", "PURSUE", "REACT", "DEFEND"],
             ["LESS", "SOUL", "MORE", "MIND"],
             ["LESS", "TRUTH", "MORE", "CHAOS"],
+            ["LIBERATE", "XM", "PORTAL", "TOGETHER"],
             ["LOSE", "DANGER", "GAIN", "SAFETY"],
             ["PAST", "AGAIN", "PRESENT", "AGAIN"],
             ["PATH", "RESTRAINT", "STRONG", "SAFETY"],
@@ -69,6 +74,7 @@
             ["RESTRAINT", "FEAR", "AVOID", "DANGER"],
             ["RESTRAINT", "PATH", "GAIN", "HARMONY"],
             ["SEARCH", "DATA", "DISCOVER", "PATH"],
+            ["SEARCH", "TRUTH", "SAVE", "CIVILIZATION"],
             ["SEARCH", "XM", "SAVE", "PORTAL"],
             ["SEE", "TRUTH", "SEE", "FUTURE"],
             ["SHAPERS", "CHAOS", "PURE", "HARM"],
@@ -79,10 +85,12 @@
             ["SIMPLE", "TRUTH", "BREATHE", "NATURE"],
             ["SOUL", "REBEL", "HUMAN", "DIE"],
             ["STAY", "TOGETHER", "DEFEND", "TRUTH"],
-            ["STRONG", "idea", "PURSUE", "TRUTH"],
+            ["STRONG", "IDEA", "PURSUE", "TRUTH"],
+            ["STRUGGLE", "DEFEND", "SHAPERS", "DANGER"],
+            ["STRUGGLE", "IMPROVE", "HUMAN", "SOUL"],
             ["TOGETHER", "DISCOVER", "HARMONY", "EQUAL"],
             ["TRUTH", "IDEA", "DISCOVER", "XM"],
-            ["struggle", "DEFEND", "SHAPERS", "DANGER"]
+            ["XM", "DIE", "CHAOS", "LIVE"]
         ],
         //L8
         [
