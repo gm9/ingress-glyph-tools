@@ -27,6 +27,30 @@
         ],
         //L5
         [
+            ["ACCEPT", "HUMAN", "WEAK"],
+            ["ADVANCE", "PURE", "TRUTH"],
+            ["ALL", "CIVILIZATION", "CHAOS"],
+            ["ATTACK", "SHAPERS", "CHAOS"],
+            ["AVOID", "DESTINY", "LIE"],
+            ["COURAGE", "DESTINY", "REBEL"],
+            ["DESTROY", "IMPURE", "TRUTH"],
+            ["DISCOVER", "RESISTANCE", "TRUTH"],
+            ["DISCOVER", "SHAPERS", "ENLIGHTENMENT"],
+            ["DISCOVER", "SHAPERS", "MESSAGE"],
+            ["ESCAPE", "IMPURE", "EVOLUTION"],
+            ["FOLLOW", "PURE", "JOURNEY"],
+            ["HUMAN", "GAIN", "SAFETY"],
+            ["IMPROVE", "HUMAN", "SHAPERS"],
+            ["INSIDE", "XM", "TRUTH"],
+            ["JOURNEY", "INSIDE", "SOUL"],
+            ["LIBERATE", "HUMAN", "FUTURE"],
+            ["PEACE", "SIMPLE", "JOURNEY"],
+            ["PERFECTION", "PATH", "PEACE"],
+            ["PURSUE", "PURE", "BODY"],
+            ["QUESTION", "HIDE", "TRUTH"],
+            ["RETREAT", "SEARCH", "SAFETY"],
+            ["WAR", "DESTROY", "FUTURE"],
+            ["XM", "NOURISH", "CIVILIZATION"]
         ],
         //L6
         [
