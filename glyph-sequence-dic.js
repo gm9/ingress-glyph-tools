@@ -57,6 +57,7 @@
         ],
         //L7
         [
+            ["ALL", "CHAOS", "INSIDE", "BODY"],
             ["ATTACK", "WEAK", "SHAPERS", "LIE"],
             ["BREATHE", "AGAIN", "JOURNEY", "AGAIN"],
             ["CAPTURE", "FEAR", "DISCOVER", "COURAGE"],
@@ -81,6 +82,7 @@
             ["HUMAN", "HAVE", "IMPURE", "CIVILIZATION"],
             ["HUMAN", "PAST", "PRESENT", "FUTURE"],
             ["HUMAN", "SOUL", "STRONG", "PURE"],
+            ["IGNORE", "HUMAN", "CHAOS", "LIE"],
             ["IMPROVE", "BODY", "MIND", "SOUL"],
             ["IMPROVE", "BODY", "PURSUE", "JOURNEY"],
             ["INSIDE", "MIND", "JOURNEY", "PERFECTION"],
@@ -101,9 +103,12 @@
             ["SEARCH", "TRUTH", "SAVE", "CIVILIZATION"],
             ["SEARCH", "XM", "SAVE", "PORTAL"],
             ["SEE", "TRUTH", "SEE", "FUTURE"],
+            ["SEPARATE", "WEAK", "IGNORE", "TRUTH"],
             ["SHAPERS", "CHAOS", "PURE", "HARM"],
+            ["SHAPERS", "MESSAGE", "END", "CIVILIZATION"],
             ["SHAPERS", "MIND", "COMPLEX", "HARMONY"],
             ["SHAPERS", "PAST", "PRESENT", "FUTURE"],
+            ["SHAPERS", "SEE", "POTENTIAL", "EVOLUTION"],
             ["SIMPLE", "CIVILIZATION", "IMPURE", "WEAK"],
             ["SIMPLE", "MESSAGE", "COMPLEX", "IDEA"],
             ["SIMPLE", "TRUTH", "BREATHE", "NATURE"],
