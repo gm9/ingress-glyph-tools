@@ -561,9 +561,9 @@
         // Canvas
 
         var inputPadSize = options.size || 300;
-        var glyphRadius = inputPadSize * 80 / 200;
+        var glyphRadius = inputPadSize * 84 / 200;
         var glyphCenter = inputPadSize/2;
-        var nodeRadiusGrid = inputPadSize*2/100;
+        var nodeRadiusGrid = inputPadSize*2.5/100;
         var nodeRadiusInput = inputPadSize*6/100;
 
         var canvas = document.createElement("canvas");
