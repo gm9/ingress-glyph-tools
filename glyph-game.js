@@ -81,7 +81,6 @@
     function createButton(text, onclick)
     {
         ///@todo ライブラリ化する。
-        ///@todo 見た目をIngress風にする。
         var button = document.createElement("input");
         button.type = "button";
         button.value = text;

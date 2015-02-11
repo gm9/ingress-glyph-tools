@@ -23,9 +23,7 @@
     // UI Library
     // -------------------------------------------------
     function putButton(parent, text, onclick){
-        ///@todo 見た目をIngress風にする。
         var button = document.createElement("input");
-        button.style.marginRight = "0.5em";
         button.type = "button";
         button.value = text;
         button.addEventListener("click", function(e){onclick();}, false);
