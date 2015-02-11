@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="black.css" />
+    <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-game-record.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-tools-ui.js" charset="utf-8"></script>
+    <title>Glyph Game Record - Ingress Glyph Tools</title>
+  </head>
+  <body>
+    <div id="list-page">
+      <p><a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a></p>
+      <p><a href="example-glyph-sequences.html">[Record of each sequence]</a></p>
+      <p>
+        Show hacking record <span id="record-range"></span>
+      </p>
+      <script>
+      //<![CDATA[
+      (function(){
+          var STORAGE_KEY_PREFIX = "IngressGlyphTools.example-glyph-record";
+          var STORAGE_KEY_RANGE_SELECT = STORAGE_KEY_PREFIX + ".rangeSelect";
+          var STORAGE_KEY_COLUMN_SELECT = STORAGE_KEY_PREFIX + ".columnSelect";
+
+          var gm9igt = gm9.IngressGlyphTools;
+          var ui = gm9igt.ui;
+          var page = document.getElementById("list-page");
+
+          // Range Selector
+          var rangeSelector = new ui.RecordRangeSelector(STORAGE_KEY_RANGE_SELECT, updateAllTables);
+          document.getElementById("record-range").appendChild(rangeSelector.element);
+
+          function getGlyphRecord(glyph)
+          {
+              gm9igt.glyphGameRecord.load();
+              var hist = gm9igt.glyphGameRecord.getGlyphRecord(glyph.toString());
+              var days = rangeSelector.getSelectedRangeDays();
+              if(hist && days >= 0 && days <= 30){
+                  return days == 0 ? hist.getAll() : hist.getLastDays(days);
+              }
+              else{
+                  return null;
+              }
+          }
+
+          // Column Definition
+          function formatGlyph(glyph){
+              var words = gm9igt.glyphtionary.get(glyph);
+              var word = (words && words.length > 0) ? words[0] : "";
+
+              var glyphDiv = document.createElement("div");
+              glyphDiv.className = "glyph-box";
+              glyphDiv.style.display = "inline-block";
+              glyphDiv.style.textAlign = "left";
+              glyphDiv.appendChild(gm9igt.createGlyphImage(
+                  glyph,
+                  24,
+                  {color: "white", glyphLineWidth: 2}));
+              var wordDiv = document.createElement("div");
+              wordDiv.style.padding = "0 0.5em";
+              wordDiv.appendChild(document.createTextNode(word.toUpperCase()));
+              glyphDiv.appendChild(wordDiv);
+
+              return glyphDiv;
+          }
+          function compareGlyphAlphabetically(lhs, rhs){
+              var lhsWords = gm9igt.glyphtionary.get(lhs);
+              var rhsWords = gm9igt.glyphtionary.get(rhs);
+              var lhsWord = lhsWords && lhsWords.length > 0 ? lhsWords[0].toUpperCase() : "";
+              var rhsWord = rhsWords && rhsWords.length > 0 ? rhsWords[0].toUpperCase() : "";
+              return lhsWord.localeCompare(rhsWord);
+          }
+          var columns = [
+              {text:"Glyph", visible:true, formatter:formatGlyph, comparator:compareGlyphAlphabetically},
+              {text:"Hacks", visible:true, formatter:ui.DataTable.formatter.number},
+              {text:"Correct", visible:true, formatter:ui.DataTable.formatter.percentage1},
+              {text:"Ave. Time", visible:true, formatter:ui.DataTable.formatter.seconds1},
+              {text:"Best Time", visible:true, formatter:ui.DataTable.formatter.seconds1}];
+          function makeGlyphTableRowSource(glyph)
+          {
+              return function(){
+                  var rec = getGlyphRecord(glyph);
+
+                  return [
+                      glyph,
+                      (rec ? rec.numHacks : 0),
+                      (rec ? rec.getAverageCorrect() : 0),
+                      (rec ? rec.getAverageCorrectHackTime() : gm9igt.glyphGameRecord.WORST_TIME)/1000,
+                      (rec ? rec.bestTime : 99999)/1000];
+              };
+          }
+
+          // Column Selector
+          var columnSelector = new ui.DataTableColumnSelector(
+              STORAGE_KEY_COLUMN_SELECT,
+              columns,
+              function(columnIndex, visible){
+                  setAllTableColumnVisible(columnIndex, visible);});
+          page.appendChild(columnSelector.element);
+
+
+          //
+          function createGlyphTable(){
+              var div = document.createElement("div");
+              // Header
+              var header = document.createElement("h2");
+              header.appendChild(document.createTextNode("Glyph Record"));
+              div.appendChild(header);
+
+              // Glyph Table
+              var table = new ui.DataTable(columns);
+              div.appendChild(table.element);
+
+              var dic = gm9igt.glyphtionary;
+              for(var gi = 0; gi < dic.getEntryCount(); ++gi){
+                  var glyph = dic.getEntryAt(gi).keyGlyph;
+                  var glyphTr = new ui.DataTableRow(makeGlyphTableRowSource(glyph));
+                  table.addRow(glyphTr);
+              }
+
+              var linkToTop = document.createElement("p");
+              linkToTop.innerHTML = '<a href="#list-page">Top</a>';
+              div.appendChild(linkToTop);
+
+              return {
+                  element: div,
+                  table: table
+              };
+          }
+          var glyphTable = createGlyphTable();
+          page.appendChild(glyphTable.element);
+
+          glyphTable.table.sort();
+
+          function updateAllTables(){
+              gm9igt.glyphGameRecord.updateCurrentTime();
+              glyphTable.table.updateAllRows();
+              glyphTable.table.sort();
+          }
+          function setAllTableColumnVisible(columnIndex, visible){
+              glyphTable.table.setColumnVisible(columnIndex, visible);
+          }
+
+      })();
+      //]]>
+      </script>
+    </div>
+  </body>
+</html>
