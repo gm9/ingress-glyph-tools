@@ -18,6 +18,9 @@
     var LEVEL_SPEED_BONUS_TIME = [10000,10000,10000,10000,9500,9000,8500,8000,7500, 7500];
     var GLYPHS_TRANSLATOR_POINT = [0,1,2,4,8,15];
 
+    function getLevelGlyphCount(lv){
+        return LEVEL_GLYPH_COUNT[lv];
+    }
     function getLevelTimeLimit(lv){
         return LEVEL_TIME_LIMIT[lv];
     }
@@ -414,6 +417,7 @@
                 var index = 0;
                 var currTime = 0;
                 var inputGlyphs = [];
+                var glyphInputTimes = [];
 
                 // Timer
                 var beginTime = Date.now();
@@ -449,6 +453,8 @@
                 }
                 function endInputGlyph()
                 {
+                    glyphInputTimes.push(
+                        currTime - (glyphInputTimes.length > 0 ? glyphInputTimes[glyphInputTimes.length - 1] : 0));
                     inputGlyphs.push(pad.getGlyph());
                     pad.clearGlyph();
                     setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_NORMAL);
@@ -459,12 +465,9 @@
 
                 function createResultObject()
                 {
-                    for(; index < glyphCount; ++index){
-                        inputGlyphs.push(new Glyph());
-                    }
                     var correctCount = 0;
                     var correctArray = [];
-                    for(var i = 0; i < glyphCount; ++i){
+                    for(var i = 0; i < inputGlyphs.length; ++i){
                         var correct = Glyph.equals(
                             inputGlyphs[i],
                             sequence[i].glyph);
@@ -475,9 +478,10 @@
                     }
                     return {
                         time: currTime,
-                        inputGlyphs: inputGlyphs,
+                        inputGlyphs: inputGlyphs, //lengthは入力が終わった個数
+                        glyphInputTimes: glyphInputTimes, //lengthは入力が終わった個数
                         correctCount: correctCount,
-                        correctArray: correctArray
+                        correctArray: correctArray //lengthは入力が終わった個数
                     };
                 }
                 function endInputSequence()
@@ -505,7 +509,7 @@
                         presentScore();
                     }
                     else{
-                        var correct = gameResult.correctArray[index];
+                        var correct = index < gameResult.correctArray.length ? gameResult.correctArray[index] : false;
                         var glyph = sequence[index].glyph;
                         var word = sequence[index].word.toUpperCase();
                         setGlyphIndicator(index, correct ? GLYPH_INDICATOR_CORRECT : GLYPH_INDICATOR_INCORRECT, glyph);
@@ -616,6 +620,7 @@
     igt.glyphGame = {
         createGame: createGame,
         putSimpleGame: insertSimpleGameAfterLastScriptNode,
+        getLevelGlyphCount: getLevelGlyphCount,
         getLevelTimeLimit: getLevelTimeLimit,
         getLevelSpeedBonusTime: getLevelSpeedBonusTime
     };
