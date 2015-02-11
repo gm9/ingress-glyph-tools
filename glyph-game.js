@@ -203,7 +203,8 @@
         var gameObj = {
             showRetryButton: true,
             onUpdateResult: null,
-            onEndGame: null
+            onEndGame: null,
+            userSelectedLevel: undefined
         };
         var padSize = 300;
 
@@ -301,6 +302,7 @@
             }
             function endInputLevel(lv)
             {
+                gameObj.userSelectedLevel = lv;
                 hackLevelRandom(lv);
             }
             beginInputLevel();
@@ -603,9 +605,21 @@
         return gameObj;
     }
 
-    function insertSimpleGameAfterLastScriptNode()
+    function insertSimpleGameAfterLastScriptNode(recordHackResult)
     {
         var gameObj = createGame();
+        if(recordHackResult){ //require glyph-game-record.js
+            if(!igt.glyphGameRecord){
+                alert("require glyph-game-record.js");
+            }
+            gameObj.onUpdateResult = function(){
+                igt.glyphGameRecord.addGlyphGameResult(
+                    gameObj.userSelectedLevel,
+                    gameObj.sequence.map(function(g){return g.glyph.toString();}), //getGlyphCodesFromSequence
+                    gameObj.result);
+                igt.glyphGameRecord.save();
+            };
+        }
         gameObj.onEndGame = function(){
             gameObj.inputLevel();
         };
