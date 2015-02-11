@@ -99,6 +99,11 @@
     }
     function updateViewportMetaElement(funGetWidth, funGetHeight)
     {
+        var meta = acquireViewportMetaElement();
+        var oldContent = meta.getAttribute("content");
+
+        meta.setAttribute("content", "initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no");
+
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
         var fitToWindowHeight = windowWidth * funGetHeight() > windowHeight * funGetWidth();
@@ -107,8 +112,6 @@
             ? "width=" + (Math.ceil(funGetHeight()*windowWidth/windowHeight))
             : "width=" + funGetWidth();
 
-        var meta = acquireViewportMetaElement();
-        var oldContent = meta.getAttribute("content");
         meta.setAttribute("content", metaSize + ", user-scalable=no");
         return oldContent;
     }
