@@ -40,6 +40,7 @@
 
     function addHackResult(level, glyphCodes, arrCorrect, time, timeGlyphs)
     {
+        load(); //一度もloadせずにaddすると過去の記録が消えるので。
         addSequenceRecord(level, glyphCodes, arrCorrect, time);
 
         for(var gi = 0; gi < arrCorrect.length; ++gi){
@@ -466,6 +467,7 @@
     }
     function importRecord(str){
         if(loadFromString(str)){
+            loaded = true;
             save();
             updateCurrentTime();
             return true;
