@@ -416,6 +416,7 @@
             {
                 var index = 0;
                 var currTime = 0;
+                var lastEndInputGlyphTime = 0;
                 var inputGlyphs = [];
                 var glyphInputTimes = [];
 
@@ -453,8 +454,8 @@
                 }
                 function endInputGlyph()
                 {
-                    glyphInputTimes.push(
-                        currTime - (glyphInputTimes.length > 0 ? glyphInputTimes[glyphInputTimes.length - 1] : 0));
+                    glyphInputTimes.push(currTime - lastEndInputGlyphTime);
+                    lastEndInputGlyphTime = currTime;
                     inputGlyphs.push(pad.getGlyph());
                     pad.clearGlyph();
                     setGlyphIndicator(index, GLYPH_INDICATOR_UNOPEN_NORMAL);
