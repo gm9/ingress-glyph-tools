@@ -46,6 +46,50 @@
       //<![CDATA[
       (function(){
           // -------------------------------------------------
+          // Glyph Image Factory (canvas or svg)
+          // -------------------------------------------------
+
+          var GLYPH_SIZE = 24;
+          var GLYPH_STYLE = {color: "white", glyphLineWidth: 2};
+
+          function createGlyphElementCanvas(glyph){
+              return gm9igt.createGlyphImage(glyph, GLYPH_SIZE, GLYPH_STYLE);
+          }
+
+          function GlyphImageCache(glyphSize, style){
+              var glyphCodeToDataURL = {};
+
+              function getURL(glyph){
+                  var glyphCode = glyph.toString();
+                  var url = glyphCodeToDataURL[glyphCode];
+                  if(url){
+                      return url;
+                  }
+                  var canvas = gm9igt.createGlyphImage(glyph, glyphSize, style);
+                  return glyphCodeToDataURL[glyphCode] = canvas.toDataURL();
+              }
+              function getImg(glyph){
+                  var img = document.createElement("img");
+                  img.src = getURL(glyph);
+                  return img;
+              }
+              this.getImg = getImg;
+          }
+          var glyphImageCache = new GlyphImageCache(GLYPH_SIZE, GLYPH_STYLE);
+          function createGlyphElementCanvasDataURL(glyph){ //img
+              return glyphImageCache.getImg(glyph);
+          }
+
+          function createGlyphElementSVG(glyph){
+              return gm9igt.createGlyphSVG(glyph, GLYPH_SIZE, GLYPH_STYLE);
+          }
+
+          var svgSupported = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1");
+          var createGlyphElement = svgSupported
+               ? createGlyphElementSVG : createGlyphElementCanvasDataURL;
+
+
+          // -------------------------------------------------
           var STORAGE_KEY_PREFIX = "IngressGlyphTools.example-glyph-sequences";
           var STORAGE_KEY_RANGE_SELECT = STORAGE_KEY_PREFIX + ".rangeSelect";
           var STORAGE_KEY_COLUMN_SELECT = STORAGE_KEY_PREFIX + ".columnSelect";
@@ -286,10 +330,7 @@
                   glyphDiv.style.display = "inline-block";
                   glyphDiv.style.textAlign = "center";
                   if(glyph){
-                      glyphDiv.appendChild(gm9igt.createGlyphImage(
-                          glyph,
-                          24,
-                          {color: "white", glyphLineWidth: 2}));
+                      glyphDiv.appendChild(createGlyphElement(glyph));
                   }
                   var wordDiv = document.createElement("div");
                   wordDiv.style.padding = "0 0.5em";
