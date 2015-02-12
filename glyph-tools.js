@@ -493,65 +493,71 @@
         canvas.setAttribute("height", glyphSize);
         var ctx = canvas.getContext("2d");
 
-        limitContext(
-            ctx,
-            style.hexagon.brush || function(targetCtx) {
-                targetCtx.lineWidth = style.hexagon.lineWidth;
-                if(style.hexagon.color.toLowerCase() != "none"){
-                    targetCtx.strokeStyle = style.hexagon.color;
-                }
-                if(style.hexagon.fill.toLowerCase() != "none"){
-                    targetCtx.fillStyle = style.hexagon.fill;
-                }
-            },
-            function(){
-                drawHexagon(ctx, glyphCenter, glyphCenter, style.hexagon.radius);
-                if(style.hexagon.color.toLowerCase() != "none"){
-                    ctx.stroke();
-                }
-                if(style.hexagon.fill.toLowerCase() != "none"){
-                    ctx.fill();
-                }
-            });
+        if(style.hexagon.visible){
+            limitContext(
+                ctx,
+                style.hexagon.brush || function(targetCtx) {
+                    targetCtx.lineWidth = style.hexagon.lineWidth;
+                    if(style.hexagon.color.toLowerCase() != "none"){
+                        targetCtx.strokeStyle = style.hexagon.color;
+                    }
+                    if(style.hexagon.fill.toLowerCase() != "none"){
+                        targetCtx.fillStyle = style.hexagon.fill;
+                    }
+                },
+                function(){
+                    drawHexagon(ctx, glyphCenter, glyphCenter, style.hexagon.radius);
+                    if(style.hexagon.color.toLowerCase() != "none"){
+                        ctx.stroke();
+                    }
+                    if(style.hexagon.fill.toLowerCase() != "none"){
+                        ctx.fill();
+                    }
+                });
+        }
 
-        limitContext(
-            ctx,
-            style.grid.brush || function(targetCtx) {
-                targetCtx.lineWidth = style.grid.lineWidth;
-                if(style.grid.color.toLowerCase() != "none"){
-                    targetCtx.strokeStyle = style.grid.color;
-                }
-                if(style.grid.fill.toLowerCase() != "none"){
-                    targetCtx.fillStyle = style.grid.fill;
-                }
-            },
-            function(){
-                drawGrid(
-                    ctx, glyphCenter, glyphCenter, style.glyph.radius,
-                    style.grid.nodeRadius,
-                    function(ctx, x, y, r){
-                        ctx.beginPath();
-                        ctx.arc(x, y, r, 0, 2*Math.PI, false);
-                        if(style.grid.color.toLowerCase() != "none"){
-                            ctx.stroke();
-                        }
-                        if(style.grid.fill.toLowerCase() != "none"){
-                            ctx.fill();
-                        }
-                    });
-            });
+        if(style.grid.visible){
+            limitContext(
+                ctx,
+                style.grid.brush || function(targetCtx) {
+                    targetCtx.lineWidth = style.grid.lineWidth;
+                    if(style.grid.color.toLowerCase() != "none"){
+                        targetCtx.strokeStyle = style.grid.color;
+                    }
+                    if(style.grid.fill.toLowerCase() != "none"){
+                        targetCtx.fillStyle = style.grid.fill;
+                    }
+                },
+                function(){
+                    drawGrid(
+                        ctx, glyphCenter, glyphCenter, style.glyph.radius,
+                        style.grid.nodeRadius,
+                        function(ctx, x, y, r){
+                            ctx.beginPath();
+                            ctx.arc(x, y, r, 0, 2*Math.PI, false);
+                            if(style.grid.color.toLowerCase() != "none"){
+                                ctx.stroke();
+                            }
+                            if(style.grid.fill.toLowerCase() != "none"){
+                                ctx.fill();
+                            }
+                        });
+                });
+        }
 
-        limitContext(
-            ctx,
-            style.glyph.brush || style.brushGlyph || function(targetCtx) {
-                targetCtx.strokeStyle = style.glyph.color;
-                targetCtx.lineWidth = style.glyph.lineWidth;
-                targetCtx.lineCap = "round";
-                targetCtx.lineJoin = "round";
-            },
-            function(){
-                drawGlyph(ctx, glyphCenter, glyphCenter, style.glyph.radius, glyph);
-            });
+        if(style.glyph.visible){
+            limitContext(
+                ctx,
+                style.glyph.brush || style.brushGlyph || function(targetCtx) {
+                    targetCtx.strokeStyle = style.glyph.color;
+                    targetCtx.lineWidth = style.glyph.lineWidth;
+                    targetCtx.lineCap = "round";
+                    targetCtx.lineJoin = "round";
+                },
+                function(){
+                    drawGlyph(ctx, glyphCenter, glyphCenter, style.glyph.radius, glyph);
+                });
+        }
 
         return canvas;
     }
