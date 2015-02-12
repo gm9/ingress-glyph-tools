@@ -145,12 +145,14 @@
           var levelSelectorDiv = document.createElement("div");
           levelSelectorDiv.className = "ui-bar";
           for(var lv = 0; lv <= 8; ++lv){
-              (function(){
-                  var level = lv;
-                  ui.putButton(levelSelectorDiv, "Level" + lv, function(){
-                      selectLevel(level);
-                  });
-              })();
+              if(gm9igt.sequenceDic.getSequences(lv).length > 0){
+                  (function(){
+                      var level = lv;
+                      ui.putButton(levelSelectorDiv, "Level" + lv, function(){
+                          selectLevel(level);
+                      });
+                  })();
+              }
           }
           page.appendChild(levelSelectorDiv);
 
