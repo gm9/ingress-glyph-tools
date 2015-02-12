@@ -415,16 +415,23 @@
         }
     }
 
-    function drawEdge(ctx, glyphCenterX, glyphCenterY, glyphRadius, edge)
+    function drawEdgeLine(ctx, glyphCenterX, glyphCenterY, glyphRadius, edge)
     {
         if(edge && edge.isValid()){
-            ctx.beginPath();
             ctx.moveTo(
                 getNodePosX(glyphCenterX, glyphRadius, edge.a),
                 getNodePosY(glyphCenterY, glyphRadius, edge.a));
             ctx.lineTo(
                 getNodePosX(glyphCenterX, glyphRadius, edge.b),
                 getNodePosY(glyphCenterY, glyphRadius, edge.b));
+        }
+    }
+
+    function drawEdge(ctx, glyphCenterX, glyphCenterY, glyphRadius, edge)
+    {
+        if(edge && edge.isValid()){
+            ctx.beginPath();
+            drawEdgeLine(ctx, glyphCenterX, glyphCenterY, glyphRadius, edge);
             ctx.stroke();
         }
     }
@@ -432,9 +439,11 @@
     function drawGlyph(ctx, glyphCenterX, glyphCenterY, glyphRadius, glyph)
     {
         if(glyph){
+            ctx.beginPath();
             for(var gi = 0; gi < glyph.getEdgeCount(); ++gi){
-                drawEdge(ctx, glyphCenterX, glyphCenterY, glyphRadius, glyph.getEdge(gi));
+                drawEdgeLine(ctx, glyphCenterX, glyphCenterY, glyphRadius, glyph.getEdge(gi));
             }
+            ctx.stroke();
         }
     }
 
