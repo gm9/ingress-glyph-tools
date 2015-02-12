@@ -39,7 +39,7 @@
 
               var glyphLink = document.createElement("a");
               glyphLink.setAttribute("href", glyphUrl);
-              glyphLink.appendChild(gm9igt.createGlyphImage(entry.glyph, 64, {color: "white"}));
+              glyphLink.appendChild(gm9igt.createGlyphImage(entry.glyph, 64, {color: "white", grid:{visible:true,stroke:"none",fill:"white",nodeRadiusRate:0.01},hexagon:{visible:true}}));
               entryDiv.appendChild(glyphLink);
 
               var wordLink = document.createElement("a");
