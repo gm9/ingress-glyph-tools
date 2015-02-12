@@ -484,32 +484,208 @@
 
     function createGlyphImage(glyph, glyphSize, style)
     {
-        var glyphCenter = glyphSize/2;
-        var glyphRadius = glyphSize*48/100;
+        style = completeGlyphStyle(glyphSize, style);
 
-        if(style===undefined){style = {};}
-        if(style.color===undefined){style.color = "black";}
+        var glyphCenter = glyphSize/2;
 
         var canvas = document.createElement("canvas");
         canvas.setAttribute("width", glyphSize);
         canvas.setAttribute("height", glyphSize);
         var ctx = canvas.getContext("2d");
 
-        ///@todo drawGrid
+        limitContext(
+            ctx,
+            style.hexagon.brush || function(targetCtx) {
+                targetCtx.lineWidth = style.hexagon.lineWidth;
+                if(style.hexagon.color.toLowerCase() != "none"){
+                    targetCtx.strokeStyle = style.hexagon.color;
+                }
+                if(style.hexagon.fill.toLowerCase() != "none"){
+                    targetCtx.fillStyle = style.hexagon.fill;
+                }
+            },
+            function(){
+                drawHexagon(ctx, glyphCenter, glyphCenter, style.hexagon.radius);
+                if(style.hexagon.color.toLowerCase() != "none"){
+                    ctx.stroke();
+                }
+                if(style.hexagon.fill.toLowerCase() != "none"){
+                    ctx.fill();
+                }
+            });
 
         limitContext(
             ctx,
-            style.brushGlyph || function(targetCtx) {
-                targetCtx.strokeStyle = style.color;
-                targetCtx.lineWidth = style.glyphLineWidth || Math.ceil(glyphSize*2/100);
+            style.grid.brush || function(targetCtx) {
+                targetCtx.lineWidth = style.grid.lineWidth;
+                if(style.grid.color.toLowerCase() != "none"){
+                    targetCtx.strokeStyle = style.grid.color;
+                }
+                if(style.grid.fill.toLowerCase() != "none"){
+                    targetCtx.fillStyle = style.grid.fill;
+                }
+            },
+            function(){
+                drawGrid(
+                    ctx, glyphCenter, glyphCenter, style.glyph.radius,
+                    style.grid.nodeRadius,
+                    function(ctx, x, y, r){
+                        ctx.beginPath();
+                        ctx.arc(x, y, r, 0, 2*Math.PI, false);
+                        if(style.grid.color.toLowerCase() != "none"){
+                            ctx.stroke();
+                        }
+                        if(style.grid.fill.toLowerCase() != "none"){
+                            ctx.fill();
+                        }
+                    });
+            });
+
+        limitContext(
+            ctx,
+            style.glyph.brush || style.brushGlyph || function(targetCtx) {
+                targetCtx.strokeStyle = style.glyph.color;
+                targetCtx.lineWidth = style.glyph.lineWidth;
                 targetCtx.lineCap = "round";
                 targetCtx.lineJoin = "round";
             },
             function(){
-                drawGlyph(ctx, glyphCenter, glyphCenter, glyphRadius, glyph);
+                drawGlyph(ctx, glyphCenter, glyphCenter, style.glyph.radius, glyph);
             });
 
         return canvas;
+    }
+
+    // SVG
+
+    function createGlyphSVGPathData(glyph, glyphCenterX, glyphCenterY, glyphRadius)
+    {
+        var d = "";
+        for(var gi = 0; gi < glyph.getEdgeCount(); ++gi){
+            var edge = glyph.getEdge(gi);
+            if(edge && edge.isValid()){
+                if(d != ""){
+                    d += " ";
+                }
+                ///@todo Avoid scientific notation
+                d += "M " +
+                    getNodePosX(glyphCenterX, glyphRadius, edge.a) + " " +
+                    getNodePosY(glyphCenterY, glyphRadius, edge.a) + " " +
+                    "L " +
+                    getNodePosX(glyphCenterX, glyphRadius, edge.b) + " " +
+                    getNodePosY(glyphCenterY, glyphRadius, edge.b);
+            }
+        }
+        return d;
+    }
+    function createHexagonSVGPathData(centerX, centerY, radius)
+    {
+        var d = "M " +
+            getNodePosX(centerX, radius, 0) + " " +
+            getNodePosY(centerY, radius, 0);
+        for(var i = 1; i < 6; ++i){
+            d += " L " +
+                getNodePosX(centerX, radius, i) + " "+
+                getNodePosY(centerY, radius, i);
+        }
+        d += " Z";
+        return d;
+    }
+    function createGridSVGCircles(glyphCenterX, glyphCenterY, glyphRadius, nodeRadius)
+    {
+        var g = createSVGElement("g");
+        for(var ni = 0; ni < NODE_POS.length; ++ni){
+            g.appendChild(createSVGElement("circle", {
+                cx:getNodePosX(glyphCenterX, glyphRadius, ni),
+                cy:getNodePosY(glyphCenterY, glyphRadius, ni),
+                r:nodeRadius}));
+        }
+        return g;
+    }
+    function createSVGElement(elemName, attrs){
+        var elem = document.createElementNS("http://www.w3.org/2000/svg",elemName);
+        for(var attr in attrs){
+            elem.setAttributeNS(null, attr, attrs[attr]);
+        }
+        return elem;
+    }
+    function completeGlyphStyle(glyphSize, style){
+        if(style===undefined){style = {};}
+        if(style.color===undefined){style.color = "black";}
+
+        if(style.hexagon === undefined){style.hexagon = {};}
+        if(style.hexagon.visible === undefined){style.hexagon.visible = false;}
+        if(style.hexagon.color === undefined){style.hexagon.color = style.color;}
+        if(style.hexagon.radiusRate === undefined){style.hexagon.radiusRate = 0.48;}
+        if(style.hexagon.lineWidthRate === undefined){style.hexagon.lineWidthRate = 0.02;}
+        if(style.hexagon.radius === undefined){style.hexagon.radius = glyphSize * style.hexagon.radiusRate;}
+        if(style.hexagon.lineWidth === undefined){style.hexagon.lineWidth = Math.ceil(glyphSize * style.hexagon.lineWidthRate);}
+        if(style.hexagon.fill === undefined){style.hexagon.fill = "none";}
+
+        if(style.grid === undefined){style.grid = {};}
+        if(style.grid.visible === undefined){style.grid.visible = false;}
+        if(style.grid.color === undefined){style.grid.color = style.color;}
+        if(style.grid.nodeRadiusRate === undefined){style.grid.nodeRadiusRate = 0.02;}
+        if(style.grid.nodeRadius === undefined){style.grid.nodeRadius = Math.ceil(glyphSize * style.grid.nodeRadiusRate);}
+        if(style.grid.lineWidthRate === undefined){style.grid.lineWidthRate = 0.02;}
+        if(style.grid.lineWidth === undefined){style.grid.lineWidth = Math.ceil(glyphSize * style.grid.lineWidthRate);}
+        if(style.grid.fill === undefined){style.grid.fill = "none";}
+
+        if(style.glyph === undefined){style.glyph = {};}
+        if(style.glyph.visible === undefined){style.glyph.visible = true;}
+        if(style.glyph.color === undefined){style.glyph.color = style.color;}
+        if(style.glyph.radiusRate === undefined){style.glyph.radiusRate = style.hexagon.visible ? 0.38 : 0.48;} //NOTE:
+        if(style.glyph.lineWidthRate === undefined){style.glyph.lineWidthRate = 0.02;}
+        if(style.glyph.radius === undefined){style.glyph.radius = glyphSize * style.glyph.radiusRate;}
+        if(style.glyph.lineWidth === undefined){style.glyph.lineWidth = Math.ceil(glyphSize * style.glyph.lineWidthRate);}
+
+        // for backward compatibility
+        if(style.glyphLineWidth!==undefined){style.glyph.lineWidth = style.glyphLineWidth;}
+        return style;
+    }
+    function createGlyphSVG(glyph, glyphSize, style)
+    {
+        style = completeGlyphStyle(glyphSize, style);
+
+        var glyphCenter = glyphSize/2;
+
+        var svg = createSVGElement("svg", {width:glyphSize, height:glyphSize});
+
+        if(style.hexagon.visible){
+            var pathHexagon = createSVGElement(
+                "path",
+                {d: createHexagonSVGPathData(glyphCenter, glyphCenter, style.hexagon.radius),
+                 stroke: style.hexagon.color,
+                 "stroke-width": style.hexagon.LineWidth,
+                 fill: style.hexagon.fill});
+            svg.appendChild(pathHexagon);
+        }
+
+        if(style.grid.visible){
+            for(var ni = 0; ni < NODE_POS.length; ++ni){
+                svg.appendChild(createSVGElement("circle", {
+                    cx:getNodePosX(glyphCenter, style.glyph.radius, ni),
+                    cy:getNodePosY(glyphCenter, style.glyph.radius, ni),
+                    r:style.grid.nodeRadius,
+                    stroke: style.grid.color,
+                    "stroke-width": style.grid.LineWidth,
+                    fill: style.grid.fill
+                }));
+            }
+        }
+
+        if(style.glyph.visible){
+            var pathGlyph = createSVGElement(
+                "path",
+                {d: createGlyphSVGPathData(glyph, glyphCenter, glyphCenter, style.glyph.radius),
+                 stroke: style.glyph.color,
+                 "stroke-width": style.glyph.lineWidth,
+                 "stroke-linejoin": "round",
+                 "stroke-linecap": "round"});
+            svg.appendChild(pathGlyph);
+        }
+
+        return svg;
     }
 
     //
@@ -852,6 +1028,7 @@
         drawNodes: drawNodes,
         drawHexagon: drawHexagon,
         createGlyphImage: createGlyphImage,
+        createGlyphSVG: createGlyphSVG,
         createInputPad: createInputPad
     };
 })(this);
