@@ -507,11 +507,11 @@
                 },
                 function(){
                     drawHexagon(ctx, glyphCenter, glyphCenter, style.hexagon.radius);
-                    if(style.hexagon.color.toLowerCase() != "none"){
-                        ctx.stroke();
-                    }
                     if(style.hexagon.fill.toLowerCase() != "none"){
                         ctx.fill();
+                    }
+                    if(style.hexagon.color.toLowerCase() != "none" && style.hexagon.lineWidth > 0){
+                        ctx.stroke();
                     }
                 });
         }
@@ -535,11 +535,11 @@
                         function(ctx, x, y, r){
                             ctx.beginPath();
                             ctx.arc(x, y, r, 0, 2*Math.PI, false);
-                            if(style.grid.color.toLowerCase() != "none"){
-                                ctx.stroke();
-                            }
                             if(style.grid.fill.toLowerCase() != "none"){
                                 ctx.fill();
+                            }
+                            if(style.grid.color.toLowerCase() != "none" && style.grid.lineWidth > 0){
+                                ctx.stroke();
                             }
                         });
                 });
