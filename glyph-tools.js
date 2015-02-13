@@ -97,45 +97,60 @@
         document.getElementsByTagName("head")[0].appendChild(elem);
         return elem;
     }
-    function updateViewportMetaElement(funGetWidth, funGetHeight)
+    function getViewportMetaContent(targetWidth, targetHeight)
     {
-        var meta = acquireViewportMetaElement();
-        var oldContent = meta.getAttribute("content");
-
-        meta.setAttribute("content", "initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no");
+//console.log("window w=" + window.innerWidth + " h=" + window.innerHeight);
+//console.log("target w=" + targetWidth + " h=" + targetHeight);
 
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
-        var fitToWindowHeight = windowWidth * funGetHeight() > windowHeight * funGetWidth();
+        var fitToWindowHeight = windowWidth * targetHeight > windowHeight * targetWidth;
         var metaSize
             = fitToWindowHeight
-            ? "width=" + (Math.ceil(funGetHeight()*windowWidth/windowHeight))
-            : "width=" + funGetWidth();
-
-        meta.setAttribute("content", metaSize + ", user-scalable=no");
-        return oldContent;
+            ? "width=" + (Math.ceil(targetHeight*windowWidth/windowHeight))
+            : "width=" + targetWidth;
+        return metaSize + ", user-scalable=no";
     }
     function controlViewportMetaElement(targetElement)
     {
-        function updateViewport(){
-            return updateViewportMetaElement(
-                function(){return targetElement.getBoundingClientRect().width;},
-                function(){return targetElement.getBoundingClientRect().height;}
-            );
-        }
-        var oldContent = updateViewport();
+        var meta = acquireViewportMetaElement();
+        var oldContent = meta.getAttribute("content");
+        var prevContent = null;
 
-        var onResize = function(e) { updateViewport(); };
+        function updateViewport(){
+            var currContent = getViewportMetaContent(
+                targetElement.getBoundingClientRect().width,
+                targetElement.getBoundingClientRect().height);
+            if(currContent != prevContent){
+                meta.setAttribute("content", "initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"); //for iOS: cancel user scaling
+                meta.setAttribute("content", currContent);
+//console.log("viewport " + meta.getAttribute("content"));
+                prevContent = currContent;
+            }
+        }
+        updateViewport();
+
+        var cancelled = false;
+        var count = 0;
+        function onResize(e){
+            if(!cancelled){
+//                console.log("onResize " + (count++));
+                updateViewport();
+            }
+            else{
+//                console.log("onResize: already cancelled");
+            }
+        }
         window.addEventListener("resize", onResize, false);
         window.addEventListener("orientationchange", onResize, false);
         targetElement.addEventListener("resize", onResize, false);
 
         function cancel(){
-            if(onResize){
+            if(!cancelled){
+                cancelled = true;
                 window.removeEventListener("resize", onResize, false);
                 window.removeEventListener("orientationchange", onResize, false);
                 targetElement.removeEventListener("resize", onResize, false);
-                onResize = null;
 
                 var meta = acquireViewportMetaElement();
                 if(oldContent){
