@@ -6,37 +6,130 @@
     <link rel="stylesheet" href="black.css" />
     <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
     <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
-    <title>Glyph to Data URL - Ingress Glyph Tools</title>
+    <title>Glyph Image Maker - Ingress Glyph Tools</title>
   </head>
   <body>
+    <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
+    <!-- Glyph Input -->
     <div id="glyph-pad">
     </div>
     <div id="control">
       <input type="button" value="Clear" onclick="glyphPad.clearGlyph()" />
       <input type="button" value="Undo" onclick="glyphPad.removeLastEdge()" />
     </div>
-    <div id="glyph-word"></div>
-    <textarea id="glyph-url"></textarea>
+    Glyph name:<input type="text" id="glyph-word" /><input type="button" value="Set" onclick="setGlyphFromWord(ID('glyph-word').value)" /><br />
+    <!-- Image Options -->
+    <form id="glyph-options">
+      Size:<input id="glyph-size" type="number" value="128" style="width: 4em;" />
+      <!-- Glyph Line -->
+      <div>
+        <label><input id="glyph-visible" type="checkbox" checked="checked" />Glyph Line</label>
+        <input id="glyph-color" type="color" value="#40ebcd" />
+        Line Width:<input id="glyph-line-width" type="number" value="5" style="width: 3em;" />
+        Diameter:<input id="glyph-diameter" type="number" step="0.01" value="0.74" style="width: 4em;"/>
+      </div>
+      <!-- Hex Border -->
+      <div>
+        <label><input id="hexagon-visible" type="checkbox" checked="checked" />Hex Border</label>
+        <input id="hexagon-color" type="color" value="#40ebcd" />
+        Line Width:<input id="hexagon-line-width" type="number" value="5" style="width: 3em;"/>
+        <label><input id="hexagon-fill-enabled" type="checkbox" checked="checked" />Fill</label>
+        <input id="hexagon-fill-color" type="color" value="#105050"/>
+        Diameter:<input id="hexagon-diameter" type="number" step="0.01" value="0.94" style="width: 5em;" />
+      </div>
+      <!-- Grid -->
+      <div>
+        <label><input id="grid-visible" type="checkbox" checked="checked"  />Grid</label>
+        <input id="grid-color" type="color" value="#ffffff" />
+        Line Width:<input id="grid-line-width" type="number" value="0" style="width: 3em;" />
+        <label><input id="grid-fill-enabled" type="checkbox" checked="checked" />Fill</label>
+        <input id="grid-fill-color" type="color" value="#f0f020" />
+        Node Radius:<input id="grid-node-radius" type="number" value="3" style="width: 3em;" />
+      </div>
+      <!-- -->
+      <label><input id="glyph-svg" type="checkbox" />Output SVG</label><br />
+      <input id="reset-button" type="button" value="Reset Options" />
+    </form>
+    <!-- Result -->
+    <div id="result">
+      <div id="glyph-element"></div>
+      <textarea id="glyph-text"></textarea>
+    </div>
 
     <script>
       var gm9igt = gm9.IngressGlyphTools;
+      function ID(id){return document.getElementById(id);}
 
       var glyphPad = gm9igt.createInputPad({size:300, style:{color:"white"}});
-      document.getElementById("glyph-pad").appendChild(glyphPad);
-      glyphPad.addEventListener("glyphchange", function(e){
-          var glyph = glyphPad.getGlyph();
-          if(glyphWordText){
-              glyphWordText.parentNode.removeChild(glyphWordText);
-          }
-          glyphWord.appendChild(glyphWordText = document.createTextNode(gm9igt.glyphtionary.get(glyph)));
+      ID("glyph-pad").appendChild(glyphPad);
+      glyphPad.addEventListener("glyphchange", updateImage, false);
 
-          var glyphCanvas = gm9igt.createGlyphImage(glyph, 64);
-          glyphURL.value = glyphCanvas.toDataURL();
+      ID("glyph-options").addEventListener("change", function(e){
+          updateImage();
       }, false);
 
-      var glyphWord = document.getElementById("glyph-word");
-      var glyphWordText = null;
-      var glyphURL = document.getElementById("glyph-url");
+      ID("reset-button").addEventListener("click", function(e){
+          ID("glyph-options").reset();
+          updateImage();
+      }, false);
+
+      function updateImage(){
+          var glyph = glyphPad.getGlyph();
+
+          ID("glyph-word").value = gm9igt.glyphtionary.get(glyph);
+
+          // Create Glyph Element(canvas or svg)
+          var options = {
+              svg: ID("glyph-svg").checked,
+              size: parseInt(ID("glyph-size").value),
+          };
+          var glyphStyle = {
+              color: ID("glyph-color").value,
+
+              glyph:{
+                  visible: ID("glyph-visible").checked,
+                  lineWidth: parseInt(ID("glyph-line-width").value),
+                  radiusRate: parseFloat(ID("glyph-diameter").value)/2
+              },
+              grid:{
+                  color: ID("grid-color").value,
+                  visible: ID("grid-visible").checked,
+                  lineWidth: parseInt(ID("grid-line-width").value),
+                  fill: ID("grid-fill-enabled").checked ? ID("grid-fill-color").value : "none",
+                  nodeRadius: parseInt(ID("grid-node-radius").value)
+              },
+              hexagon:{
+                  color: ID("hexagon-color").value,
+                  visible: ID("hexagon-visible").checked,
+                  lineWidth: parseInt(ID("hexagon-line-width").value),
+                  fill: ID("hexagon-fill-enabled").checked ? ID("hexagon-fill-color").value : "none",
+                  radiusRate: parseFloat(ID("hexagon-diameter").value)/2
+              },
+          };
+          var glyphElement = options.svg ?
+              gm9igt.createGlyphSVG(glyph, options.size, glyphStyle) :
+              gm9igt.createGlyphImage(glyph, options.size, glyphStyle);
+
+          // Show Image
+          var divGlyphElement = ID("glyph-element");
+          while(divGlyphElement.firstChild){
+              divGlyphElement.removeChild(divGlyphElement.firstChild);
+          }
+          divGlyphElement.appendChild(glyphElement);
+
+          // Show Image As Text
+          var glyphText = options.svg ?
+              divGlyphElement.innerHTML :
+              glyphElement.toDataURL();
+          ID("glyph-text").value = glyphText;
+      }
+
+      updateImage();
+
+      function setGlyphFromWord(word){
+          glyphPad.setGlyph((gm9igt.glyphtionaryIndex[word.toLowerCase()] || [null])[0]);
+      }
+
     </script>
   </body>
 </html>
