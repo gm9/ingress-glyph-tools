@@ -662,7 +662,7 @@
                 "path",
                 {d: createHexagonSVGPathData(glyphCenter, glyphCenter, style.hexagon.radius),
                  stroke: style.hexagon.color,
-                 "stroke-width": style.hexagon.LineWidth,
+                 "stroke-width": style.hexagon.lineWidth,
                  fill: style.hexagon.fill});
             svg.appendChild(pathHexagon);
         }
@@ -674,7 +674,7 @@
                     cy:getNodePosY(glyphCenter, style.glyph.radius, ni),
                     r:style.grid.nodeRadius,
                     stroke: style.grid.color,
-                    "stroke-width": style.grid.LineWidth,
+                    "stroke-width": style.grid.lineWidth,
                     fill: style.grid.fill
                 }));
             }
