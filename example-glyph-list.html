@@ -14,19 +14,51 @@
   <body>
     <a href="http://gm9.github.io/ingress-glyph-tools">Ingress Glyph Tools</a>
     <script>
+      //<![CDATA[
       (function(){
           var gm9igt = gm9.IngressGlyphTools;
 
           var listDiv = document.createElement("div");
 
-          var arrWordGlyph = [];
-          for(var key in gm9igt.glyphtionaryIndex){
-              var glyphs = gm9igt.glyphtionaryIndex[key];
-              for(var gi = 0; gi < glyphs.length; ++gi){
-                  arrWordGlyph.push({word:key, glyph:glyphs[gi]});
+          // Parse Query String (ex: c=01&w=create&c=0201 )
+          function getQueryParams()
+          {
+              var MAX_GLYPH_COUNT = 64;
+              var result = [];
+              var q = document.location.search.substr(1);
+              if(q.length > 0){
+                  var ps = q.split("&");
+                  for(var pi = 0; pi < ps.length && pi < MAX_GLYPH_COUNT; ++pi){
+                      var kv = ps[pi].split("=");
+                      var key = kv[0].toLowerCase();
+                      var value = decodeURI(kv[1].replace(/\+/g, " "));
+                      var glyph = null;
+                      var word = null;
+                      switch(key){
+                      case "c": glyph = gm9igt.Glyph.fromString(value); word = gm9igt.glyphtionary.get(glyph); break;
+                      case "w": glyph = gm9igt.glyphtionaryIndex[value.toLowerCase()][0]; word = value; break;
+                      }
+                      if(glyph && word){
+                          result.push({word:word, glyph:glyph});
+                      }
+                  }
               }
+              return result.length > 0 ? result : null;
           }
-          arrWordGlyph.sort(function(a,b){return a.word.localeCompare(b.word);});
+          function getDefaultGlyphList()
+          {
+              var result = [];
+              for(var key in gm9igt.glyphtionaryIndex){
+                  var glyphs = gm9igt.glyphtionaryIndex[key];
+                  for(var gi = 0; gi < glyphs.length; ++gi){
+                      result.push({word:key, glyph:glyphs[gi]});
+                  }
+              }
+              result.sort(function(a,b){return a.word.localeCompare(b.word);});
+              return result;
+          }
+
+          var arrWordGlyph = getQueryParams() || getDefaultGlyphList();
 
           for(var i = 0; i < arrWordGlyph.length; ++i){
               var entry = arrWordGlyph[i];
@@ -54,6 +86,7 @@
 
           gm9igt.getLastScriptNode().parentNode.appendChild(listDiv);
       })();
+      // ]]>
     </script>
   </body>
 </html>
