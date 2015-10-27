@@ -35,7 +35,7 @@
                       var glyph = null;
                       var word = null;
                       switch(key){
-                      case "c": glyph = gm9igt.Glyph.fromString(value); word = gm9igt.glyphtionary.get(glyph); break;
+                      case "c": glyph = gm9igt.Glyph.fromString(value); word = gm9igt.glyphtionary.get(glyph)[0]; break;
                       case "w": glyph = gm9igt.glyphtionaryIndex[value.toLowerCase()][0]; word = value; break;
                       }
                       if(glyph && word){
