@@ -13,17 +13,20 @@
 
     // ref: http://glyphtionary.com/
     // ref: https://plus.google.com/u/1/+Ingress/posts/6Ey9jT3mhsD
+    // ref: https://plus.google.com/u/1/+NianticProject/posts/LSnjYR3YKCW
     var DIC =
             [
                 "1634486a8a", ["Abandon"]
                 ,"587a8a", ["Adapt"]
                 ,"0949", ["Advance"]
+                ,"1216276a7a", ["After"]
                 ,"49676a898a", ["Again", "Repeat"]
                 ,"010512233445", ["All"]
                 ,"67697a", ["Answer"]
                 ,"06092649", ["Attack", "War"]
                 ,"05061617", ["Avoid"] //"Struggle"
                 ,"0a277a", ["Barrier", "Obstacle"]
+                ,"4548598a9a", ["Before"]
                 ,"083738", ["Begin"]
                 ,"3738676989", ["Being", "Human"]
                 ,"696a9a", ["Body", "Shell"]
@@ -35,10 +38,12 @@
                 ,"01050a1223343a45", ["Close All", "Clearall"]
                 ,"698a9a", ["Complex"]
                 ,"2649677889", ["Conflict"]
+                ,"27597889", ["Consequence"]
                 ,"011223386a899a", ["Contemplate"]
                 ,"497889", ["Courage"]
                 ,"16486a8a", ["Create","Creation"]
-                ,"1216274548597a9a", ["Creativity","Thought","Idea"]//"Mind"
+                ,"393a9a", ["Creativity"]
+                ,"1216274548597a9a", ["Thought","Idea"]//"Creativity", "Mind"
                 ,"093a9a", ["Danger"]
                 ,"06386a8a", ["Data","Signal"]//"Message"
                 ,"17373858", ["Defend"]
@@ -75,16 +80,22 @@
                 ,"686a898a9a", ["Imperfect"] //NOTE: Scanner bug?
                 ,"166a7a", ["Improve"]
                 ,"3a898a9a", ["Impure"]
+                ,"16486a899a", ["Intelligence"]
+                ,"0a3a4548598a9a", ["Interrupt"]
                 ,"163445596a9a", ["Journey"]
                 ,"36396a9a", ["Knowledge"]
                 ,"05384548", ["Lead"]
+                ,"0105162748596789", ["Legacy"]
                 ,"6a9a", ["Less"]
                 ,"0116496a9a", ["Liberate"]
                 ,"676a7a899a", ["Lie"]
+                ,"16496a898a", ["Live Again", "Reincarnate"]
                 ,"17", ["Lose"]
                 ,"17497a9a", ["Message"]
                 ,"383a899a", ["Mind"] //"Idea","Thought"
                 ,"7a8a", ["More"]
+                ,"0609596989", ["Mystery"]
+                ,"06090a3a6a9a", ["N'zeer"]
                 ,"2748676989", ["Nature"]
                 ,"2767", ["New"]
                 ,"6769", ["Not","Inside"] //"No", "Absent"
@@ -96,7 +107,9 @@
                 ,"485989", ["Past"]
                 ,"0a488a", ["Path"]
                 ,"0a232734487a8a", ["Perfection","Balance"]
+                ,"060927486a7a8a9a", ["Perspective"]
                 ,"0a12277a", ["Potential"]
+                ,"3738676a78899a", ["Presence"]
                 ,"677889", ["Present","Now"]
                 ,"0a676a7a", ["Pure"] //"Purity"
                 ,"060959", ["Pursue"]
@@ -122,14 +135,17 @@
                 ,"373a676a", ["Soul"] //"Spirit","Life Force"
                 ,"274878", ["Stability", "Stay"]
                 ,"67697889", ["Strong"]
+                ,"16276a7a898a9a", ["Technology"]
                 ,"0878", ["Them"]
                 ,"48696a8a9a", ["Together"]
                 ,"676a7a898a9a", ["Truth"]
+                ,"010517233445696a7889", ["Unbounded"]
                 ,"177a", ["Use"]
                 ,"06093639", ["Victory"]
                 ,"373848", ["Want"]
                 ,"3669", ["We","Us"]
                 ,"596769", ["Weak"]
+                ,"17587a8a", ["Worth"]
                 ,"67697a898a", ["XM"] //(Exotic Matter)
                 ,"070878", ["You","Your","Other"]
                 //,"0109122334696a9a", ["[unknown]"]
