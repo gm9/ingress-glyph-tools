@@ -14,6 +14,7 @@
     // ref: http://glyphtionary.com/
     // ref: https://plus.google.com/u/1/+Ingress/posts/6Ey9jT3mhsD
     // ref: https://plus.google.com/u/1/+NianticProject/posts/LSnjYR3YKCW
+    // ref: https://plus.google.com/+NianticProject/posts/1b1aEfxWW4w
     var DIC =
             [
                 "1634486a8a", ["Abandon"]
@@ -135,6 +136,8 @@
                 ,"373a676a", ["Soul"] //"Spirit","Life Force"
                 ,"274878", ["Stability", "Stay"]
                 ,"67697889", ["Strong"]
+                ,"0a1216273a6a7a", ["Sustain"]
+                ,"01050a12162327343a456a7a", ["Sustain All"]
                 ,"16276a7a898a9a", ["Technology"]
                 ,"0878", ["Them"]
                 ,"48696a8a9a", ["Together"]
