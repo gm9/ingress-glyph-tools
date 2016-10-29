@@ -135,19 +135,22 @@
           }
           var columns = [
               {text:"Sequence", visible:true, formatter:formatSequenceKey},
+              {text:"Discovered", visible:true, formatter:ui.DataTable.formatter.number},
               {text:"Hacks", visible:false, formatter:ui.DataTable.formatter.number},
               {text:"Ave. Glyphs", visible:false, formatter:ui.DataTable.formatter.averageCount1},
               {text:"Complete", visible:false, formatter:ui.DataTable.formatter.percentage1},
               {text:"Ave. Time", visible:false, formatter:ui.DataTable.formatter.seconds1},
               {text:"Best Time", visible:false, formatter:ui.DataTable.formatter.seconds1},
               {text:"Speed Bonus", visible:false, formatter:ui.DataTable.formatter.percentage1}];
-          function makeSequenceTableRowSource(lv, seqWords)
+          function makeSequenceTableRowSource(lv, seqInfo)
           {
+              var seqWords = seqInfo.sequence;
               var seqKey = lv + ":" + seqWords.map(function(w){return w.toUpperCase();}).join("/");
               return function(){
                   var rec = getSequenceRecord(lv, seqWords);
                   return [
                       seqKey,
+                      seqInfo.dateDiscovered,
                       (rec ? rec.numHacks : 0),
                       (rec ? rec.getAverageCorrectGlyphs() : 0),
                       (rec ? rec.getFullyCorrectRate() : 0),
@@ -210,7 +213,7 @@
               div.appendChild(levelHeader);
 
               // Random Hack Button
-              var seqs = gm9igt.sequenceDic.getSequences(level);
+              var seqs = gm9igt.sequenceDic.getSequencesInfo(level);
               if(seqs.length > 0){
                   var randomHackButtonBar = document.createElement("div");
                   randomHackButtonBar.className = "ui-bar";
@@ -233,8 +236,8 @@
               div.appendChild(table.element);
 
               for(var si = 0; si < seqs.length; ++si){
-                  var seqWords = seqs[si];
-                  var seqTr = new ui.DataTableRow(makeSequenceTableRowSource(level, seqWords));
+                  var seqInfo = seqs[si];
+                  var seqTr = new ui.DataTableRow(makeSequenceTableRowSource(level, seqInfo));
                   table.addRow(seqTr);
               }
 
