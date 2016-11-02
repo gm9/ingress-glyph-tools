@@ -9,7 +9,7 @@ body {
 a {
     color: #7070ff;
 }
-input[type=button] {
+input[type=button], .igt-button {
     border: 2px solid #40ebcd;
     border-radius: 0;
     padding: 0.4em 1em;
