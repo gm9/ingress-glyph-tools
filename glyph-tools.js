@@ -871,7 +871,7 @@
             redraw();
             if(lastNodeIndex != -1){
                 if(options.vibrationEnabled !== false && window.navigator.vibrate){
-                    window.navigator.vibrate(50);
+                    window.navigator.vibrate(10);
                 }
             }
         }
