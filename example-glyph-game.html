@@ -28,7 +28,49 @@
   </head>
   <body>
     <script>
-      gm9.IngressGlyphTools.glyphGame.putSimpleGame(true);
+      //<![CDATA[
+      (function(){
+          var gm9igt = gm9.IngressGlyphTools;
+
+          function getQueryParamsAsObject()
+          {
+             var result = {};
+             var q = document.location.search.substr(1);
+             if(q.length > 0){
+                 var ps = q.split("&");
+                 ps.forEach(function(kv){var a = kv.split("="); var key = a[0].toLowerCase(); var value = a[1] && decodeURI(a[1].replace(/\+/g, " ")); result[key] = value;});
+             }
+             return result;
+          }
+
+          var qs = getQueryParamsAsObject();
+          var sequence = [];
+          if(qs.s){
+              // s=create,idea,open all
+              var words = qs.s.split(",");
+              sequence = words.map(function(w){ var gs = gm9igt.glyphtionaryIndex[w.toLowerCase()]; return gs && gs.length > 0 ? {glyph:gs[0], word:w} : null;}).filter(elem => elem != null);
+          }
+
+          if(sequence.length > 0){
+              var MAX_GLYPH_COUNT = 7;
+              if(sequence.length > MAX_GLYPH_COUNT){
+                  sequence.length = MAX_GLYPH_COUNT;
+              }
+              var gameObj = gm9igt.glyphGame.createGame();
+              gm9igt.getLastScriptNode().parentNode.appendChild(gameObj.element);
+              gm9igt.controlViewportMetaElement(gameObj.element);
+              var TIME_LIMIT = [20000, 20000, 18000, 16000, 15000];
+              var BONUS_TIME = [10000, 10000, 9000, 8000, 7500];
+              gameObj.hack(
+                  sequence,
+                  TIME_LIMIT[Math.min(sequence.length - 1, TIME_LIMIT.length - 1)],
+                  BONUS_TIME[Math.min(sequence.length - 1, BONUS_TIME.length - 1)]);
+          }
+          else{
+              gm9igt.glyphGame.putSimpleGame(true);
+          }
+      })();
+      // ]]>
     </script>
     <div>
       <a href="index.html">Ingress Glyph Tools</a>
