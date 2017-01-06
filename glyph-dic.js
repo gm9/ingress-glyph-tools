@@ -163,4 +163,26 @@
     }
     igt.glyphtionary = dic;
     igt.glyphtionaryIndex = dic.createIndex();
+
+    //
+    // "idea" => {word:"idea", Glyph.fromString("1216274548597a9a")}
+    // "creativity(1216274548597a9a)" => {word:"creativity", glyph:Glyph.fromString("1216274548597a9a")}
+    // "creativity(idea)" => {word:"creativity", glyph:Glyph.fromString("1216274548597a9a")}
+    //
+    function lookupGlyphFromWord(w)
+    {
+        var arrayWordCode = /^(.+)\((([0-9a][0-9a])*)\)$/i.exec(w); // ex:creativity(1216274548597a9a)
+        if(arrayWordCode){
+            return {word:arrayWordCode[1], glyph:Glyph.fromString(arrayWordCode[2])};
+        }
+        else{
+            var arrayWordWord = /^(.+)\(([^)]+)\)$/.exec(w); // ex:creativity(idea)
+            var wDisplay = arrayWordWord ? arrayWordWord[1] : w;
+            var wSearch = arrayWordWord ? arrayWordWord[2] : w;
+            var gs = igt.glyphtionaryIndex[wSearch.toLowerCase()];
+            return gs && gs.length > 0 ? {word:wDisplay, glyph:gs[0]} : null;
+        }
+    }
+    igt.lookupGlyphFromWord = lookupGlyphFromWord;
+
 })();

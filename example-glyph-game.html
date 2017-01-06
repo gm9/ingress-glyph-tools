@@ -32,6 +32,12 @@
       (function(){
           var gm9igt = gm9.IngressGlyphTools;
 
+          // Parse Query String
+          // ex:
+          //   ?s=clear all,open all,discover,truth
+          //   ?s=creativity(1216274548597a9a),grow
+          //   ?s=creativity(idea),grow
+
           function getQueryParamsAsObject()
           {
              var result = {};
@@ -48,8 +54,12 @@
           if(qs.s){
               // s=create,idea,open all
               var words = qs.s.split(",");
-              sequence = words.map(function(w){ var gs = gm9igt.glyphtionaryIndex[w.toLowerCase()]; return gs && gs.length > 0 ? {glyph:gs[0], word:w} : null;}).filter(elem => elem != null);
+              sequence = words.map(gm9igt.lookupGlyphFromWord).filter(elem => elem != null);
           }
+
+          //
+          // Start Game
+          //
 
           if(sequence.length > 0){
               var MAX_GLYPH_COUNT = 7;
