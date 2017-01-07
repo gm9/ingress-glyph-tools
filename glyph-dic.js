@@ -157,32 +157,78 @@
                 //,"090a373a69", ["[unknown]"]
             ];
 
-    var dic = new Dictionary();
+    var dicGlyphToWord = new Dictionary();
     for(var ei = 0; ei < DIC.length; ei += 2){
-        dic.add(Glyph.fromString(DIC[ei+0]), DIC[ei+1]);
+        dicGlyphToWord.add(Glyph.fromString(DIC[ei+0]), DIC[ei+1]);
     }
-    igt.glyphtionary = dic;
-    igt.glyphtionaryIndex = dic.createIndex();
+    var dicWordToGlyph = dicGlyphToWord.createIndex();
 
-    //
+    function getWordsFromGlyph(glyph)
+    {
+        return dicGlyphToWord.get(glyph); //return array
+    }
+    function getGlyphsFromWord(word)
+    {
+        return dicWordToGlyph[word.toLowerCase()];
+    }
+
+    // ex:
     // "idea" => {word:"idea", Glyph.fromString("1216274548597a9a")}
     // "creativity(1216274548597a9a)" => {word:"creativity", glyph:Glyph.fromString("1216274548597a9a")}
     // "creativity(idea)" => {word:"creativity", glyph:Glyph.fromString("1216274548597a9a")}
-    //
-    function lookupGlyphFromWord(w)
+    function getWordGlyphFromString(str)
     {
-        var arrayWordCode = /^(.+)\((([0-9a][0-9a])*)\)$/i.exec(w); // ex:creativity(1216274548597a9a)
+        var arrayWordCode = /^(.+)\((([0-9a][0-9a])*)\)$/i.exec(str); // ex:creativity(1216274548597a9a)
         if(arrayWordCode){
             return {word:arrayWordCode[1], glyph:Glyph.fromString(arrayWordCode[2])};
         }
         else{
-            var arrayWordWord = /^(.+)\(([^)]+)\)$/.exec(w); // ex:creativity(idea)
-            var wDisplay = arrayWordWord ? arrayWordWord[1] : w;
-            var wSearch = arrayWordWord ? arrayWordWord[2] : w;
-            var gs = igt.glyphtionaryIndex[wSearch.toLowerCase()];
+            var arrayWordWord = /^(.+)\(([^)]+)\)$/.exec(str); // ex:creativity(idea)
+            var wDisplay = arrayWordWord ? arrayWordWord[1] : str;
+            var wSearch = arrayWordWord ? arrayWordWord[2] : str;
+            var gs = getGlyphsFromWord(wSearch);
             return gs && gs.length > 0 ? {word:wDisplay, glyph:gs[0]} : null;
         }
     }
-    igt.lookupGlyphFromWord = lookupGlyphFromWord;
+
+    function getAllWords()
+    {
+        return Object.keys(dicWordToGlyph);
+    }
+    function getAllGlyphs()
+    {
+        var glyphs = [];
+        for(var gi = 0; gi < dicGlyphToWord.getEntryCount(); ++gi){
+            glyphs.push(dicGlyphToWord.getEntryAt(gi).keyGlyph);
+        }
+        return glyphs;
+    }
+
+    function getWordGlyphRandom()
+    {
+        do{
+            var entryIndex = Math.floor(Math.random() * dicGlyphToWord.getEntryCount());
+            var entry = dicGlyphToWord.getEntryAt(entryIndex);
+        }
+        while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
+        return {
+            glyph: entry.keyGlyph,
+            word: entry.value[Math.floor(Math.random() * entry.value.length)]
+        };
+    }
+
+
+    // Exports
+    igt.glyphDic = {
+        getWordsFromGlyph: getWordsFromGlyph,
+        getGlyphsFromWord: getGlyphsFromWord,
+        getWordGlyphFromString: getWordGlyphFromString,
+        getAllWords: getAllWords,
+        getAllGlyphs: getAllGlyphs,
+        getWordGlyphRandom: getWordGlyphRandom
+    };
+    // obsolete
+    igt.glyphtionary = dicGlyphToWord;
+    igt.glyphtionaryIndex = dicWordToGlyph;
 
 })();

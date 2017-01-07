@@ -340,9 +340,9 @@
 
           function putGlyphSequence(parent, seqWords){
               for(var gi = 0; gi < seqWords.length; ++gi){
-                  var word = seqWords[gi]; //NOTE: Uppercase or Lowercase
-                  var glyphs = gm9igt.glyphtionaryIndex[word.toLowerCase()];
-                  var glyph = glyphs && glyphs.length > 0 ? glyphs[0] : null;
+                  var wg = gm9igt.glyphDic.getWordGlyphFromString(seqWords[gi]);
+                  var word = wg ? wg.word : seqWords[gi]; //NOTE: Uppercase or Lowercase
+                  var glyph = wg ? wg.glyph : null;
                   var glyphDiv = document.createElement("div");
                   glyphDiv.className = "glyph-box";
                   glyphDiv.style.display = "inline-block";
@@ -363,12 +363,11 @@
           function getSequenceFromWords(words){ ///@todo move to glyph-game.js ?
               var seq = [];
               for(var wi = 0; wi < words.length; ++wi){
-                  var word = words[wi];
-                  var glyphs = gm9igt.glyphtionaryIndex[word.toLowerCase()];
-                  if(!glyphs || glyphs.length == 0){
+                  var wg = gm9igt.glyphDic.getWordGlyphFromString(words[wi]);
+                  if(!wg){
                       return null; //error
                   }
-                  seq.push({glyph:glyphs[0], word:word});
+                  seq.push({glyph:wg.glyph, word:wg.word});
               }
               return seq;
           }

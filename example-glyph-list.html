@@ -50,8 +50,8 @@
                       var glyph = null;
                       var word = null;
                       switch(key){
-                      case "c": glyph = gm9igt.Glyph.fromString(value); word = gm9igt.glyphtionary.get(glyph)[0]; break;
-                      case "w": glyph = gm9igt.glyphtionaryIndex[value.toLowerCase()][0]; word = value; break;
+                      case "c": glyph = gm9igt.Glyph.fromString(value); word = gm9igt.glyphDic.getWordsFromGlyph(glyph)[0]; break;
+                      case "w": glyph = gm9igt.glyphDic.getGlyphsFromWord(value)[0]; word = value; break;
                       }
                       if(glyph && word){
                           result.push({word:word, glyph:glyph});
@@ -63,8 +63,10 @@
           function getDefaultGlyphList()
           {
               var result = [];
-              for(var key in gm9igt.glyphtionaryIndex){
-                  var glyphs = gm9igt.glyphtionaryIndex[key];
+              var words = gm9igt.glyphDic.getAllWords();
+              for(var wi = 0; wi < words.length; ++wi){
+                  var key = words[wi];
+                  var glyphs = gm9igt.glyphDic.getGlyphsFromWord(key);
                   for(var gi = 0; gi < glyphs.length; ++gi){
                       result.push({word:key, glyph:glyphs[gi]});
                   }

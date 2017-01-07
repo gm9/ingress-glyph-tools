@@ -53,7 +53,7 @@
       glyphPad.addEventListener("glyphchange", function(e){
         var glyph = glyphPad.getGlyph();
         glyphCode.value = glyph.toString();
-        glyphWord.value = gm9igt.glyphtionary.get(glyph);
+        glyphWord.value = gm9igt.glyphDic.getWordsFromGlyph(glyph);
       }, false);
 
       var glyphCode = document.getElementById("glyph-code");
@@ -63,7 +63,7 @@
           glyphPad.setGlyph(gm9igt.Glyph.fromString(code))
       }
       function setGlyphFromWord(word){
-          glyphPad.setGlyph((gm9igt.glyphtionaryIndex[word.toLowerCase()] || [null])[0]);
+          glyphPad.setGlyph((gm9igt.glyphDic.getGlyphsFromWord(word) || [null])[0]);
       }
 
       // Parse Query String

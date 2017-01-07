@@ -62,7 +62,7 @@
 
           // Column Definition
           function formatGlyph(glyph){
-              var words = gm9igt.glyphtionary.get(glyph);
+              var words = gm9igt.glyphDic.getWordsFromGlyph(glyph);
               var word = (words && words.length > 0) ? words[0] : "";
 
               var glyphDiv = document.createElement("div");
@@ -81,8 +81,8 @@
               return glyphDiv;
           }
           function compareGlyphAlphabetically(lhs, rhs){
-              var lhsWords = gm9igt.glyphtionary.get(lhs);
-              var rhsWords = gm9igt.glyphtionary.get(rhs);
+              var lhsWords = gm9igt.glyphDic.getWordsFromGlyph(lhs);
+              var rhsWords = gm9igt.glyphDic.getWordsFromGlyph(rhs);
               var lhsWord = lhsWords && lhsWords.length > 0 ? lhsWords[0].toUpperCase() : "";
               var rhsWord = rhsWords && rhsWords.length > 0 ? rhsWords[0].toUpperCase() : "";
               return lhsWord.localeCompare(rhsWord);
@@ -128,9 +128,9 @@
               var table = new ui.DataTable(columns);
               div.appendChild(table.element);
 
-              var dic = gm9igt.glyphtionary;
-              for(var gi = 0; gi < dic.getEntryCount(); ++gi){
-                  var glyph = dic.getEntryAt(gi).keyGlyph;
+              var glyphs = gm9igt.glyphDic.getAllGlyphs();
+              for(var gi = 0; gi < glyphs.length; ++gi){
+                  var glyph = glyphs[gi];
                   var glyphTr = new ui.DataTableRow(makeGlyphTableRowSource(glyph));
                   table.addRow(glyphTr);
               }

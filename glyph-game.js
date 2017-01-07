@@ -32,24 +32,11 @@
     // 問題作成
     //
 
-    function chooseGlyphRandom()
-    {
-        var dic = igt.glyphtionary;
-        do{
-            var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
-            var entry = dic.getEntryAt(entryIndex);
-        }
-        while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
-        return {
-            glyph: entry.keyGlyph,
-            word: entry.value[Math.floor(Math.random() * entry.value.length)]
-        };
-    }
     function createRandomSequence(glyphCount)
     {
         var sequence = [];
         for(var i = 0; i < glyphCount; ++i){
-            sequence.push(chooseGlyphRandom());
+            sequence.push(igt.glyphDic.getWordGlyphRandom());
         }
         return sequence;
     }
@@ -59,15 +46,9 @@
         // 取得できなければ、完全にランダムでシーケンスを作る。
         var sequenceStrs = igt.sequenceDic.getSequenceRandom(lv);
         if(sequenceStrs && sequenceStrs.length > 0){
-            var sequence = [];
-            for(var i = 0; i < sequenceStrs.length; ++i){
-                var word = sequenceStrs[i];
-                var glyph = igt.glyphtionaryIndex[word.toLowerCase()];
-                if(glyph && glyph.length > 0){
-                    sequence.push({glyph:glyph[0], word:word});
-                }
-            }
-            return sequence;
+            return sequenceStrs.
+                map(function(s){return igt.getWordGlyphFromString(s);}).
+                filter(function(obj){return obj != null;});
         }
         else{
             return createRandomSequence(LEVEL_GLYPH_COUNT[lv]);

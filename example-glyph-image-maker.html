@@ -91,7 +91,7 @@
       function updateImage(){
           var glyph = glyphPad.getGlyph();
 
-          ID("glyph-word").value = gm9igt.glyphtionary.get(glyph);
+          ID("glyph-word").value = gm9igt.glyphDic.getWordsFromGlyph(glyph);
 
           // Create Glyph Element(canvas or svg)
           var options = {
@@ -142,7 +142,7 @@
       updateImage();
 
       function setGlyphFromWord(word){
-          glyphPad.setGlyph((gm9igt.glyphtionaryIndex[word.toLowerCase()] || [null])[0]);
+          glyphPad.setGlyph((gm9igt.glyphDic.getGlyphsFromWord(word) || [null])[0]);
       }
 
     </script>

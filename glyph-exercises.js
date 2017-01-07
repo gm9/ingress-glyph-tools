@@ -50,20 +50,15 @@
             }});
         exercisesElement.appendChild(pad);
 
-        var dic = igt.glyphtionary;
         var currentGlyph = null;
         var currentWord = null;
 
 
         function nextQuestion()
         {
-            do{
-                var entryIndex = Math.floor(Math.random() * dic.getEntryCount());
-                var entry = dic.getEntryAt(entryIndex);
-            }
-            while(!(entry && entry.keyGlyph && entry.value && entry.value.length > 0));
-            currentGlyph = entry.keyGlyph;
-            currentWord = entry.value[Math.floor(Math.random() * entry.value.length)];
+            var wg = igt.glyphDic.getWordGlyphRandom();
+            currentGlyph = wg.glyph;
+            currentWord = wg.word;
             showQuestion();
         }
         function showQuestion()
