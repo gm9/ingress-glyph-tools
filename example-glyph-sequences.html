@@ -143,8 +143,8 @@
           }
           function compareLvSequence(lhs, rhs){
               ///@todo compare glyph
-              var lhsStr = lhs.lv + ":" + lhs.seq.map(function(wg){return wg.word;}).join("/");
-              var rhsStr = rhs.lv + ":" + rhs.seq.map(function(wg){return wg.word;}).join("/");
+              var lhsStr = lhs.lv + ":" + lhs.seq.map(function(wg){return wg.word.toUpperCase();}).join("/");
+              var rhsStr = rhs.lv + ":" + rhs.seq.map(function(wg){return wg.word.toUpperCase();}).join("/");
               return lhsStr < rhsStr ? -1 : lhsStr > rhsStr ? 1 : 0;
           }
           var columns = [
