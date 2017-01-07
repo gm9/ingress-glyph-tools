@@ -158,7 +158,7 @@
         [2], 0, ["question", "war"],
         [2], 0, ["search", "past"],
         [2], 0, ["search", "potential"],
-        [2], 0, ["seperate", "war"],
+        [2], 0, ["separate", "war"],
         [2], 20170106, ["YOU", "ADAPT"], //https://fevgames.net/happy-new-glyph-year/
         //L5
         //L6
