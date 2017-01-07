@@ -23,6 +23,7 @@
         //L0
         //L1
         [0], 20170106, ["adapt"],
+        [0], 20161029, ["abandon"],
         [0], 0, ["advance"],
         [0], 20170106, ["after"],
         [0], 0, ["again"],
@@ -32,6 +33,7 @@
         [0], 0, ["avoid"],
         [0], 0, ["barrier"],
         [0], 20170106, ["before"],
+        [0], 20161029, ["begin"],
         [0], 0, ["body"],
         [0], 0, ["breathe"],
         [0], 0, ["capture"],
@@ -48,6 +50,7 @@
         [0], 0, ["danger"],
         [0], 0, ["data"],
         [0], 0, ["defend"],
+        [0], 20161029, ["destination"],
         [0], 0, ["destiny"],
         [0], 0, ["destroy"],
         [0], 0, ["deteriorate"],
@@ -81,7 +84,9 @@
         [0], 0, ["inside"],
         [0], 20170106, ["interrupt"],
         [0], 0, ["journey"],
+        [0], 20161029, ["knowledge"],
         [0], 0, ["lead"],
+        [0], 20161029, ["legacy"],
         [0], 0, ["less"],
         [0], 0, ["liberate"],
         [0], 0, ["lie"],
@@ -93,12 +98,14 @@
         [0], 0, ["nature"],
         [0], 0, ["new"],
         [0], 0, ["nourish"],
+        [0], 20161029, ["n'zeer"],
         [0], 0, ["old"],
         [0], 0, ["open"],
         [0], 0, ["openall"],
         [0], 0, ["past"],
         [0], 0, ["path"],
         [0], 0, ["perfection"],
+        [0], 20161029, ["perspective"],
         [0], 0, ["portal"],
         [0], 0, ["potential"],
         [0], 0, ["present"],
@@ -124,6 +131,7 @@
         [0], 0, ["strong"],
         [0], 0, ["together"],
         [0], 0, ["truth"],
+        [0], 20161029, ["us"],
         [0], 0, ["use"],
         [0], 20170106, ["victory"],
         [0], 0, ["want"],
@@ -134,16 +142,19 @@
         //L3
         //L4
         // http://www.ingress.tv/2-glyph-hack-sequences.html
+        [2], 20161029, ["ABANDON", "FEAR"], //https://fevgames.net/new-ingress-glyphs/
         [2], 20170106, ["ADAPT", "TECHNOLOGY"], //https://fevgames.net/happy-new-glyph-year/
         [2], 0, ["all", "chaos"],
         [2], 0, ["attack", "chaos"],
         [2], 0, ["attack", "difficult"],
         [2], 0, ["capture", "portal"],
+        [2], 20161029, ["CHANGE", "PERSPECTIVE"], //https://fevgames.net/new-ingress-glyphs/
         [2], 0, ["civilization", "chaos"],
         [2], 0, ["create", "danger"],
         [2], 0, ["discover", "lie"],
         [2], 0, ["discover", "portal"],
         [2], 0, ["discover", "safety"],
+        [2], 20161029, ["FUTURE", "DESTINATION"], //https://fevgames.net/new-ingress-glyphs/
         [2], 20170106, ["Interrupt", "Evolution"], //https://fevgames.net/happy-new-glyph-year/
         [2], 0, ["lead", "enlightenment"],
         [2], 0, ["liberate", "xm"],
@@ -162,14 +173,18 @@
         [2], 20170106, ["YOU", "ADAPT"], //https://fevgames.net/happy-new-glyph-year/
         //L5
         //L6
+        [5], 20161029, ["ABANDON", "FEAR", "TOGETHER"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["ACCEPT", "HUMAN", "WEAK"],
         [5], 0, ["ADVANCE", "PURE", "TRUTH"],
         [5], 0, ["ALL", "CIVILIZATION", "CHAOS"],
+        [5], 20161029, ["ANSWER", "N'ZEER", "QUESTION"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["ATTACK", "SHAPERS", "CHAOS"],
         [5], 0, ["AVOID", "CHAOS", "SOUL"],
         [5], 0, ["AVOID", "DESTINY", "LIE"],
         [5], 0, ["AVOID", "PURE", "CHAOS"],
+        [5], 20161029, ["BEGIN", "NEW", "STRUGGLE"], //https://fevgames.net/new-ingress-glyphs/
         [5], 20170106, ["CAPTURE", "VICTORY", "TOGETHER"], //https://fevgames.net/happy-new-glyph-year/
+        [5], 20161029, ["CHANGE", "PERSPECTIVE", "TECHNOLOGY"], //https://fevgames.net/new-ingress-glyphs/
         [5], 20170106, ["CLEAR", "YOUR", "MIND"], //https://fevgames.net/happy-new-glyph-year/
         [5], 0, ["COURAGE", "DESTINY", "REBEL"],
         [5], 0, ["DANGER", "CHANGE", "PAST"],
@@ -182,8 +197,11 @@
         [5], 0, ["ESCAPE", "IMPURE", "EVOLUTION"],
         [5], 0, ["ESCAPE", "IMPURE", "FUTURE"],
         [5], 0, ["FOLLOW", "PURE", "JOURNEY"],
+        [5], 20161029, ["GAIN", "MORE", "KNOWLEDGE"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["HARM", "DANGER", "AVOID"],
+        [5], 20161029, ["HELP", "US", "ALL"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["HUMAN", "GAIN", "SAFETY"],
+        [5], 20161029, ["HUMAN", "KNOWLEDGE", "LEGACY"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["IMPROVE", "ADVANCE", "PRESENT"],
         [5], 0, ["IMPROVE", "HUMAN", "SHAPERS"],
         [5], 0, ["INSIDE", "XM", "TRUTH"],
@@ -191,6 +209,7 @@
         [5], 0, ["JOURNEY", "INSIDE", "SOUL"],
         [5], 0, ["LEAD", "ENLIGHTENMENT", "CIVILIZATION"],
         [5], 0, ["LIBERATE", "HUMAN", "FUTURE"],
+        [5], 20161029, ["LIE", "EQUAL", "FUTURE"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["PEACE", "SIMPLE", "JOURNEY"],
         [5], 0, ["PERFECTION", "PATH", "PEACE"],
         [5], 0, ["PURSUE", "PURE", "BODY"],
@@ -204,14 +223,19 @@
         [5], 0, ["XM", "NOURISH", "CIVILIZATION"],
         [5], 20170106, ["YOU", "HIDE", "CHAOS"], //https://fevgames.net/happy-new-glyph-year/
         //L7
+        [7], 20161029, ["ABANDON", "FEAR", "DEFEND", "FUTURE"], //https://fevgames.net/new-ingress-glyphs/
+        [7], 20161029, ["ABANDON", "FEAR", "SEE", "FUTURE"], //https://fevgames.net/new-ingress-glyphs/
         [7], 0, ["ALL", "CHAOS", "INSIDE", "BODY"],
         [7], 0, ["ATTACK", "WEAK", "SHAPERS", "LIE"],
         [7], 20170106, ["BEFORE", "MYSTERY", "AFTER", "KNOWLEDGE"], //https://fevgames.net/happy-new-glyph-year/
+        [7], 20161029, ["BEGIN", "HUMAN", "LEGACY", "NOW"], //https://fevgames.net/new-ingress-glyphs/
+        [7], 20161029, ["BEGIN", "JOURNEY", "BREATHE", "XM"], //https://fevgames.net/new-ingress-glyphs/
         [7], 0, ["BREATHE", "AGAIN", "JOURNEY", "AGAIN"],
         [7], 0, ["BREATHE", "NATURE", "PERFECTION", "HARMONY"],
         [7], 0, ["CAPTURE", "FEAR", "DISCOVER", "COURAGE"],
         [7], 0, ["CHANGE", "FUTURE", "CAPTURE", "DESTINY"],
         [7], 0, ["CHANGE", "HUMAN", "POTENTIAL", "USE"],
+        [7], 20161029, ["CHANGE", "PERSPECTIVE", "BEGIN", "NEW"], //https://fevgames.net/new-ingress-glyphs/
         [7], 0, ["CHAOS", "barrier", "SHAPERS", "PORTAL"],
         [7], 0, ["CLEAR", "MIND", "OPEN", "MIND"],
         [7], 0, ["CLEARALL", "OPENALL", "DISCOVER", "TRUTH"],
@@ -220,6 +244,7 @@
         [7], 0, ["COURAGE", "attack", "shapers", "FUTURE"],
         [7], 0, ["CREATE", "DISTANCE", "IMPURE", "PATH"],
         [7], 0, ["CREATE", "FUTURE", "NOT", "WAR"],
+        [7], 20161029, ["CREATE", "NEW", "PORTAL", "POTENTIAL"], //https://fevgames.net/new-ingress-glyphs/
         [7], 0, ["DEFEND", "MESSAGE", "ANSWER", "IDEA"],
         [7], 0, ["DESTROY", "DESTINY", "HUMAN", "LIE"],
         [7], 0, ["DETERIORATE", "HUMAN", "WEAK", "REBEL"],
@@ -232,6 +257,7 @@
         [7], 20170106, ["HELP", "ENLIGHTENED", "STRONG", "VICTORY"], //https://fevgames.net/happy-new-glyph-year/
         [7], 0, ["HELP", "GAIN", "CREATE", "PURSUE"],
         [7], 20170106, ["HELP", "RESISTANCE", "STRONG", "VICTORY"], //https://fevgames.net/happy-new-glyph-year/
+        [7], 20161029, ["HELP", "US", "SAVE", "US"], //https://fevgames.net/new-ingress-glyphs/
         [7], 0, ["HIDE", "IMPURE", "HUMAN", "THOUGHT"],
         [7], 0, ["HUMAN", "HAVE", "IMPURE", "CIVILIZATION"],
         [7], 0, ["HUMAN", "PAST", "PRESENT", "FUTURE"],
@@ -248,6 +274,8 @@
         [7], 0, ["LIBERATE", "XM", "PORTAL", "TOGETHER"],
         [7], 0, ["LOSE", "DANGER", "GAIN", "SAFETY"],
         [7], 0, ["NOURISH", "XM", "CREATE", "THOUGHT"],
+        [7], 20161029, ["N'ZEER", "SHAPERS", "STRUGGLE", "KNOWLEDGE"], //https://fevgames.net/new-ingress-glyphs/
+        [7], 20161029, ["N'ZEER", "TECHNOLOGY", "MIND", "EVOLUTION"], //https://fevgames.net/new-ingress-glyphs/
         [7], 0, ["PAST", "AGAIN", "PRESENT", "AGAIN"],
         [7], 0, ["PATH", "RESTRAINT", "STRONG", "SAFETY"],
         [7], 0, ["PORTAL", "CHANGE", "CIVILIZATION", "END"],
@@ -257,6 +285,7 @@
         [7], 0, ["RESTRAINT", "PATH", "GAIN", "HARMONY"],
         [7], 0, ["SEARCH", "DATA", "DISCOVER", "PATH"],
         [7], 0, ["SEARCH", "TRUTH", "SAVE", "CIVILIZATION"],
+        [7], 20161029, ["SEARCH", "XM", "DISTANCE", "DESTINATION"], //https://fevgames.net/new-ingress-glyphs/
         [7], 0, ["SEARCH", "XM", "SAVE", "PORTAL"],
         [7], 0, ["SEE", "TRUTH", "SEE", "FUTURE"],
         [7], 0, ["SEPARATE", "WEAK", "IGNORE", "TRUTH"],
@@ -399,7 +428,13 @@
         var seqLevels = SEQUENCES[si+0];
         var seqDiscovered = SEQUENCES[si+1];
         var seqWordGlyphArray = SEQUENCES[si+2].map(
-            function(str){return igt.glyphDic.getWordGlyphFromString(str);});
+            function(str){
+                var g = igt.glyphDic.getWordGlyphFromString(str);
+                if(!g){
+                    console.log("Failed to resolve glyph " + str);
+                }
+                return g;
+            });
 
         var info = {
             levels: seqLevels,
