@@ -36,7 +36,7 @@
                 ,"373a8a", ["Change","Modify"]
                 ,"01051638456a8a", ["Chaos","Disorder"]
                 ,"0a3a", ["Clear"]
-                ,"01050a1223343a45", ["Close All", "Clearall"]
+                ,"01050a1223343a45", ["Close All", "Clear All", "Clearall"]
                 ,"698a9a", ["Complex"]
                 ,"2649677889", ["Conflict"]
                 ,"27597889", ["Consequence"]
