@@ -190,6 +190,10 @@
             return gs && gs.length > 0 ? {word:wDisplay, glyph:gs[0]} : null;
         }
     }
+    function toStringFromWordGlyph(wg)
+    {
+        return wg.word + "(" + wg.glyph.toString() + ")";
+    }
 
     function getAllWords()
     {
@@ -223,6 +227,7 @@
         getWordsFromGlyph: getWordsFromGlyph,
         getGlyphsFromWord: getGlyphsFromWord,
         getWordGlyphFromString: getWordGlyphFromString,
+        toStringFromWordGlyph: toStringFromWordGlyph,
         getAllWords: getAllWords,
         getAllGlyphs: getAllGlyphs,
         getWordGlyphRandom: getWordGlyphRandom
