@@ -43,8 +43,8 @@
                 ,"011223386a899a", ["Contemplate"]
                 ,"497889", ["Courage"]
                 ,"16486a8a", ["Create","Creation"]
+                ,"1216274548597a9a", ["Creativity","Idea","Thought"]//, "Mind"
                 ,"393a9a", ["Creativity"]
-                ,"1216274548597a9a", ["Thought","Idea"]//"Creativity", "Mind"
                 ,"093a9a", ["Danger"]
                 ,"06386a8a", ["Data","Signal"]//"Message"
                 ,"17373858", ["Defend"]
@@ -53,7 +53,7 @@
                 ,"27597a9a", ["Destroy","Destruction"]
                 ,"488a9a", ["Deteriorate","Erode"]
                 ,"386a8a", ["Easy"]
-                ,"27487a8a", ["Die"]
+                ,"27487a8a", ["Die","Death"]
                 ,"16677a8a", ["Difficult"]
                 ,"122334", ["Discover"]
                 ,"0545", ["Distance","Outside"]
