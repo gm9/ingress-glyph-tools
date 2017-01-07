@@ -44,11 +44,9 @@
     {
         // シーケンス辞書から取得できればそれを出題する。
         // 取得できなければ、完全にランダムでシーケンスを作る。
-        var sequenceStrs = igt.sequenceDic.getSequenceRandom(lv);
-        if(sequenceStrs && sequenceStrs.length > 0){
-            return sequenceStrs.
-                map(function(s){return igt.getWordGlyphFromString(s);}).
-                filter(function(obj){return obj != null;});
+        var sequence = igt.sequenceDic.getSequenceRandom(lv);
+        if(sequence && sequence.length > 0){
+            return sequence;
         }
         else{
             return createRandomSequence(LEVEL_GLYPH_COUNT[lv]);

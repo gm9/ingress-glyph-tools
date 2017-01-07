@@ -352,10 +352,16 @@
     var LEVEL_INFOS = [[],[],[],[],[],[],[],[],[]];
     var LEVEL_SEQUENCES = [[],[],[],[],[],[],[],[],[]];
     for(var si = 0; si < SEQUENCES.length; si += 3){
+        // resolve aaa(bbb) notation
+        var seqLevels = SEQUENCES[si+0];
+        var seqDiscovered = SEQUENCES[si+1];
+        var seqWordGlyphArray = SEQUENCES[si+2].map(
+            function(str){return igt.glyphDic.getWordGlyphFromString(str);});
+
         var info = {
-            levels: SEQUENCES[si+0],
-            dateDiscovered: SEQUENCES[si+1],
-            sequence: SEQUENCES[si+2]
+            levels: seqLevels,
+            dateDiscovered: seqDiscovered,
+            sequence: seqWordGlyphArray
         };
         INFOS.push(info);
         for(var li = 0; li < info.levels.length; ++li){

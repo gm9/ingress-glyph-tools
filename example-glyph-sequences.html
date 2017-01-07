@@ -117,9 +117,9 @@
           var rangeSelector = new ui.RecordRangeSelector(STORAGE_KEY_RANGE_SELECT, updateAllTables);
           document.getElementById("record-range").appendChild(rangeSelector.element);
 
-          function getSequenceRecord(lv, seqWords)
+          function getSequenceRecord(lv, seq)
           {
-              var hist = getSequenceRecordHistory(lv, seqWords);
+              var hist = getSequenceRecordHistory(lv, seq);
               var days = rangeSelector.getSelectedRangeDays();
               if(hist && days >= 0 && days <= 30){
                   return days == 0 ? hist.getAll() : hist.getLastDays(days);
@@ -128,28 +128,27 @@
                   return null;
               }
           }
-          function getSequenceRecordHistory(level, words){
+          function getSequenceRecordHistory(level, seq){
               gm9igt.glyphGameRecord.load();
-              var glyphCodes = getGlyphCodesFromWords(words);
+              var glyphCodes = getGlyphCodesFromWordGlyphArray(seq);
               return glyphCodes ? gm9igt.glyphGameRecord.getSequenceRecord(level, glyphCodes) : null;
           }
 
           // Column Definition
-          function parseSequenceKey(key){
-              var arrLvWords = key.split(":");
-              var lv = parseInt(arrLvWords[0]);
-              var words = arrLvWords[1].split("/");
-              return {lv:lv, words:words};
-          }
-          function formatSequenceKey(key){
-              var seqLvWords = parseSequenceKey(key);
+          function formatLvSequence(lvseq){
               var seqDiv = document.createElement("div");
-              putHackButton(seqDiv, seqLvWords.words, seqLvWords.lv);
-              putGlyphSequence(seqDiv, seqLvWords.words);
+              putHackButton(seqDiv, lvseq.seq, lvseq.lv);
+              putGlyphSequence(seqDiv, lvseq.seq);
               return seqDiv;
           }
+          function compareLvSequence(lhs, rhs){
+              ///@todo compare glyph
+              var lhsStr = lhs.lv + ":" + lhs.seq.map(function(wg){return wg.word;}).join("/");
+              var rhsStr = rhs.lv + ":" + rhs.seq.map(function(wg){return wg.word;}).join("/");
+              return lhsStr < rhsStr ? -1 : lhsStr > rhsStr ? 1 : 0;
+          }
           var columns = [
-              {text:"Sequence", visible:true, formatter:formatSequenceKey},
+              {text:"Sequence", visible:true, formatter:formatLvSequence, comparator: compareLvSequence},
               {text:"Discovered", visible:true, formatter:ui.DataTable.formatter.number},
               {text:"Hacks", visible:false, formatter:ui.DataTable.formatter.number},
               {text:"Ave. Glyphs", visible:false, formatter:ui.DataTable.formatter.averageCount1},
@@ -159,12 +158,11 @@
               {text:"Speed Bonus", visible:false, formatter:ui.DataTable.formatter.percentage1}];
           function makeSequenceTableRowSource(lv, seqInfo)
           {
-              var seqWords = seqInfo.sequence;
-              var seqKey = lv + ":" + seqWords.map(function(w){return w.toUpperCase();}).join("/");
+              var seq = seqInfo.sequence;
               return function(){
-                  var rec = getSequenceRecord(lv, seqWords);
+                  var rec = getSequenceRecord(lv, seq);
                   return [
-                      seqKey,
+                      {lv:lv, seq:seq},
                       seqInfo.dateDiscovered,
                       (rec ? rec.numHacks : 0),
                       (rec ? rec.getAverageCorrectGlyphs() : 0),
@@ -237,10 +235,10 @@
                       hackRandom(level);
                   });
                   ui.putButton(randomHackButtonBar, "Hack Random(top 5)", function(){
-                      hackRandom(level, table.getDataRows().map(function(r){return parseSequenceKey(r.getColumnValue(0)).words;}).slice(0, 5));
+                      hackRandom(level, table.getDataRows().map(function(r){return r.getColumnValue(0).seq;}).slice(0, 5));
                   });
                   ui.putButton(randomHackButtonBar, "Hack Random(top 10)", function(){
-                      hackRandom(level, table.getDataRows().map(function(r){return parseSequenceKey(r.getColumnValue(0)).words;}).slice(0, 10));
+                      hackRandom(level, table.getDataRows().map(function(r){return r.getColumnValue(0).seq;}).slice(0, 10));
                   });
                   div.appendChild(randomHackButtonBar);
               }
@@ -327,22 +325,22 @@
           }
 
 
-          function putHackButton(parent, seqWords, lv){
+          function putHackButton(parent, seq, lv){
               var button = document.createElement("input");
               button.type = "button";
               button.value = "Hack";
               button.style.float = "right";
               button.addEventListener("click", function(e){
-                  hack(seqWords, lv);
+                  hack(seq, lv);
               }, false);
               parent.appendChild(button);
           }
 
-          function putGlyphSequence(parent, seqWords){
-              for(var gi = 0; gi < seqWords.length; ++gi){
-                  var wg = gm9igt.glyphDic.getWordGlyphFromString(seqWords[gi]);
-                  var word = wg ? wg.word : seqWords[gi]; //NOTE: Uppercase or Lowercase
-                  var glyph = wg ? wg.glyph : null;
+          function putGlyphSequence(parent, seq){
+              for(var gi = 0; gi < seq.length; ++gi){
+                  var wg = seq[gi];
+                  var word = wg.word; //NOTE: Uppercase or Lowercase
+                  var glyph = wg.glyph;
                   var glyphDiv = document.createElement("div");
                   glyphDiv.className = "glyph-box";
                   glyphDiv.style.display = "inline-block";
@@ -360,21 +358,9 @@
 
 
 
-          function getSequenceFromWords(words){ ///@todo move to glyph-game.js ?
-              var seq = [];
-              for(var wi = 0; wi < words.length; ++wi){
-                  var wg = gm9igt.glyphDic.getWordGlyphFromString(words[wi]);
-                  if(!wg){
-                      return null; //error
-                  }
-                  seq.push({glyph:wg.glyph, word:wg.word});
-              }
-              return seq;
-          }
-          function hack(words, lv){
-              var seq = getSequenceFromWords(words);
+          function hack(seq, lv){
               if(!seq){
-                  alert("Cannot resolve glyph sequence.");
+                  alert("seq is null.");
                   return;
               }
 
@@ -395,7 +381,7 @@
               var deltaDays = 0;
               gameObj.onUpdateResult = function(){
                   deltaDays += gm9igt.glyphGameRecord.updateCurrentTime();
-                  gm9igt.glyphGameRecord.addGlyphGameResult(lv, getGlyphCodesFromWords(words), gameObj.result);
+                  gm9igt.glyphGameRecord.addGlyphGameResult(lv, getGlyphCodesFromWordGlyphArray(seq), gameObj.result);
                   gm9igt.glyphGameRecord.save();
               };
 
@@ -413,24 +399,18 @@
               };
           }
 
-          function hackRandom(level, seqWords){
-              if(!seqWords){
-                  seqWords = gm9igt.sequenceDic.getSequences(level);
+          function hackRandom(level, sequences){
+              if(!sequences){
+                  sequences = gm9igt.sequenceDic.getSequences(level);
               }
-              if(seqWords.length <= 0){
+              if(sequences.length <= 0){
                   return;
               }
-              hack(seqWords[Math.floor(Math.random() * seqWords.length)], level);
+              hack(sequences[Math.floor(Math.random() * sequences.length)], level);
           }
 
-          function getGlyphCodesFromWords(words){ ///@todo move to glyph-game.js ?
-              var seq = getSequenceFromWords(words);
-              if(seq){
-                  return seq.map(function(obj){return obj.glyph.toString();});
-              }
-              else{
-                  return null;
-              }
+          function getGlyphCodesFromWordGlyphArray(seq){
+              return seq.map(function(wg){return wg.glyph.toString();});
           }
       })();
       //]]>
