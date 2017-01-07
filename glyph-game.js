@@ -183,7 +183,9 @@
             showRetryButton: true,
             onUpdateResult: null,
             onEndGame: null,
-            userSelectedLevel: undefined
+            userSelectedLevel: undefined,
+            presentSequenceGlyphTime: 1000,
+            presentResultGlyphTime: 1000
         };
         var padSize = 300;
 
@@ -332,7 +334,7 @@
                     }
                     else{
                         showGlyph();
-                        setTimeout(endShowGlyph, 1000);
+                        setTimeout(endShowGlyph, gameObj.presentSequenceGlyphTime);
                     }
                 }
                 function endShowGlyph()
@@ -496,7 +498,7 @@
                         setGlyphIndicator(index, correct ? GLYPH_INDICATOR_CORRECT : GLYPH_INDICATOR_INCORRECT, glyph);
                         pad.setGlyph(glyph);
                         setGlyphWord(word, correct);
-                        setTimeout(endShowGlyph, 1000);
+                        setTimeout(endShowGlyph, gameObj.presentResultGlyphTime);
                     }
                 }
                 function createScoreDiv()

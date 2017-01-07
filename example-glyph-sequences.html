@@ -54,6 +54,10 @@
       </p>
 
       <p>
+        Hacking Speed <span id="speed-selector"></span>
+      </p>
+
+      <p>
         Show hack record <span id="record-range"></span>
       </p>
 
@@ -106,12 +110,50 @@
 
           // -------------------------------------------------
           var STORAGE_KEY_PREFIX = "IngressGlyphTools.example-glyph-sequences";
+          var STORAGE_KEY_SPEED_SELECT = STORAGE_KEY_PREFIX + ".speedSelect";
           var STORAGE_KEY_RANGE_SELECT = STORAGE_KEY_PREFIX + ".rangeSelect";
           var STORAGE_KEY_COLUMN_SELECT = STORAGE_KEY_PREFIX + ".columnSelect";
 
           var gm9igt = gm9.IngressGlyphTools;
           var ui = gm9igt.ui;
           var page = document.getElementById("list-page");
+
+          // Hacking Speed Selector
+          function createSpeedSelector()
+          {
+              var loadedValue = localStorage.getItem(STORAGE_KEY_SPEED_SELECT);
+
+              var div = document.createElement("div");
+              var slider = document.createElement("input");
+              slider.type="range";
+              slider.min="100";
+              slider.max="2000";
+              slider.step="100";
+              slider.value=loadedValue ? loadedValue : "1000";
+              slider.style="width: 200px;";
+              div.appendChild(slider);
+              var text = document.createTextNode("a");
+              div.appendChild(text);
+
+              function updateSliderText()
+              {
+                  text.textContent = slider.value + "ms/glyph";
+              }
+              updateSliderText();
+              slider.addEventListener("input", updateSliderText, false);
+              slider.addEventListener("change", updateSliderText, false);
+
+              function saveSliderValue()
+              {
+                  localStorage.setItem(STORAGE_KEY_SPEED_SELECT, slider.value);
+              }
+              slider.addEventListener("change", saveSliderValue, false);
+
+              return {element:div, getGlyphTime:function(){return parseInt(slider.value);}};
+          }
+          var speedSelector = createSpeedSelector();
+          document.getElementById("speed-selector").appendChild(speedSelector.element);
+
 
           // Range Selector
           var rangeSelector = new ui.RecordRangeSelector(STORAGE_KEY_RANGE_SELECT, updateAllTables);
@@ -372,6 +414,7 @@
 
 
               var gameObj = gm9igt.glyphGame.createGame();
+              gameObj.presentSequenceGlyphTime = speedSelector.getGlyphTime();
               document.body.appendChild(gameObj.element);
               var viewportController = gm9igt.controlViewportMetaElement(gameObj.element);
               gameObj.hack(seq,
