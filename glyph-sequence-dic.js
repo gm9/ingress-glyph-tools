@@ -225,6 +225,7 @@
         //L7
         [7], 20161029, ["ABANDON", "FEAR", "DEFEND", "FUTURE"], //https://fevgames.net/new-ingress-glyphs/
         [7], 20161029, ["ABANDON", "FEAR", "SEE", "FUTURE"], //https://fevgames.net/new-ingress-glyphs/
+        [7], 20170106, ["ADAPT", "thought", "DISCOVER", "evolution"], //https://fevgames.net/happy-new-glyph-year/
         [7], 0, ["ALL", "CHAOS", "INSIDE", "BODY"],
         [7], 0, ["ATTACK", "WEAK", "SHAPERS", "LIE"],
         [7], 20170106, ["BEFORE", "MYSTERY", "AFTER", "KNOWLEDGE"], //https://fevgames.net/happy-new-glyph-year/
@@ -258,6 +259,7 @@
         [7], 0, ["HELP", "GAIN", "CREATE", "PURSUE"],
         [7], 20170106, ["HELP", "RESISTANCE", "STRONG", "VICTORY"], //https://fevgames.net/happy-new-glyph-year/
         [7], 20161029, ["HELP", "US", "SAVE", "US"], //https://fevgames.net/new-ingress-glyphs/
+        [7], 20170106, ["HIDE", "CHAOS", "INSIDE", "BODY"], //https://fevgames.net/happy-new-glyph-year/
         [7], 0, ["HIDE", "IMPURE", "HUMAN", "THOUGHT"],
         [7], 0, ["HUMAN", "HAVE", "IMPURE", "CIVILIZATION"],
         [7], 0, ["HUMAN", "PAST", "PRESENT", "FUTURE"],
@@ -268,6 +270,7 @@
         [7], 0, ["INSIDE", "MIND", "JOURNEY", "PERFECTION"],
         [7], 20170106, ["INTERRUPT", "MESSAGE", "GAIN", "ADVANCE"], //https://fevgames.net/happy-new-glyph-year/
         [7], 0, ["JOURNEY", "not", "IMPROVE", "SOUL"],
+        [7], 20170106, ["KNOWLEDGE", "HELP", "GAIN", "VICTORY"], //https://fevgames.net/happy-new-glyph-year/
         [7], 0, ["LEAD", "PURSUE", "REACT", "DEFEND"],
         [7], 0, ["LESS", "SOUL", "MORE", "MIND"],
         [7], 0, ["LESS", "TRUTH", "MORE", "CHAOS"],
@@ -305,7 +308,9 @@
         [7], 0, ["STRUGGLE", "IMPROVE", "HUMAN", "SOUL"],
         [7], 0, ["TOGETHER", "DISCOVER", "HARMONY", "EQUAL"],
         [7], 0, ["TRUTH", "IDEA", "DISCOVER", "XM"],
+        //[7], 20170106, ["UNITY", "TOGETHER", "END", "MYSTERY"], //https://fevgames.net/happy-new-glyph-year/ (unity?)
         [7], 0, ["XM", "DIE", "CHAOS", "LIVE"],
+        [7], 20170106, ["XM", "NOURISH", "STRONG", "CREATIVITY(1216274548597a9a)"], //https://fevgames.net/happy-new-glyph-year/
         //L8
         [8], 20161029, ["ABANDON", "ALL", "TECHNOLOGY", "SAVE", "US"], //https://fevgames.net/new-ingress-glyphs/
         [8], 20161029, ["ABANDON", "FEAR", "DEFEND", "FUTURE", "TOGETHER"], //https://fevgames.net/new-ingress-glyphs/
