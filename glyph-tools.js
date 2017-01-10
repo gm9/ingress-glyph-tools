@@ -5,50 +5,56 @@
  */
 
 (function(window){
-
     //
-    // HTML Utility
+    // Grid & Node Position
+    //
+    // Node Indices:
+    //         0
+    //   5            1
+    //      9      6
+    //         10
+    //      8      7
+    //   4            2
+    //         3
     //
 
-    function getLastScriptNode()
+    var RT3 = Math.sqrt(3);
+    var NODE_POS = [
+        [0,-1],
+        [RT3/2,-1/2],
+        [RT3/2,1/2],
+        [0,1],
+        [-RT3/2,1/2],
+        [-RT3/2,-1/2],
+        [RT3/4,-1/4],
+        [RT3/4,1/4],
+        [-RT3/4,1/4],
+        [-RT3/4,-1/4],
+        [0,0]];
+
+    function getNodePosX(glyphCenterX, glyphRadius, nodeIndex)
     {
-        var n = document;
-        while(n && n.nodeName.toLowerCase() != "script") { n = n.lastChild;}
-        return n;
+        return glyphCenterX + glyphRadius*NODE_POS[nodeIndex][0];
+    }
+    function getNodePosY(glyphCenterY, glyphRadius, nodeIndex)
+    {
+        return glyphCenterY + glyphRadius*NODE_POS[nodeIndex][1];
     }
 
-        // Mouse Position
-
-    function getElementAbsPos(elem)
+    function getNodeIndexAtPosition(glyphCenterX, glyphCenterY, glyphRadius, nodeRadius, x, y)
     {
-        var x = 0;
-        var y = 0;
-        while(elem && elem.offsetLeft != null && elem.offsetTop != null){
-            x += elem.offsetLeft;
-            y += elem.offsetTop;
-            elem = elem.offsetParent;
+        var nodeRadius2 = nodeRadius*nodeRadius;
+        for(var ni = 0; ni < NODE_POS.length; ++ni){
+            var dx = getNodePosX(glyphCenterX, glyphRadius, ni) - x;
+            var dy = getNodePosY(glyphCenterY, glyphRadius, ni) - y;
+            if(dx*dx + dy*dy <= nodeRadius2){
+                return ni;
+            }
         }
-
-        return [x, y];
+        return -1;
     }
 
-    function getMousePosOnElement(elem, ev)
-    {
-        if(!ev){ev = event;}
-        if(elem.getBoundingClientRect){
-            var bcr = elem.getBoundingClientRect();
-            var x = ev.clientX - bcr.left;
-            var y = ev.clientY - bcr.top;
-            return [x, y];
-        }
-        else if(typeof(ev.pageX) == "number" && typeof(ev.pageY) == "number"){
-            var pos = getElementAbsPos(elem);
-            return [ev.pageX-pos[0], ev.pageY-pos[1]];
-        }
-        else{
-            return [0, 0];
-        }
-    };
+    // Private functions
 
     function uniqueSortedArray(arr, funLess)
     {
@@ -68,105 +74,6 @@
         }
         arr.splice(j, arr.length - j);
     }
-
-        // Canvas
-
-    function limitContext(targetCtx, funCtx, funDraw)
-    {
-        targetCtx.save();
-        if(funCtx){funCtx(targetCtx);}
-        if(funDraw){funDraw(targetCtx);}
-        targetCtx.restore();
-    }
-
-        // Viewport
-
-    function acquireViewportMetaElement()
-    {
-        var metaArray = document.getElementsByTagName("meta");
-        var index = 0;
-        while(index < metaArray.length){
-            var elem = metaArray[index++];
-            if(elem.getAttribute("name") == "viewport"){
-                return elem;
-            }
-        }
-
-        elem = document.createElement("meta");
-        elem.setAttribute("name", "viewport");
-        document.getElementsByTagName("head")[0].appendChild(elem);
-        return elem;
-    }
-    function getViewportMetaContent(targetWidth, targetHeight)
-    {
-//console.log("window w=" + window.innerWidth + " h=" + window.innerHeight);
-//console.log("target w=" + targetWidth + " h=" + targetHeight);
-
-        var windowWidth = window.innerWidth;
-        var windowHeight = window.innerHeight;
-        var fitToWindowHeight = windowWidth * targetHeight > windowHeight * targetWidth;
-        var metaSize
-            = fitToWindowHeight
-            ? "width=" + (Math.ceil(targetHeight*windowWidth/windowHeight))
-            : "width=" + targetWidth;
-        return metaSize + ", user-scalable=no";
-    }
-    function controlViewportMetaElement(targetElement)
-    {
-        var meta = acquireViewportMetaElement();
-        var oldContent = meta.getAttribute("content");
-        var prevContent = null;
-
-        function updateViewport(){
-            var currContent = getViewportMetaContent(
-                targetElement.getBoundingClientRect().width,
-                targetElement.getBoundingClientRect().height);
-            if(currContent != prevContent){
-                meta.setAttribute("content", "initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"); //for iOS: cancel user scaling
-                meta.setAttribute("content", currContent);
-//console.log("viewport " + meta.getAttribute("content"));
-                prevContent = currContent;
-            }
-        }
-        updateViewport();
-
-        var cancelled = false;
-        var count = 0;
-        function onResize(e){
-            if(!cancelled){
-//                console.log("onResize " + (count++));
-                updateViewport();
-            }
-            else{
-//                console.log("onResize: already cancelled");
-            }
-        }
-        window.addEventListener("resize", onResize, false);
-        window.addEventListener("orientationchange", onResize, false);
-        targetElement.addEventListener("resize", onResize, false);
-
-        function cancel(){
-            if(!cancelled){
-                cancelled = true;
-                window.removeEventListener("resize", onResize, false);
-                window.removeEventListener("orientationchange", onResize, false);
-                targetElement.removeEventListener("resize", onResize, false);
-
-                var meta = acquireViewportMetaElement();
-                if(oldContent){
-                    meta.setAttribute("content", oldContent);
-                }
-                else{
-                    meta.removeAttribute("content");
-                }
-            }
-        }
-
-        return {
-            cancel: cancel
-        };
-    }
-
 
     //
     // Set(ordered container)
@@ -240,55 +147,6 @@
         }
     };
 
-
-    //
-    // Grid & Node Position
-    //
-    // Node Indices:
-    //         0
-    //   5            1
-    //      9      6
-    //         10
-    //      8      7
-    //   4            2
-    //         3
-    //
-
-    var RT3 = Math.sqrt(3);
-    var NODE_POS = [
-        [0,-1],
-        [RT3/2,-1/2],
-        [RT3/2,1/2],
-        [0,1],
-        [-RT3/2,1/2],
-        [-RT3/2,-1/2],
-        [RT3/4,-1/4],
-        [RT3/4,1/4],
-        [-RT3/4,1/4],
-        [-RT3/4,-1/4],
-        [0,0]];
-
-    function getNodePosX(glyphCenterX, glyphRadius, nodeIndex)
-    {
-        return glyphCenterX + glyphRadius*NODE_POS[nodeIndex][0];
-    }
-    function getNodePosY(glyphCenterY, glyphRadius, nodeIndex)
-    {
-        return glyphCenterY + glyphRadius*NODE_POS[nodeIndex][1];
-    }
-
-    function getNodeIndexAtPosition(glyphCenterX, glyphCenterY, glyphRadius, nodeRadius, x, y)
-    {
-        var nodeRadius2 = nodeRadius*nodeRadius;
-        for(var ni = 0; ni < NODE_POS.length; ++ni){
-            var dx = getNodePosX(glyphCenterX, glyphRadius, ni) - x;
-            var dy = getNodePosY(glyphCenterY, glyphRadius, ni) - y;
-            if(dx*dx + dy*dy <= nodeRadius2){
-                return ni;
-            }
-        }
-        return -1;
-    }
 
     //
     // Edge
@@ -406,11 +264,256 @@
         return glyph;
     };
 
+    //
+    // Glyph Dictionary Entry
+    //
+    function DictionaryEntry(keyGlyph, value)
+    {
+        this.keyGlyph = keyGlyph;
+        this.value = value;
+    }
+    DictionaryEntry.compare = function(entryA, entryB){
+        return Glyph.compare(entryA.keyGlyph, entryB.keyGlyph);
+    };
+    DictionaryEntry.less = function(entryA, entryB){
+        return DictionaryEntry.compare(entryA, entryB) < 0;
+    };
+    DictionaryEntry.equals = function(entryA, entryB){
+        return DictionaryEntry.compare(entryA, entryB) == 0;
+    };
+
+    //
+    // Glyph Dictionary
+    //
+    function Dictionary()
+    {
+        this.entries = new Set(DictionaryEntry.less);
+    }
+    Dictionary.prototype = {
+        add: function(glyph, value){
+            return this.entries.add(new DictionaryEntry(glyph, value));
+        },
+        lowerBound: function(glyph){
+            return this.entries.lowerBound(new DictionaryEntry(glyph, null)); ///@todo Avoid object creation.
+        },
+        get: function(glyph){
+            var i = this.lowerBound(glyph);
+            if(i < this.entries.size() && Glyph.equals(this.entries.at(i).keyGlyph, glyph)){
+                return this.entries.at(i).value;
+            }
+            else{
+                return null;
+            }
+        },
+        getEntryCount: function(){
+            return this.entries.size();
+        },
+        getEntryAt: function(i){
+            return this.entries.at(i);
+        },
+        createIndex: function(){
+            var index = {};
+            for(var ei = 0; ei < this.getEntryCount(); ++ei){
+                var entry = this.getEntryAt(ei);
+                for(var wi = 0; wi < entry.value.length; ++wi){
+                    var word = entry.value[wi].toLowerCase();
+                    if(!index[word]){index[word] = [];}
+                    index[word].push(entry.keyGlyph);
+                }
+            }
+            return index;
+        }
+    };
+
+
+
+    // -----------------------------------------------------------------------
+
+    //
+    // HTML Utility
+    //
+
+    function getLastScriptNode()
+    {
+        var n = document;
+        while(n && n.nodeName.toLowerCase() != "script") { n = n.lastChild;}
+        return n;
+    }
+
+        // Mouse Position
+
+    function getElementAbsPos(elem)
+    {
+        var x = 0;
+        var y = 0;
+        while(elem && elem.offsetLeft != null && elem.offsetTop != null){
+            x += elem.offsetLeft;
+            y += elem.offsetTop;
+            elem = elem.offsetParent;
+        }
+
+        return [x, y];
+    }
+
+    function getMousePosOnElement(elem, ev)
+    {
+        if(!ev){ev = event;}
+        if(elem.getBoundingClientRect){
+            var bcr = elem.getBoundingClientRect();
+            var x = ev.clientX - bcr.left;
+            var y = ev.clientY - bcr.top;
+            return [x, y];
+        }
+        else if(typeof(ev.pageX) == "number" && typeof(ev.pageY) == "number"){
+            var pos = getElementAbsPos(elem);
+            return [ev.pageX-pos[0], ev.pageY-pos[1]];
+        }
+        else{
+            return [0, 0];
+        }
+    };
+
+
+        // Canvas
+
+    function limitContext(targetCtx, funCtx, funDraw)
+    {
+        targetCtx.save();
+        if(funCtx){funCtx(targetCtx);}
+        if(funDraw){funDraw(targetCtx);}
+        targetCtx.restore();
+    }
+
+        // Viewport
+
+    function acquireViewportMetaElement()
+    {
+        var metaArray = document.getElementsByTagName("meta");
+        var index = 0;
+        while(index < metaArray.length){
+            var elem = metaArray[index++];
+            if(elem.getAttribute("name") == "viewport"){
+                return elem;
+            }
+        }
+
+        elem = document.createElement("meta");
+        elem.setAttribute("name", "viewport");
+        document.getElementsByTagName("head")[0].appendChild(elem);
+        return elem;
+    }
+    function getViewportMetaContent(targetWidth, targetHeight)
+    {
+//console.log("window w=" + window.innerWidth + " h=" + window.innerHeight);
+//console.log("target w=" + targetWidth + " h=" + targetHeight);
+
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        var fitToWindowHeight = windowWidth * targetHeight > windowHeight * targetWidth;
+        var metaSize
+            = fitToWindowHeight
+            ? "width=" + (Math.ceil(targetHeight*windowWidth/windowHeight))
+            : "width=" + targetWidth;
+        return metaSize + ", user-scalable=no";
+    }
+    function controlViewportMetaElement(targetElement)
+    {
+        var meta = acquireViewportMetaElement();
+        var oldContent = meta.getAttribute("content");
+        var prevContent = null;
+
+        function updateViewport(){
+            var currContent = getViewportMetaContent(
+                targetElement.getBoundingClientRect().width,
+                targetElement.getBoundingClientRect().height);
+            if(currContent != prevContent){
+                meta.setAttribute("content", "initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"); //for iOS: cancel user scaling
+                meta.setAttribute("content", currContent);
+//console.log("viewport " + meta.getAttribute("content"));
+                prevContent = currContent;
+            }
+        }
+        updateViewport();
+
+        var cancelled = false;
+        var count = 0;
+        function onResize(e){
+            if(!cancelled){
+//                console.log("onResize " + (count++));
+                updateViewport();
+            }
+            else{
+//                console.log("onResize: already cancelled");
+            }
+        }
+        window.addEventListener("resize", onResize, false);
+        window.addEventListener("orientationchange", onResize, false);
+        targetElement.addEventListener("resize", onResize, false);
+
+        function cancel(){
+            if(!cancelled){
+                cancelled = true;
+                window.removeEventListener("resize", onResize, false);
+                window.removeEventListener("orientationchange", onResize, false);
+                targetElement.removeEventListener("resize", onResize, false);
+
+                var meta = acquireViewportMetaElement();
+                if(oldContent){
+                    meta.setAttribute("content", oldContent);
+                }
+                else{
+                    meta.removeAttribute("content");
+                }
+            }
+        }
+
+        return {
+            cancel: cancel
+        };
+    }
+
+
 
 
     //
     // Drawing
     //
+    function completeGlyphStyle(glyphSize, style){
+        if(style===undefined){style = {};}
+        if(style.color===undefined){style.color = "black";}
+
+        if(style.hexagon === undefined){style.hexagon = {};}
+        if(style.hexagon.visible === undefined){style.hexagon.visible = false;}
+        if(style.hexagon.color === undefined){style.hexagon.color = style.color;}
+        if(style.hexagon.radiusRate === undefined){style.hexagon.radiusRate = 0.48;}
+        if(style.hexagon.lineWidthRate === undefined){style.hexagon.lineWidthRate = 0.02;}
+        if(style.hexagon.radius === undefined){style.hexagon.radius = glyphSize * style.hexagon.radiusRate;}
+        if(style.hexagon.lineWidth === undefined){style.hexagon.lineWidth = Math.ceil(glyphSize * style.hexagon.lineWidthRate);}
+        if(style.hexagon.fill === undefined){style.hexagon.fill = "none";}
+
+        if(style.grid === undefined){style.grid = {};}
+        if(style.grid.visible === undefined){style.grid.visible = false;}
+        if(style.grid.color === undefined){style.grid.color = style.color;}
+        if(style.grid.nodeRadiusRate === undefined){style.grid.nodeRadiusRate = 0.02;}
+        if(style.grid.nodeRadius === undefined){style.grid.nodeRadius = Math.ceil(glyphSize * style.grid.nodeRadiusRate);}
+        if(style.grid.lineWidthRate === undefined){style.grid.lineWidthRate = 0.02;}
+        if(style.grid.lineWidth === undefined){style.grid.lineWidth = Math.ceil(glyphSize * style.grid.lineWidthRate);}
+        if(style.grid.fill === undefined){style.grid.fill = "none";}
+
+        if(style.glyph === undefined){style.glyph = {};}
+        if(style.glyph.visible === undefined){style.glyph.visible = true;}
+        if(style.glyph.color === undefined){style.glyph.color = style.color;}
+        if(style.glyph.radiusRate === undefined){style.glyph.radiusRate = style.hexagon.visible ? 0.38 : 0.48;} //NOTE:
+        if(style.glyph.lineWidthRate === undefined){style.glyph.lineWidthRate = 0.02;}
+        if(style.glyph.radius === undefined){style.glyph.radius = glyphSize * style.glyph.radiusRate;}
+        if(style.glyph.lineWidth === undefined){style.glyph.lineWidth = Math.ceil(glyphSize * style.glyph.lineWidthRate);}
+
+        // for backward compatibility
+        if(style.glyphLineWidth!==undefined){style.glyph.lineWidth = style.glyphLineWidth;}
+        return style;
+    }
+
+    // HTML5 Canvas
 
     function drawGrid(ctx, glyphCenterX, glyphCenterY, glyphRadius, nodeRadius, funDraw)
     {
@@ -630,40 +733,6 @@
         }
         return elem;
     }
-    function completeGlyphStyle(glyphSize, style){
-        if(style===undefined){style = {};}
-        if(style.color===undefined){style.color = "black";}
-
-        if(style.hexagon === undefined){style.hexagon = {};}
-        if(style.hexagon.visible === undefined){style.hexagon.visible = false;}
-        if(style.hexagon.color === undefined){style.hexagon.color = style.color;}
-        if(style.hexagon.radiusRate === undefined){style.hexagon.radiusRate = 0.48;}
-        if(style.hexagon.lineWidthRate === undefined){style.hexagon.lineWidthRate = 0.02;}
-        if(style.hexagon.radius === undefined){style.hexagon.radius = glyphSize * style.hexagon.radiusRate;}
-        if(style.hexagon.lineWidth === undefined){style.hexagon.lineWidth = Math.ceil(glyphSize * style.hexagon.lineWidthRate);}
-        if(style.hexagon.fill === undefined){style.hexagon.fill = "none";}
-
-        if(style.grid === undefined){style.grid = {};}
-        if(style.grid.visible === undefined){style.grid.visible = false;}
-        if(style.grid.color === undefined){style.grid.color = style.color;}
-        if(style.grid.nodeRadiusRate === undefined){style.grid.nodeRadiusRate = 0.02;}
-        if(style.grid.nodeRadius === undefined){style.grid.nodeRadius = Math.ceil(glyphSize * style.grid.nodeRadiusRate);}
-        if(style.grid.lineWidthRate === undefined){style.grid.lineWidthRate = 0.02;}
-        if(style.grid.lineWidth === undefined){style.grid.lineWidth = Math.ceil(glyphSize * style.grid.lineWidthRate);}
-        if(style.grid.fill === undefined){style.grid.fill = "none";}
-
-        if(style.glyph === undefined){style.glyph = {};}
-        if(style.glyph.visible === undefined){style.glyph.visible = true;}
-        if(style.glyph.color === undefined){style.glyph.color = style.color;}
-        if(style.glyph.radiusRate === undefined){style.glyph.radiusRate = style.hexagon.visible ? 0.38 : 0.48;} //NOTE:
-        if(style.glyph.lineWidthRate === undefined){style.glyph.lineWidthRate = 0.02;}
-        if(style.glyph.radius === undefined){style.glyph.radius = glyphSize * style.glyph.radiusRate;}
-        if(style.glyph.lineWidth === undefined){style.glyph.lineWidth = Math.ceil(glyphSize * style.glyph.lineWidthRate);}
-
-        // for backward compatibility
-        if(style.glyphLineWidth!==undefined){style.glyph.lineWidth = style.glyphLineWidth;}
-        return style;
-    }
     function createGlyphSVG(glyph, glyphSize, style)
     {
         style = completeGlyphStyle(glyphSize, style);
@@ -708,6 +777,10 @@
 
         return svg;
     }
+
+
+
+    // -----------------------------------------------------------------------
 
     //
     // Input Pad
@@ -965,66 +1038,6 @@
         return canvas;
     }
 
-    //
-    // Glyph Dictionary Entry
-    //
-    function DictionaryEntry(keyGlyph, value)
-    {
-        this.keyGlyph = keyGlyph;
-        this.value = value;
-    }
-    DictionaryEntry.compare = function(entryA, entryB){
-        return Glyph.compare(entryA.keyGlyph, entryB.keyGlyph);
-    };
-    DictionaryEntry.less = function(entryA, entryB){
-        return DictionaryEntry.compare(entryA, entryB) < 0;
-    };
-    DictionaryEntry.equals = function(entryA, entryB){
-        return DictionaryEntry.compare(entryA, entryB) == 0;
-    };
-
-    //
-    // Glyph Dictionary
-    //
-    function Dictionary()
-    {
-        this.entries = new Set(DictionaryEntry.less);
-    }
-    Dictionary.prototype = {
-        add: function(glyph, value){
-            return this.entries.add(new DictionaryEntry(glyph, value));
-        },
-        lowerBound: function(glyph){
-            return this.entries.lowerBound(new DictionaryEntry(glyph, null)); ///@todo Avoid object creation.
-        },
-        get: function(glyph){
-            var i = this.lowerBound(glyph);
-            if(i < this.entries.size() && Glyph.equals(this.entries.at(i).keyGlyph, glyph)){
-                return this.entries.at(i).value;
-            }
-            else{
-                return null;
-            }
-        },
-        getEntryCount: function(){
-            return this.entries.size();
-        },
-        getEntryAt: function(i){
-            return this.entries.at(i);
-        },
-        createIndex: function(){
-            var index = {};
-            for(var ei = 0; ei < this.getEntryCount(); ++ei){
-                var entry = this.getEntryAt(ei);
-                for(var wi = 0; wi < entry.value.length; ++wi){
-                    var word = entry.value[wi].toLowerCase();
-                    if(!index[word]){index[word] = [];}
-                    index[word].push(entry.keyGlyph);
-                }
-            }
-            return index;
-        }
-    };
 
 
     if(!window.gm9){ window.gm9 = {};}
