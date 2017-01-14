@@ -35,11 +35,17 @@
 
           var listDiv = document.createElement("div");
 
-          // Parse Query String (ex: c=01&w=create&c=0201 )
-          function getQueryParams()
+          //
+          // Parse Query String
+          // ex:
+          //   c=01&w=create&c=0201&s=yyyy(163a596a9a)
+          //   s=clear,your,mind,creativity(1216274548597a9a),grow
+          //
+          function getGlyphsFromQueryParams()
           {
               var MAX_GLYPH_COUNT = 64;
               var result = [];
+              function addWordGlyph(w, g){if(w!=null && g!=null){ result.push({word:w, glyph:g});}}
               var q = document.location.search.substr(1);
               if(q.length > 0){
                   var ps = q.split("&");
@@ -50,11 +56,9 @@
                       var glyph = null;
                       var word = null;
                       switch(key){
-                      case "c": glyph = gm9igt.Glyph.fromString(value); word = gm9igt.glyphDic.getWordsFromGlyph(glyph)[0]; break;
-                      case "w": glyph = gm9igt.glyphDic.getGlyphsFromWord(value)[0]; word = value; break;
-                      }
-                      if(glyph && word){
-                          result.push({word:word, glyph:glyph});
+                      case "c": glyph = gm9igt.Glyph.fromString(value); word = (gm9igt.glyphDic.getWordsFromGlyph(glyph) || [""])[0]; addWordGlyph(word, glyph); break;
+                      case "w": addWordGlyph(value, gm9igt.glyphDic.getGlyphsFromWord(value)[0]); break;
+                      case "s": value.split(",").map(gm9igt.glyphDic.getWordGlyphFromString).forEach(function(wg){if(wg){addWordGlyph(wg.word, wg.glyph);}}); break;
                       }
                   }
               }
@@ -75,7 +79,7 @@
               return result;
           }
 
-          var arrWordGlyph = getQueryParams() || getDefaultGlyphList();
+          var arrWordGlyph = getGlyphsFromQueryParams() || getDefaultGlyphList();
 
           for(var i = 0; i < arrWordGlyph.length; ++i){
               var entry = arrWordGlyph[i];
