@@ -274,13 +274,14 @@
                   randomHackButtonBar.className = "ui-bar";
                   randomHackButtonBar.style.marginBottom = "1em";
                   ui.putButton(randomHackButtonBar, "Hack Random", function(){
-                      hackRandom(level);
+                      //hackRandom(level);
+                      hackRandom(level, table.getDataRows().filter(function(r){return r.getTr().style.display != "none";}).map(function(r){return r.getColumnValue(0).seq;}));
                   });
                   ui.putButton(randomHackButtonBar, "Hack Random(top 5)", function(){
-                      hackRandom(level, table.getDataRows().map(function(r){return r.getColumnValue(0).seq;}).slice(0, 5));
+                      hackRandom(level, table.getDataRows().filter(function(r){return r.getTr().style.display != "none";}).map(function(r){return r.getColumnValue(0).seq;}).slice(0, 5));
                   });
                   ui.putButton(randomHackButtonBar, "Hack Random(top 10)", function(){
-                      hackRandom(level, table.getDataRows().map(function(r){return r.getColumnValue(0).seq;}).slice(0, 10));
+                      hackRandom(level, table.getDataRows().filter(function(r){return r.getTr().style.display != "none";}).map(function(r){return r.getColumnValue(0).seq;}).slice(0, 10));
                   });
                   div.appendChild(randomHackButtonBar);
               }
