@@ -81,6 +81,17 @@
 
           var arrWordGlyph = getGlyphsFromQueryParams() || getDefaultGlyphList();
 
+          var GLYPH_SIZE = 64;
+          var GLYPH_STYLE = {
+              color: "white",
+              grid:{
+                  visible:true,
+                  stroke:"none",
+                  fill:"white",
+                  nodeRadius:0.2
+              },
+              hexagon:{visible:true}};
+
           for(var i = 0; i < arrWordGlyph.length; ++i){
               var entry = arrWordGlyph[i];
               var entryDiv = document.createElement("div");
@@ -92,7 +103,7 @@
 
               var glyphLink = document.createElement("a");
               glyphLink.setAttribute("href", glyphUrl);
-              glyphLink.appendChild(gm9igt.createGlyphImage(entry.glyph, 64, {color: "white", grid:{visible:true,stroke:"none",fill:"white",nodeRadiusRate:0.01},hexagon:{visible:true}}));
+              glyphLink.appendChild(gm9igt.createGlyphImage(entry.glyph, GLYPH_SIZE, GLYPH_STYLE));
               entryDiv.appendChild(glyphLink);
 
               var wordLink = document.createElement("a");
