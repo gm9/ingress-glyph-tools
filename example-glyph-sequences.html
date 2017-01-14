@@ -154,7 +154,6 @@
           var speedSelector = createSpeedSelector();
           document.getElementById("speed-selector").appendChild(speedSelector.element);
 
-
           // Range Selector
           var rangeSelector = new ui.RecordRangeSelector(STORAGE_KEY_RANGE_SELECT, updateAllTables);
           document.getElementById("record-range").appendChild(rangeSelector.element);
@@ -189,6 +188,7 @@
               var rhsStr = rhs.lv + ":" + rhs.seq.map(function(wg){return wg.word.toUpperCase();}).join("/");
               return lhsStr < rhsStr ? -1 : lhsStr > rhsStr ? 1 : 0;
           }
+          var COLUMN_INDEX_DISCOVERED = 1;
           var columns = [
               {text:"Sequence", visible:true, formatter:formatLvSequence, comparator: compareLvSequence},
               {text:"Discovered", visible:true, formatter:ui.DataTable.formatter.number},
@@ -285,6 +285,11 @@
                   div.appendChild(randomHackButtonBar);
               }
 
+              // Filter
+              var filterDiv = document.createElement("p");
+              filterDiv.appendChild(document.createTextNode("Discovered on "));
+              div.appendChild(filterDiv);
+
               // Level Sequences Table
 
               var table = new ui.DataTable(columns);
@@ -298,6 +303,11 @@
 
               tables.push(table);
 
+              // Filter(post process)
+              var filter = new ui.DataTableRowFilter(table, COLUMN_INDEX_DISCOVERED);
+              filterDiv.appendChild(filter.element);
+
+              // link to top
               var linkToTop = document.createElement("p");
               linkToTop.innerHTML = '<a href="#list-page">Top</a>';
               div.appendChild(linkToTop);

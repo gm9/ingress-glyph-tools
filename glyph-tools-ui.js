@@ -16,6 +16,7 @@
         DataTable: DataTable,
         DataTableRow: DataTableRow,
         DataTableColumnSelector: DataTableColumnSelector,
+        DataTableRowFilter: DataTableRowFilter,
         RecordRangeSelector: RecordRangeSelector
     };
 
@@ -282,6 +283,25 @@
                 element.appendChild(label);
             })();
         }
+    }
+
+    function DataTableRowFilter(table, columnIndex){
+        var sel = document.createElement("select");
+        var values = [undefined].concat(table.getDataRows().map(function(row){return row.getColumnValue(columnIndex);}).filter(function(v,i,a){return a.indexOf(v) === i;}).sort());
+        values.forEach(function(value){
+            var opt = document.createElement("option");
+            opt.value = value;
+            opt.appendChild(document.createTextNode(value));
+            sel.appendChild(opt);
+        });
+        sel.addEventListener("change", onChange, false);
+        function onChange()
+        {
+            var selectedValue = values[sel.selectedIndex];
+            table.getDataRows().forEach(function(row){row.getTr().style.display = (selectedValue === undefined || row.getColumnValue(1) == selectedValue) ? "" : "none";});
+        }
+
+        this.element = sel;
     }
 
     // -------------------------------------------------
