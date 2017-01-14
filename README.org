@@ -69,7 +69,7 @@ Enumerate all glyphs:
 
 #+BEGIN_SRC js
 var gm9igt = gm9.IngressGlyphTools;
-var glyphs = gm9igt.getAllGlyphs();
+var glyphs = gm9igt.glyphDic.getAllGlyphs();
 #+END_SRC
 
 ** Create a Glyph Image
