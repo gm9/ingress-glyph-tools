@@ -790,7 +790,7 @@
     {
         if(!options){options = {};}
         if(!options.style){options.style = {};}
-        if(!options.style.color){options.style.color = "black";}
+        if(!options.style.color){options.style.color = "white";}
 
         // Glyph
 
@@ -852,6 +852,7 @@
         canvas.setAttribute("width", inputPadSize);
         canvas.setAttribute("height", inputPadSize);
         canvas.style.border = options.style.border || "1px solid "+options.style.color;
+        canvas.style.background = options.style.background || "black";
 
         var ctx = canvas.getContext("2d");
 
