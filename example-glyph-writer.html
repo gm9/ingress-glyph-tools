@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="black.css" />
+    <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
+    <title>Glyph Writer - Ingress Glyph Tools</title>
+
+    <!-- for webapp support -->
+    <link rel="apple-touch-icon" sizes="180x180" href="webapp-resources/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="webapp-resources/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="webapp-resources/favicon-16x16.png" sizes="16x16" />
+    <link rel="manifest" href="webapp-manifest.json" />
+    <link rel="mask-icon" href="webapp-resources/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="shortcut icon" href="webapp-resources/favicon.ico" />
+    <meta name="apple-mobile-web-app-title" content="Ingress Glyph Tools" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="application-name" content="Ingress Glyph Tools" />
+    <meta name="msapplication-config" content="webapp-browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <script type="text/javascript" src="webapp-resources/common.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <p>
+      Input Words(ex: human have creativity!!(idea) foo(010a7a3a) ):
+      <input id="input-text" type="text" autofocus style="width: 100%;"/>
+    </p>
+    <p id="output-sequence"></p>
+    <p>
+      <input id="button-update" class="igt-button" type="button" value="Update" />
+      <input id="button-share" class="igt-button" type="button" value="Share" />
+      <input id="button-hack" class="igt-button" type="button" value="Hack" />
+    </p>
+    <p>
+      <a href="index.html">Ingress Glyph Tools</a>
+    </p>
+
+    <script>
+      //<![CDATA[
+      (function(){
+          var gm9igt = gm9.IngressGlyphTools;
+
+          var input = document.getElementById("input-text");
+          input.addEventListener("input", updateOutput, false);
+          updateOutput();
+          function updateOutput()
+          {
+              var words = input.value.split(" ");
+              var wgs = words.map(function(w){ return gm9igt.glyphDic.getWordGlyphFromString(w);});
+
+              var output = document.getElementById("output-sequence");
+              while(output.firstChild){output.removeChild(output.firstChild);}
+
+              var GLYPH_SIZE = 64;
+              var GLYPH_STYLE = {
+                  color: "white",
+                  grid:{
+                      visible:true,
+                      stroke:"none",
+                      fill:"white",
+                      nodeRadius:0.2
+                  },
+                  hexagon:{visible:true}};
+
+              wgs.forEach(function(wg){
+                  var glyphElem = wg ? gm9igt.createGlyphSVG(wg.glyph, GLYPH_SIZE, GLYPH_STYLE) : document.createTextNode("--");
+                  output.appendChild(glyphElem);
+              });
+          }
+
+          function getSequenceQueryParam()
+          {
+              return "s=" + encodeURI(input.value.split(" ").join(","));
+          }
+          function openGlyphList()
+          {
+              window.open("./example-glyph-list.html?" + getSequenceQueryParam());
+          }
+          function openGlyphGame()
+          {
+              //window.open("./example-glyph-game.html?" + getSequenceQueryParam());
+              window.location.href = "./example-glyph-game.html?" + getSequenceQueryParam();
+          }
+
+          document.getElementById("button-update").addEventListener("click", function(){updateOutput();}, false);
+          document.getElementById("button-share").addEventListener("click", function(){openGlyphList();}, false);
+          document.getElementById("button-hack").addEventListener("click", function(){openGlyphGame();}, false);
+      })();
+      //]]>
+    </script>
+  </body>
+</html>
