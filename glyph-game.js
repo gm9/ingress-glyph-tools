@@ -265,7 +265,8 @@
         var pad = igt.createInputPad({
             size: padSize,
             style: {
-                color: "white"
+                color: "white",
+                background: "transparent"
             }});
         gameElement.appendChild(pad);
 
