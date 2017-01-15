@@ -1020,6 +1020,7 @@
         canvas.addEventListener("mousemove", onMouseMove, false);
         canvas.addEventListener("mouseleave", onMouseUp, false);
         canvas.addEventListener("touchstart", function(ev){
+            ev.preventDefault();
             onMouseDown(ev.touches[0]);
         }, false);
         canvas.addEventListener("touchend", onMouseUp, false);
