@@ -54,7 +54,7 @@
           if(qs.s){
               // s=create,idea,open all
               var words = qs.s.split(",");
-              sequence = words.map(gm9igt.glyphDic.getWordGlyphFromString).filter(elem => elem != null);
+              sequence = words.map(gm9igt.glyphDic.getWordGlyphFromString).filter(function(elem){return elem != null;});
           }
 
           //
