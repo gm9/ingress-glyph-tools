@@ -486,6 +486,21 @@
             function presentResult(gameResult)
             {
                 var index = 0;
+                var timeoutID;
+
+                beginPreWait();
+                function beginPreWait()
+                {
+                    timeoutID = setTimeout(endPreWait, 1000);
+                    pad.addEventListener("mousedown", endPreWait, true);
+                }
+                function endPreWait()
+                {
+                    pad.removeEventListener("mousedown", endPreWait, true);
+                    clearTimeout(timeoutID);
+                    timeoutID = null;
+                    beginShowGlyph();
+                }
 
                 function beginShowGlyph()
                 {
@@ -498,9 +513,19 @@
                         var word = sequence[index].word.toUpperCase();
                         setGlyphIndicator(index, correct ? GLYPH_INDICATOR_CORRECT : GLYPH_INDICATOR_INCORRECT, glyph);
                         pad.setGlyph(glyph);
+                        pad.setLimitInputStroke(0);
                         setGlyphWord(word, correct);
-                        setTimeout(endShowGlyph, gameObj.presentResultGlyphTime);
+                        timeoutID = setTimeout(endShowGlyph, gameObj.presentResultGlyphTime);
+                        pad.addEventListener("mousedown", endShowGlyph, true);
                     }
+                }
+                function endShowGlyph()
+                {
+                    pad.removeEventListener("mousedown", endShowGlyph, true);
+                    clearTimeout(timeoutID);
+                    timeoutID = null;
+                    ++index;
+                    beginShowGlyph();
                 }
                 function createScoreDiv()
                 {
@@ -569,12 +594,6 @@
                 {
                     gameElement.appendChild(createScoreDiv());
                 }
-                function endShowGlyph()
-                {
-                    ++index;
-                    beginShowGlyph();
-                }
-                setTimeout(beginShowGlyph, 1000);
             }
             function endPresentResult()
             {
