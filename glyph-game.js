@@ -486,19 +486,31 @@
             function presentResult(gameResult)
             {
                 var index = 0;
-                var timeoutID;
+
+                function waitTime(duration, callback)
+                {
+                    var timeoutID = setTimeout(end, duration);
+                    pad.addEventListener("mousedown", end, true);
+                    pad.addEventListener("touchstart", end, true);
+                    function end()
+                    {
+                        if(timeoutID !== null){
+                            clearTimeout(timeoutID);
+                            timeoutID = null;
+                            pad.removeEventListener("mousedown", end, true);
+                            pad.removeEventListener("touchstart", end, true);
+                            callback();
+                        }
+                    }
+                }
 
                 beginPreWait();
                 function beginPreWait()
                 {
-                    timeoutID = setTimeout(endPreWait, 1000);
-                    pad.addEventListener("mousedown", endPreWait, true);
+                    waitTime(1000, endPreWait);
                 }
                 function endPreWait()
                 {
-                    pad.removeEventListener("mousedown", endPreWait, true);
-                    clearTimeout(timeoutID);
-                    timeoutID = null;
                     beginShowGlyph();
                 }
 
@@ -515,15 +527,11 @@
                         pad.setGlyph(glyph);
                         pad.setLimitInputStroke(0);
                         setGlyphWord(word, correct);
-                        timeoutID = setTimeout(endShowGlyph, gameObj.presentResultGlyphTime);
-                        pad.addEventListener("mousedown", endShowGlyph, true);
+                        waitTime(gameObj.presentResultGlyphTime, endShowGlyph);
                     }
                 }
                 function endShowGlyph()
                 {
-                    pad.removeEventListener("mousedown", endShowGlyph, true);
-                    clearTimeout(timeoutID);
-                    timeoutID = null;
                     ++index;
                     beginShowGlyph();
                 }
