@@ -14,6 +14,7 @@
     // - 20151120
     // - 20161029
     // - 20170106
+    // - 20170513
 
 
     // レベル毎のグリフシーケンス
@@ -389,7 +390,9 @@
         [8], 0, ["portal", "create", "danger", "pursue", "SAFETY"],
         [8], 0, ["PORTAL", "IMPROVE", "HUMAN", "FUTURE", "CIVILIZATION"],
         [8], 0, ["PORTAL", "POTENTIAL", "HELP", "HUMAN", "FUTURE"],
+        [8], 20170513, ["PRESENCE", "LIE", "EQUAL", "FUTURE", "CONSEQUENCE"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/u/1/116260179700704401059/posts/aDTm9pYj9ca
         [8], 0, ["PRESENT", "CHAOS", "CREATE", "FUTURE", "CIVILIZATION"],
+        [8], 20170513, ["PRESENT", "STRUGGLE", "WORTH", "STRONG", "VICTORY"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/u/1/116260179700704401059/posts/aDTm9pYj9ca
         [8], 0, ["PURE", "HUMAN", "FAILURE", "NOW", "CHAOS"],
         [8], 0, ["PURSUE", "CONFLICT", "WAR", "ADVANCE", "CHAOS"],
         [8], 0, ["PURSUE", "PATH", "OUTSIDE", "SHAPERS", "LIE"],
@@ -422,6 +425,7 @@
         [8], 0, ["XM", "CREATE", "COMPLEX", "HUMAN", "DESTINY"],
         //[8], 0, ["XM", "create", "complex", "shapers", "DESTINY"],
         [8], 0, ["XM", "PATH", "FUTURE", "DESTINY", "HARMONY"],
+        [8], 20170513, ["XM", "PORTAL", "SHARE", "YOUR", "CREATIVITY"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH
         [8], 20170106, ["YOU", "HIDE", "CHAOS", "INSIDE", "BODY"] //https://fevgames.net/happy-new-glyph-year/
     ];
 
