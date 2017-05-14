@@ -341,6 +341,7 @@
         [8], 20161029, ["ABANDON", "FEAR", "SEE", "FUTURE", "DESTINATION"], //https://fevgames.net/new-ingress-glyphs/
         [8], 20170106, ["ADAPT", "THOUGHT", "DISCOVER", "SIMPLE", "SUCCESS"], //https://fevgames.net/happy-new-glyph-year/
         [8], 0, ["ADVANCE", "CIVILIZATION", "PURSUE", "SHAPERS", "PATH"],
+        [8], 20170513, ["AFTER", "IMPERFECT", "HUMAN", "PRESENCE", "CONSEQUENCE"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/101378392110622406150/posts/fmQLduJWVmi https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 20161029, ["ANSWER", "N'ZEER", "QUESTION", "POTENTIAL", "KNOWLEDGE"], //https://fevgames.net/new-ingress-glyphs/
         [8], 0, ["ANSWER", "QUESTION", "DISCOVER", "DIFFICULT", "TRUTH"],
         [8], 0, ["AVOID", "CHAOS", "AVOID", "SHAPERS", "LIE"],
@@ -388,8 +389,10 @@
         [8], 0, ["HELP", "HUMAN", "CIVILIZATION", "PURSUE", "DESTINY"],
         [8], 20170106, ["HELP", "US", "PROGRESS", "STRONG", "VICTORY"], //https://fevgames.net/happy-new-glyph-year/
         [8], 20161029, ["HELP", "US", "SAVE", "US", "ALL"], //https://fevgames.net/new-ingress-glyphs/
+        [8], 20170513, ["HELP", "US", "SAVE", "US", "DESTROY"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["help", "resistance", "capture", "all", "PORTAL"],
         [8], 0, ["HIDE", "STRUGGLE", "ADVANCE", "STRONG", "TOGETHER"],
+        [8], 20170513, ["HIDE", "THEM", "inside", "COMPLEX", "INTELLIGENCE"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 20161029, ["HUMAN", "LEGACY", "ABANDON", "OLD", "KNOWLEDGE"], //https://fevgames.net/new-ingress-glyphs/
         [8], 20161029, ["HUMAN", "LEGACY", "HAVE", "ABANDON", "now"], //https://fevgames.net/new-ingress-glyphs/
         [8], 0, ["human", "not", "together", "civilization", "deteriorate"],
@@ -402,10 +405,13 @@
         [8], 20170106, ["interrupt", "message", "lose", "collective", "potential"], //https://fevgames.net/happy-new-glyph-year/
         [8], 0, ["liberate", "portal", "liberate", "human", "MIND"],
         [8], 0, ["liberate", "self", "liberate", "human", "CIVILIZATION"],
+        [8], 20170513, ["live again", "die", "repeat", "progress", "FUTURE"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["LOSE", "SHAPERS", "MESSAGE", "GAIN", "CHAOS"],
         [8], 0, ["MIND", "BODY", "SOUL", "PURE", "HUMAN"],
+        [8], 20170513, ["MIND", "TECHNOLOGY", "CAPTURE", "HUMAN", "SOUL"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca (comment) https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["more", "data", "gain", "portal", "ADVANCE"],
         [8], 20170106, ["MYSTERY", "BEFORE", "PURE", "KNOWLEDGE", "AFTER"], //https://fevgames.net/happy-new-glyph-year/
+        [8], 20170513, ["N'ZEER", "HIDE", "us", "EQUAL", "THEM"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["old", "nature", "less", "strong", "present"],
         [8], 0, ["past", "chaos", "create", "future", "HARMONY"],
         [8], 0, ["PAST", "PATH", "CREATE", "FUTURE", "JOURNEY"],
@@ -413,13 +419,14 @@
         [8], 0, ["portal", "create", "danger", "pursue", "SAFETY"],
         [8], 0, ["PORTAL", "IMPROVE", "HUMAN", "FUTURE", "CIVILIZATION"],
         [8], 0, ["PORTAL", "POTENTIAL", "HELP", "HUMAN", "FUTURE"],
-        [8], 20170513, ["PRESENCE", "LIE", "EQUAL", "FUTURE", "CONSEQUENCE"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/u/1/116260179700704401059/posts/aDTm9pYj9ca
+        [8], 20170513, ["PRESENCE", "LIE", "EQUAL", "FUTURE", "CONSEQUENCE"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/u/1/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["PRESENT", "CHAOS", "CREATE", "FUTURE", "CIVILIZATION"],
-        [8], 20170513, ["PRESENT", "STRUGGLE", "WORTH", "STRONG", "VICTORY"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/u/1/116260179700704401059/posts/aDTm9pYj9ca
+        [8], 20170513, ["PRESENT", "STRUGGLE", "WORTH", "STRONG", "VICTORY"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/u/1/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["PURE", "HUMAN", "FAILURE", "NOW", "CHAOS"],
         [8], 0, ["PURSUE", "CONFLICT", "WAR", "ADVANCE", "CHAOS"],
         [8], 0, ["PURSUE", "PATH", "OUTSIDE", "SHAPERS", "LIE"],
         [8], 0, ["QUESTION", "LESS", "FORGET", "ALL", "LIE"],
+        [8], 20170513, ["QUESTION", "POTENTIAL", "MYSTERY", "JOURNEY", "GROW"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["REACT", "REBEL", "QUESTION", "SHAPERS", "LIE"],
         [8], 0, ["REBEL", "THOUGHT", "EVOLUTION", "DESTINY", "NOW"],
         [8], 0, ["REPAIR", "PRESENT", "REPAIR", "HUMAN", "SOUL"],
@@ -441,15 +448,18 @@
         [8], 0, ["STRONG", "TOGETHER", "WAR", "TOGETHER", "CHAOS"],
         [8], 0, ["STRONG", "TOGETHER", "WAR", "TOGETHER", "DESTINY"],
         [8], 20151120, ["TECHNOLOGY", "INTELLIGENCE", "SEE", "ALL", "UNBOUNDED"],
+        [8], 20170513, ["TOGETHER", "evolution", "repair", "present", "JOURNEY"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["use", "mind", "use", "courage", "CHANGE"],
         [8], 0, ["USE", "RESTRAINT", "FOLLOW", "EASY", "PATH"],
+        [8], 20170513, ["WANT", "NEW", "DESTINATION", "IGNORE", "CONSEQUENCE"], // https://plus.google.com/108086824097369974579/posts/HWhW2461S2x (comment) https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["WANT", "TRUTH", "PURSUE", "DIFFICULT", "PATH"],
         [8], 0, ["weak", "human", "destiny", "destroy", "CIVILIZATION"],
         [8], 0, ["XM", "CREATE", "COMPLEX", "HUMAN", "DESTINY"],
         //[8], 0, ["XM", "create", "complex", "shapers", "DESTINY"],
         [8], 0, ["XM", "PATH", "FUTURE", "DESTINY", "HARMONY"],
-        [8], 20170513, ["XM", "PORTAL", "SHARE", "YOUR", "CREATIVITY"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH
-        [8], 20170106, ["YOU", "HIDE", "CHAOS", "INSIDE", "BODY"] //https://fevgames.net/happy-new-glyph-year/
+        [8], 20170513, ["XM", "PORTAL", "SHARE", "YOUR", "CREATIVITY"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo
+        [8], 20170106, ["YOU", "HIDE", "CHAOS", "INSIDE", "BODY"], //https://fevgames.net/happy-new-glyph-year/
+        [8], 20170513, ["your", "MESSAGE", "CLEAR", "USE", "CHAOS"] //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
     ];
 
     var INFOS = [];
