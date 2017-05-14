@@ -45,6 +45,7 @@
         [0], 0, ["clearall"],
         [0], 0, ["complex"],
         [0], 0, ["conflict"],
+        [0], 20170513, ["CONSEQUENCE"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1
         [0], 0, ["contemplate"],
         [0], 0, ["courage"],
         [0], 0, ["create"],
@@ -91,6 +92,7 @@
         [0], 0, ["less"],
         [0], 0, ["liberate"],
         [0], 0, ["lie"],
+        [0], 20170513, ["LIVE AGAIN"],
         [0], 0, ["lose"],
         [0], 0, ["message"],
         [0], 0, ["mind"],
@@ -109,6 +111,7 @@
         [0], 20161029, ["perspective"],
         [0], 0, ["portal"],
         [0], 0, ["potential"],
+        [0], 20170513, ["PRESENCE"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [0], 0, ["present"],
         [0], 0, ["pure"],
         [0], 0, ["pursue"],
@@ -130,6 +133,7 @@
         [0], 0, ["soul"],
         [0], 0, ["stability"],
         [0], 0, ["strong"],
+        [0], 20170513, ["THEM"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [0], 0, ["together"],
         [0], 0, ["truth"],
         [0], 20161029, ["us"],
@@ -137,6 +141,7 @@
         [0], 20170106, ["victory"],
         [0], 0, ["want"],
         [0], 0, ["weak"],
+        [0], 20170513, ["WORTH"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [0], 0, ["xm"],
         [0], 20170106, ["you"],
         //L2
@@ -151,11 +156,14 @@
         [2], 0, ["capture", "portal"],
         [2], 20161029, ["CHANGE", "PERSPECTIVE"], //https://fevgames.net/new-ingress-glyphs/
         [2], 0, ["civilization", "chaos"],
+        [2], 20170513, ["CLEAR","CONSEQUENCE"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1
         [2], 0, ["create", "danger"],
+        [2], 20170513, ["destroy","live again"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [2], 0, ["discover", "lie"],
         [2], 0, ["discover", "portal"],
         [2], 0, ["discover", "safety"],
         [2], 20161029, ["FUTURE", "DESTINATION"], //https://fevgames.net/new-ingress-glyphs/
+        [2], 20170513, ["help","them"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [2], 20170106, ["Interrupt", "Evolution"], //https://fevgames.net/happy-new-glyph-year/
         [2], 0, ["lead", "enlightenment"],
         [2], 0, ["liberate", "xm"],
@@ -187,8 +195,11 @@
         [5], 20170106, ["CAPTURE", "VICTORY", "TOGETHER"], //https://fevgames.net/happy-new-glyph-year/
         [5], 20161029, ["CHANGE", "PERSPECTIVE", "TECHNOLOGY"], //https://fevgames.net/new-ingress-glyphs/
         [5], 20170106, ["CLEAR", "YOUR", "MIND"], //https://fevgames.net/happy-new-glyph-year/
+        [5], 20170513, ["conflict","grow","war"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["COURAGE", "DESTINY", "REBEL"],
+        [5], 20170513, ["create","truth","legacy"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["DANGER", "CHANGE", "PAST"],
+        [5], 20170513, ["defend","human","lie"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["DESTROY", "DIFFICULT", "BARRIER"],
         [5], 0, ["DESTROY", "IMPURE", "TRUTH"],
         [5], 0, ["DISCOVER", "RESISTANCE", "TRUTH"],
@@ -197,8 +208,10 @@
         [5], 0, ["DISCOVER", "SHAPERS", "MESSAGE"],
         [5], 0, ["ESCAPE", "IMPURE", "EVOLUTION"],
         [5], 0, ["ESCAPE", "IMPURE", "FUTURE"],
+        [5], 20170513, ["fear","imperfect","technology"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["FOLLOW", "PURE", "JOURNEY"],
         [5], 20161029, ["GAIN", "MORE", "KNOWLEDGE"], //https://fevgames.net/new-ingress-glyphs/
+        [5], 20170513, ["grow","shapers","presence"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["HARM", "DANGER", "AVOID"],
         [5], 20161029, ["HELP", "US", "ALL"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["HUMAN", "GAIN", "SAFETY"],
@@ -212,11 +225,15 @@
         [5], 0, ["LIBERATE", "HUMAN", "FUTURE"],
         [5], 20161029, ["LIE", "EQUAL", "FUTURE"], //https://fevgames.net/new-ingress-glyphs/
         [5], 0, ["PEACE", "SIMPLE", "JOURNEY"],
+        [5], 20170513, ["peace","worth","more"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["PERFECTION", "PATH", "PEACE"],
         [5], 0, ["PURSUE", "PURE", "BODY"],
         [5], 0, ["QUESTION", "HIDE", "TRUTH"],
+        [5], 20170513, ["question","potential","mystery"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["REACT", "IMPURE", "CIVILIZATION"],
         [5], 0, ["RETREAT", "SEARCH", "SAFETY"],
+        [5], 20170513, ["share","enlightenment","knowledge"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
+        [5], 20170513, ["share","resistance","message"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 20170106, ["TECHNOLOGY", "CAPTURE", "VICTORY"], //https://fevgames.net/happy-new-glyph-year/
         [5], 20170106, ["TOGETHER", "END", "MYSTERY"], //https://fevgames.net/happy-new-glyph-year/
         [5], 0, ["WAR", "DESTROY", "FUTURE"],
@@ -247,12 +264,15 @@
         [7], 0, ["CREATE", "DISTANCE", "IMPURE", "PATH"],
         [7], 0, ["CREATE", "FUTURE", "NOT", "WAR"],
         [7], 20161029, ["CREATE", "NEW", "PORTAL", "POTENTIAL"], //https://fevgames.net/new-ingress-glyphs/
+        [7], 20170513, ["defend","human","n'zeer","lie"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 0, ["DEFEND", "MESSAGE", "ANSWER", "IDEA"],
         [7], 0, ["DESTROY", "DESTINY", "HUMAN", "LIE"],
         [7], 0, ["DETERIORATE", "HUMAN", "WEAK", "REBEL"],
+        [7], 20170513, ["difficult","knowledge","advance","mind"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 20170106, ["ENLIGHTENED", "CAPTURE", "VICTORY", "TOGETHER"], //https://fevgames.net/happy-new-glyph-year/
         [7], 20170106, ["ESCAPE", "BEFORE", "PURE", "DEATH"], //https://fevgames.net/happy-new-glyph-year/
         [7], 0, ["ESCAPE", "SIMPLE", "HUMAN", "FUTURE"],
+        [7], 20170513, ["fear","imperfect","n'zeer","technology"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 0, ["FOLLOW", "SHAPERS", "PORTAL", "MESSAGE"],
         [7], 0, ["FORGET", "CONFLICT", "ACCEPT", "WAR"],
         [7], 0, ["HARMONY", "PATH", "NOURISH", "PRESENT"],
@@ -276,6 +296,7 @@
         [7], 0, ["LESS", "SOUL", "MORE", "MIND"],
         [7], 0, ["LESS", "TRUTH", "MORE", "CHAOS"],
         [7], 0, ["LIBERATE", "XM", "PORTAL", "TOGETHER"],
+        [7], 20170513, ["live again","die","again","evolution"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 0, ["LOSE", "DANGER", "GAIN", "SAFETY"],
         [7], 0, ["NOURISH", "XM", "CREATE", "THOUGHT"],
         [7], 20161029, ["N'ZEER", "SHAPERS", "STRUGGLE", "KNOWLEDGE"], //https://fevgames.net/new-ingress-glyphs/
@@ -310,8 +331,10 @@
         [7], 0, ["TOGETHER", "DISCOVER", "HARMONY", "EQUAL"],
         [7], 0, ["TRUTH", "IDEA", "DISCOVER", "XM"],
         //[7], 20170106, ["UNITY", "TOGETHER", "END", "MYSTERY"], //https://fevgames.net/happy-new-glyph-year/ (unity?)
+        [7], 20170513, ["war","not","worth","consequence"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 0, ["XM", "DIE", "CHAOS", "LIVE"],
         [7], 20170106, ["XM", "NOURISH", "STRONG", "CREATIVITY(1216274548597a9a)"], //https://fevgames.net/happy-new-glyph-year/
+        [7], 20170513, ["xm","share","your","creativity"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         //L8
         [8], 20161029, ["ABANDON", "ALL", "TECHNOLOGY", "SAVE", "US"], //https://fevgames.net/new-ingress-glyphs/
         [8], 20161029, ["ABANDON", "FEAR", "DEFEND", "FUTURE", "TOGETHER"], //https://fevgames.net/new-ingress-glyphs/
