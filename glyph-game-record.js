@@ -57,7 +57,6 @@
         this.numCorrectGlyphs = 0; //正解した総グリフ数
         this.numFullyCorrectSequences = 0; //全問正解したシーケンスの総数
         this.timeFullyCorrectSequences = 0; //全問正解した場合のハック時間の合計
-        this.numSpeedBonus = 0; //スピードボーナス総数
         this.bestTime = WORST_TIME; //全問正解した場合のハック時間の最短値
     }
     SequenceRecord.prototype = {
@@ -70,8 +69,11 @@
         getAverageFullyCorrectHackTime: function(){
             return this.numFullyCorrectSequences > 0 ? this.timeFullyCorrectSequences / this.numFullyCorrectSequences : WORST_TIME;
         },
-        getSpeedBonusRate: function(){
-            return this.numSpeedBonus / this.numHacks;
+        getAverageFullyCorrectSpeedBonus: function(timeLimitPerSequence){
+            return typeof(timeLimitPerSequence) == "number" && timeLimitPerSequence > 0 && this.numFullyCorrectSequences > 0 ? this.timeFullyCorrectSequences / (timeLimitPerSequence * this.numFullyCorrectSequences) : 0;
+        },
+        getAverageSpeedBonus: function(timeLimitPerSequence){
+            return typeof(timeLimitPerSequence) == "number" && timeLimitPerSequence > 0 && this.numHacks > 0 ? this.timeFullyCorrectSequences / (timeLimitPerSequence * this.numHacks) : 0;
         },
         clone: function(){
             var rec = new SequenceRecord();
@@ -79,7 +81,6 @@
             rec.numCorrectGlyphs = this.numCorrectGlyphs;
             rec.numFullyCorrectSequences = this.numFullyCorrectSequences;
             rec.timeFullyCorrectSequences = this.timeFullyCorrectSequences;
-            rec.numSpeedBonus = this.numSpeedBonus;
             rec.bestTime = this.bestTime;
             return rec;
         },
@@ -89,7 +90,6 @@
                 this.numCorrectGlyphs += rec.numCorrectGlyphs;
                 this.numFullyCorrectSequences += rec.numFullyCorrectSequences;
                 this.timeFullyCorrectSequences += rec.timeFullyCorrectSequences;
-                this.numSpeedBonus += rec.numSpeedBonus;
                 this.bestTime = Math.min(this.bestTime, rec.bestTime);
             }
             return this;
@@ -99,7 +99,7 @@
                 this.numCorrectGlyphs + " " +
                 this.numFullyCorrectSequences + " " +
                 this.timeFullyCorrectSequences + " " +
-                this.numSpeedBonus + " " +
+                0 + " " +//(numSpeedBonus obsolete)
                 this.bestTime;
         }
     };
@@ -113,9 +113,6 @@
             rec.timeFullyCorrectSequences += time;
             rec.bestTime = time;
         }
-        if(fullyCorrect && time < igt.glyphGame.getLevelSpeedBonusTime(level)){ ///@todo Make a function check speed bonus(< or <= ?)
-            ++rec.numSpeedBonus;
-        }
         return rec;
     };
     SequenceRecord.fromString = function(str){
@@ -125,14 +122,13 @@
         rec.numCorrectGlyphs = parseInt(arr[1]);
         rec.numFullyCorrectSequences = parseInt(arr[2]);
         rec.timeFullyCorrectSequences = parseInt(arr[3]);
-        rec.numSpeedBonus = parseInt(arr[4]);
+        // skip arr[4]; (numSpeedBonus obsolete)
         rec.bestTime = parseInt(arr[5]) || WORST_TIME;
 
         if(rec.numHacks >= 0 &&
            rec.numCorrectGlyphs >= 0 &&
            rec.numFullyCorrectSequences >= 0 && rec.numFullyCorrectSequences <= rec.numHacks &&
            rec.timeFullyCorrectSequences >= 0 &&
-           rec.numSpeedBonus >= 0 && rec.numSpeedBonus <= rec.numHacks &&
            rec.bestTime >= 0 && rec.bestTime <= WORST_TIME){
             return rec;
         }

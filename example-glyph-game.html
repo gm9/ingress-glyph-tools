@@ -70,11 +70,9 @@
               gm9igt.getLastScriptNode().parentNode.appendChild(gameObj.element);
               gm9igt.controlViewportMetaElement(gameObj.element);
               var TIME_LIMIT = [20000, 20000, 18000, 16000, 15000];
-              var BONUS_TIME = [10000, 10000, 9000, 8000, 7500];
               gameObj.hack(
                   sequence,
-                  TIME_LIMIT[Math.min(sequence.length - 1, TIME_LIMIT.length - 1)],
-                  BONUS_TIME[Math.min(sequence.length - 1, BONUS_TIME.length - 1)]);
+                  TIME_LIMIT[Math.min(sequence.length - 1, TIME_LIMIT.length - 1)]);
           }
           else{
               gm9igt.glyphGame.putSimpleGame(true);

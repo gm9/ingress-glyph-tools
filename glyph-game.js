@@ -15,7 +15,6 @@
 
     var LEVEL_GLYPH_COUNT = [1,1,2,3,3,3,4,4,5, 6];
     var LEVEL_TIME_LIMIT = [20000,20000,20000,20000,19000,18000,17000,16000,15000, 15000];
-    var LEVEL_SPEED_BONUS_TIME = [10000,10000,10000,10000,9500,9000,8500,8000,7500, 7500];
     var GLYPHS_TRANSLATOR_POINT = [0,1,2,4,8,15];
 
     function getLevelGlyphCount(lv){
@@ -23,9 +22,6 @@
     }
     function getLevelTimeLimit(lv){
         return LEVEL_TIME_LIMIT[lv];
-    }
-    function getLevelSpeedBonusTime(lv){
-        return LEVEL_SPEED_BONUS_TIME[lv];
     }
 
     //
@@ -297,11 +293,11 @@
         gameObj.hackLevelRandom = hackLevelRandom;
         function hackLevelRandom(lv)
         {
-            hack(chooseSequenceRandom(lv), LEVEL_TIME_LIMIT[lv], LEVEL_SPEED_BONUS_TIME[lv]);
+            hack(chooseSequenceRandom(lv), LEVEL_TIME_LIMIT[lv]);
         }
 
         gameObj.hack = hack;
-        function hack(sequence, timeLimit, speedBonusTime)
+        function hack(sequence, timeLimit)
         {
             var glyphCount = sequence.length;
             gameObj.sequence = sequence;
@@ -567,9 +563,9 @@
                     div.appendChild(sc(gameResult.correctCount));
                     div.appendChild(tx(" / " + glyphCount));
                     div.appendChild(document.createElement("br"));
-                    if(speedBonusTime){
-                        div.appendChild(tx("SPEED BONUS(" + msecToString(speedBonusTime) + "): "));
-                        div.appendChild(sc(gameResult.correctCount == glyphCount && gameResult.time < speedBonusTime ? 1 : 0));
+                    if(timeLimit > 0){
+                        div.appendChild(tx("SPEED BONUS: "));
+                        div.appendChild(sc((gameResult.correctCount == glyphCount ? Math.floor(100 * (timeLimit - gameResult.time) / timeLimit) : 0) + "%")); //@todo floor?
                         div.appendChild(document.createElement("br"));
                     }
                     div.appendChild(tx("TRANSLATOR POINT: "));
@@ -583,7 +579,7 @@
                         putButton(buttonBar, "RETRY", function(){
                             closeScoreDiv();
                             ///@todo call gameObj.onEndGame?
-                            hack(sequence, timeLimit, speedBonusTime);
+                            hack(sequence, timeLimit);
                         }).style.marginRight = "0.5em";
                     }
                     putButton(buttonBar, "DONE", function(){
@@ -644,7 +640,6 @@
         createGame: createGame,
         putSimpleGame: insertSimpleGameAfterLastScriptNode,
         getLevelGlyphCount: getLevelGlyphCount,
-        getLevelTimeLimit: getLevelTimeLimit,
-        getLevelSpeedBonusTime: getLevelSpeedBonusTime
+        getLevelTimeLimit: getLevelTimeLimit
     };
 })();

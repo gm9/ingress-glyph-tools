@@ -193,11 +193,11 @@
               {text:"Sequence", visible:true, formatter:formatLvSequence, comparator: compareLvSequence},
               {text:"Discovered", visible:true, formatter:ui.DataTable.formatter.number},
               {text:"Hacks", visible:false, formatter:ui.DataTable.formatter.number},
-              {text:"Ave. Glyphs", visible:false, formatter:ui.DataTable.formatter.averageCount1},
+              {text:"Ave.Glyphs", visible:false, formatter:ui.DataTable.formatter.averageCount1},
               {text:"Complete", visible:false, formatter:ui.DataTable.formatter.percentage1},
-              {text:"Ave. Time", visible:false, formatter:ui.DataTable.formatter.seconds1},
+              {text:"Ave.Time", visible:false, formatter:ui.DataTable.formatter.seconds1},
               {text:"Best Time", visible:false, formatter:ui.DataTable.formatter.seconds1},
-              {text:"Speed Bonus", visible:false, formatter:ui.DataTable.formatter.percentage1}];
+              {text:"Ave.SpeedBonus", visible:false, formatter:ui.DataTable.formatter.percentage1}];
           function makeSequenceTableRowSource(lv, seqInfo)
           {
               var seq = seqInfo.sequence;
@@ -211,7 +211,7 @@
                       (rec ? rec.getFullyCorrectRate() : 0),
                       (rec ? rec.getAverageFullyCorrectHackTime() : gm9igt.glyphGameRecord.WORST_TIME)/1000,
                       (rec ? rec.bestTime : gm9igt.glyphGameRecord.WORST_TIME)/1000,
-                      (rec ? rec.getSpeedBonusRate() : 0)];
+                      (rec ? rec.getAverageSpeedBonus(gm9igt.glyphGame.getLevelTimeLimit(lv)) : 0)];
               };
           }
 
@@ -429,8 +429,7 @@
               document.body.appendChild(gameObj.element);
               var viewportController = gm9igt.controlViewportMetaElement(gameObj.element);
               gameObj.hack(seq,
-                  gm9igt.glyphGame.getLevelTimeLimit(lv),
-                  gm9igt.glyphGame.getLevelSpeedBonusTime(lv));
+                  gm9igt.glyphGame.getLevelTimeLimit(lv));
 
               var deltaDays = 0;
               gameObj.onUpdateResult = function(){
