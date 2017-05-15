@@ -49,16 +49,15 @@
       <p>
         <a href="index.html">Ingress Glyph Tools</a>
       </p>
-      <p>
-        <a href="example-glyph-record.html">[Record of each glyph]</a>
-      </p>
 
       <p>
         Hacking Speed <span id="speed-selector"></span>
       </p>
 
-      <p>
-        Show hack record <span id="record-range"></span>
+      <p id="record-control" class="ui-bar">
+        Statistics: <span id="record-range"></span>
+        <span id="record-buttons"></span>
+        <a href="example-glyph-record.html">Glyphs</a>
       </p>
 
       <script>
@@ -118,7 +117,7 @@
           var ui = gm9igt.ui;
           var page = document.getElementById("list-page");
 
-          // Hacking Speed Selector
+          // --- Hacking Speed Selector ---
           function createSpeedSelector()
           {
               var loadedValue = localStorage.getItem(STORAGE_KEY_SPEED_SELECT);
@@ -154,7 +153,9 @@
           var speedSelector = createSpeedSelector();
           document.getElementById("speed-selector").appendChild(speedSelector.element);
 
-          // Range Selector
+
+          // --- Record ---
+          // Record Range Selector
           var rangeSelector = new ui.RecordRangeSelector(STORAGE_KEY_RANGE_SELECT, updateAllTables);
           document.getElementById("record-range").appendChild(rangeSelector.element);
 
@@ -175,6 +176,26 @@
               return glyphCodes ? gm9igt.glyphGameRecord.getSequenceRecord(level, glyphCodes) : null;
           }
 
+          // Record Export/Import Button
+          var recordButtons = document.getElementById("record-buttons");
+
+          ui.putButton(recordButtons, "Export", exportRecord);
+          ui.putButton(recordButtons, "Import", importRecord);
+          function exportRecord(){
+              ui.openTextDialog(gm9igt.glyphGameRecord.exportRecord());
+          }
+          function importRecord(){
+              ui.openTextDialog("", function(text){
+                  if(!gm9igt.glyphGameRecord.importRecord(text)){
+                      alert("Failed to import");
+                  }
+                  else{
+                      updateAllTables();
+                  }
+              });
+          }
+
+          // --- ---
           // Column Definition
           function formatLvSequence(lvseq){
               var seqDiv = document.createElement("div");
@@ -223,25 +244,6 @@
                   setAllTableColumnVisible(columnIndex, visible);});
           page.appendChild(columnSelector.element);
 
-          // Export/Import Button
-          var menuBar = document.createElement("p");
-          menuBar.className = "ui-bar";
-          ui.putButton(menuBar, "Export Record", exportRecord);
-          ui.putButton(menuBar, "Import Record", importRecord);
-          function exportRecord(){
-              ui.openTextDialog(gm9igt.glyphGameRecord.exportRecord());
-          }
-          function importRecord(){
-              ui.openTextDialog("", function(text){
-                  if(!gm9igt.glyphGameRecord.importRecord(text)){
-                      alert("Failed to import");
-                  }
-                  else{
-                      updateAllTables();
-                  }
-              });
-          }
-          page.appendChild(menuBar);
 
           // Level Selector
           var levelSelectorDiv = document.createElement("div");
