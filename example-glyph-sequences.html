@@ -21,12 +21,12 @@
         color: #f0c000;
       }
       th { padding: 0.5em 0;}
-      .glyph-box { font-size: 75%;}
+      .glyph-box { width: 50px; margin-right: 2px;}
+      .glyph-box-word { font-size: 12px; }
       .ui-bar { line-height: 2.5;}
       .ui-bar input[type=button] {
           margin-right: 0.5em;
       }
-
     </style>
 
     <!-- for webapp support -->
@@ -331,6 +331,7 @@
 
               currentLevelTab = createLevelTab(level);
               page.appendChild(currentLevelTab.element);
+              stretchGlyphTextDelayedExec();
               tables.push(currentLevelTab.table);
           }
           selectLevel(8);
@@ -402,13 +403,58 @@
                       glyphDiv.appendChild(createGlyphElement(glyph));
                   }
                   var wordDiv = document.createElement("div");
-                  wordDiv.style.padding = "0 0.5em";
-                  wordDiv.appendChild(document.createTextNode(word.toUpperCase()));
+                  wordDiv.className = "glyph-box-word";
+                  var wordSpan = document.createElement("span");
+                  wordSpan.className = "glyph-box-word-span";
+                  wordSpan.style.display = "inline-block";
+                  wordSpan.appendChild(document.createTextNode(word.toUpperCase()));
+                  wordDiv.appendChild(wordSpan);
                   glyphDiv.appendChild(wordDiv);
                   parent.appendChild(glyphDiv);
+
+                  stretchGlyphTextDelayed();
               }
           }
 
+          // Fit glyph name width to parent div
+          var stretchGlyphTextRequested = false;
+          var stretchGlyphTextRequestedId = null;
+          function stretchGlyphText(){
+              var spans = document.getElementsByClassName("glyph-box-word-span");
+              for(var i = 0; i < spans.length; ++i){
+                  var span = spans[i];
+                  span.style.transform = "";
+                  var parentWidth = span.parentNode.clientWidth;
+                  var childWidth = span.clientWidth;
+                  if(childWidth > 0 && parentWidth > 0 && childWidth > parentWidth){
+                      span.style.transformOrigin = "0 50%";
+                      span.style.transform = "scale(" + (parentWidth / childWidth) + ", 1.0)";
+                  }
+              }
+          }
+          function stretchGlyphTextDelayedExec(){
+              if(stretchGlyphTextRequested){
+                  stretchGlyphTextRequested = false;
+                  if(stretchGlyphTextRequestedId !== null){
+                      clearTimeout(stretchGlyphTextRequestedId);
+                      stretchGlyphTextRequestedId = null;
+                  }
+                  stretchGlyphText();
+              }
+          }
+          function stretchGlyphTextDelayed(time){
+              if(!stretchGlyphTextRequested){
+                  stretchGlyphTextRequested = true;
+                  stretchGlyphTextRequestedId = setTimeout(function(){
+                      stretchGlyphTextRequestedId = null;
+                      stretchGlyphTextDelayedExec();}, time || 0);
+              }
+          }
+          if(document.fonts && document.fonts.ready){
+              document.fonts.ready.then(function(){
+                  stretchGlyphTextDelayed(500);
+              });
+          }
 
 
           function hack(seq, lv){
