@@ -10,11 +10,18 @@ a {
     color: #7070ff;
 }
 input[type=button], .igt-button {
-    border: 2px solid #40ebcd;
+    border: 1px solid #40ebcd;
     border-radius: 0;
     padding: 0.4em 1em;
     background: #105050;
     color: white;
     font-family: 'Arial';
     -webkit-appearance: none;
+}
+
+table {
+    border-collapse: collapse;
+}
+table, td, th {
+    border: 1px #40c0c0 solid;
 }
