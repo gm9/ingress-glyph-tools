@@ -181,7 +181,8 @@
             onEndGame: null,
             userSelectedLevel: undefined,
             presentSequenceGlyphTime: 1000,
-            presentResultGlyphTime: 1000
+            presentResultGlyphTime: 1000,
+            speakResultGlyphName: false
         };
         var padSize = 300;
 
@@ -266,6 +267,36 @@
             }});
         gameElement.appendChild(pad);
 
+        //
+        // Speech
+        //
+        function createUtterance(text)
+        {
+            if(window.speechSynthesis && window.SpeechSynthesisUtterance){
+                var msg = new SpeechSynthesisUtterance();
+                var voices = window.speechSynthesis.getVoices();
+                msg.text = text;
+                msg.lang = 'en-US';
+                return msg;
+            }
+            else{
+                return null;
+            }
+        }
+        function speakText(text)
+        {
+            if(window.speechSynthesis && window.SpeechSynthesisUtterance && typeof(text) == "string"){
+                //speechSynthesis.cancel();
+                speechSynthesis.speak(createUtterance(text));
+            }
+        }
+        function speakUtterance(utterance)
+        {
+            if(window.speechSynthesis && window.SpeechSynthesisUtterance && utterance){
+                //speechSynthesis.cancel();
+                speechSynthesis.speak(utterance);
+            }
+        }
 
         //
         // Level Select
@@ -523,6 +554,9 @@
                         pad.setGlyph(glyph);
                         pad.setLimitInputStroke(0);
                         setGlyphWord(word, correct);
+                        if(gameObj.speakResultGlyphName){
+                            speakText(word.toLowerCase());
+                        }
                         waitTime(gameObj.presentResultGlyphTime, endShowGlyph);
                     }
                 }

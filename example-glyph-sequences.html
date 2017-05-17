@@ -51,7 +51,8 @@
       </p>
 
       <p>
-        Hacking Speed <span id="speed-selector"></span>
+        Hacking Speed <span id="speed-selector"></span><br />
+        <label><input id="speak-checkbox" type="checkbox" />Speak glyph name</label>
       </p>
 
       <p id="record-control" class="ui-bar">
@@ -111,6 +112,7 @@
           // -------------------------------------------------
           var STORAGE_KEY_PREFIX = "IngressGlyphTools.example-glyph-sequences";
           var STORAGE_KEY_SPEED_SELECT = STORAGE_KEY_PREFIX + ".speedSelect";
+          var STORAGE_KEY_SPEAK_ENABLED = STORAGE_KEY_PREFIX + ".speakEnabled";
           var STORAGE_KEY_RANGE_SELECT = STORAGE_KEY_PREFIX + ".rangeSelect";
           var STORAGE_KEY_COLUMN_SELECT = STORAGE_KEY_PREFIX + ".columnSelect";
 
@@ -154,6 +156,11 @@
           var speedSelector = createSpeedSelector();
           document.getElementById("speed-selector").appendChild(speedSelector.element);
 
+          // --- Speak checkbox ---
+          var speakCheckbox = document.getElementById("speak-checkbox");
+          speakCheckbox.checked = (localStorage.getItem(STORAGE_KEY_SPEAK_ENABLED) == "true");
+          speakCheckbox.addEventListener("click", function(e){localStorage.setItem(STORAGE_KEY_SPEAK_ENABLED, speakCheckbox.checked);}, false);
+          function getSpeakEnabled(){return speakCheckbox.checked;}
 
           // --- Record ---
           // Record Range Selector
@@ -493,6 +500,7 @@
 
 
               var gameObj = gm9igt.glyphGame.createGame();
+              gameObj.speakResultGlyphName = getSpeakEnabled();
               gameObj.presentSequenceGlyphTime = speedSelector.getGlyphTime();
               document.body.appendChild(gameObj.element);
               var viewportController = gm9igt.controlViewportMetaElement(gameObj.element);

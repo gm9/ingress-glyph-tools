@@ -41,6 +41,7 @@
           //   c=01&w=create&c=0201&s=yyyy(163a596a9a)
           //   s=clear,your,mind,creativity(1216274548597a9a),grow
           //
+          var optSpeak = false;
           function getGlyphsFromQueryParams()
           {
               var MAX_GLYPH_COUNT = 64;
@@ -59,6 +60,8 @@
                       case "c": glyph = gm9igt.Glyph.fromString(value); word = (gm9igt.glyphDic.getWordsFromGlyph(glyph) || [""])[0]; addWordGlyph(word, glyph); break;
                       case "w": addWordGlyph(value, gm9igt.glyphDic.getGlyphsFromWord(value)[0]); break;
                       case "s": value.split(",").map(gm9igt.glyphDic.getWordGlyphFromString).forEach(function(wg){if(wg){addWordGlyph(wg.word, wg.glyph);}}); break;
+                      // options
+                      case "speak": optSpeak = (value == "1"); break;
                       }
                   }
               }
@@ -117,6 +120,18 @@
           }
 
           gm9igt.getLastScriptNode().parentNode.appendChild(listDiv);
+
+          if(optSpeak){
+              speakText(arrWordGlyph.map(function(wg){return wg.word;}).join(" "));
+          }
+          function speakText(text){
+              if(window.speechSynthesis && window.SpeechSynthesisUtterance){
+                  var msg = new SpeechSynthesisUtterance();
+                  msg.text = text;
+                  msg.lang = 'en-US';
+                  speechSynthesis.speak(msg);
+              }
+          }
       })();
       // ]]>
     </script>

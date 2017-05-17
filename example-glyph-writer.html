@@ -32,6 +32,7 @@
     <p>
       <input id="button-update" class="igt-button" type="button" value="Update" />
       <input id="button-share" class="igt-button" type="button" value="Share" />
+      <input id="button-speak" class="igt-button" type="button" value="Speak" />
       <input id="button-hack" class="igt-button" type="button" value="Hack" />
     </p>
     <p>
@@ -75,9 +76,9 @@
           {
               return "s=" + encodeURI(input.value.split(" ").join(","));
           }
-          function openGlyphList()
+          function openGlyphList(opt)
           {
-              window.open("./example-glyph-list.html?" + getSequenceQueryParam());
+              window.open("./example-glyph-list.html?" + getSequenceQueryParam() + (opt || ""));
           }
           function openGlyphGame()
           {
@@ -87,6 +88,7 @@
 
           document.getElementById("button-update").addEventListener("click", function(){updateOutput();}, false);
           document.getElementById("button-share").addEventListener("click", function(){openGlyphList();}, false);
+          document.getElementById("button-speak").addEventListener("click", function(){openGlyphList("&speak=1");}, false);
           document.getElementById("button-hack").addEventListener("click", function(){openGlyphGame();}, false);
       })();
       //]]>
