@@ -1,7 +1,10 @@
+@import url(https://fonts.googleapis.com/css?family=Coda);
+
 html {
     margin:0;
     background: black;
     color: white;
+    font-family: 'Coda', 'Arial';
 }
 body {
     margin:0;
@@ -15,7 +18,7 @@ input[type=button], .igt-button {
     padding: 0.4em 1em;
     background: #105050;
     color: white;
-    font-family: 'Arial';
+    font-family: 'Coda', 'Arial';
     -webkit-appearance: none;
 }
 
