@@ -21,7 +21,7 @@
         color: #f0c000;
       }
       th { padding: 0.5em 0;}
-      .glyph-box { width: 50px; margin-right: 2px;}
+      .glyph-box { margin-right: 2px;}
       .glyph-box-word { font-size: 12px; }
       .ui-bar { line-height: 2.5;}
       .ui-bar input[type=button] {
@@ -69,6 +69,7 @@
 
           var GLYPH_SIZE = 24;
           var GLYPH_STYLE = {color: "white", glyphLineWidth: 2};
+          var GLYPH_BOX_WIDTH = 50;
 
           function createGlyphElementCanvas(glyph){
               return gm9igt.createGlyphImage(glyph, GLYPH_SIZE, GLYPH_STYLE);
@@ -129,7 +130,7 @@
               slider.max="1500";
               slider.step="20";
               slider.value=loadedValue ? loadedValue : "1000";
-              slider.style="width: 250px;";
+              slider.style.width = "250px";
               div.appendChild(slider);
               var text = document.createTextNode("a");
               div.appendChild(text);
@@ -331,7 +332,6 @@
 
               currentLevelTab = createLevelTab(level);
               page.appendChild(currentLevelTab.element);
-              stretchGlyphTextDelayedExec();
               tables.push(currentLevelTab.table);
           }
           selectLevel(8);
@@ -364,7 +364,6 @@
               gm9igt.glyphGameRecord.updateCurrentTime();
               updateAllTableCells();
               sortAllTables();
-              stretchGlyphTextDelayedExec();
           }
           function updateLevelTable(level){
               if(gm9igt.glyphGameRecord.updateCurrentTime() > 0){
@@ -375,7 +374,6 @@
                   if(table){
                       updateTableCells(table);
                       table.sort();
-                      stretchGlyphTextDelayedExec();
                   }
               }
           }
@@ -395,12 +393,13 @@
           function putGlyphSequence(parent, seq){
               for(var gi = 0; gi < seq.length; ++gi){
                   var wg = seq[gi];
-                  var word = wg.word; //NOTE: Uppercase or Lowercase
+                  var word = wg.word.toUpperCase(); //NOTE: Uppercase or Lowercase
                   var glyph = wg.glyph;
                   var glyphDiv = document.createElement("div");
                   glyphDiv.className = "glyph-box";
                   glyphDiv.style.display = "inline-block";
                   glyphDiv.style.textAlign = "center";
+                  glyphDiv.style.width = GLYPH_BOX_WIDTH + "px";
                   if(glyph){
                       glyphDiv.appendChild(createGlyphElement(glyph));
                   }
@@ -409,55 +408,76 @@
                   var wordSpan = document.createElement("span");
                   wordSpan.className = "glyph-box-word-span";
                   wordSpan.style.display = "inline-block";
-                  wordSpan.appendChild(document.createTextNode(word.toUpperCase()));
+                  wordSpan.appendChild(document.createTextNode(word));
+                  setGlyphTextWidth(wordSpan);
                   wordDiv.appendChild(wordSpan);
                   glyphDiv.appendChild(wordDiv);
                   parent.appendChild(glyphDiv);
-
-                  stretchGlyphTextDelayed();
               }
           }
 
           // Fit glyph name width to parent div
-          var stretchGlyphTextRequested = false;
-          var stretchGlyphTextRequestedId = null;
-          function stretchGlyphText(){
+          function TextWidths(className){
+              var parentElem = document.body;
+              var textElem = document.createElement("span");
+              textElem.style.position = "absolute";
+              textElem.style.left = "0";
+              textElem.style.top = "0";
+              textElem.style.visibility = "hidden";
+              parentElem.appendChild(textElem);
+              var textNode = document.createTextNode("");
+              textElem.appendChild(textNode);
+              textElem.className = className;
+
+              var mapTextWidth = {};
+              this.getWidth = function(text){
+                  var w = mapTextWidth[text];
+                  if(typeof(w) == "number"){
+                      return w;
+                  }
+                  else{
+                      textNode.nodeValue = text;
+                      var r = textElem.getBoundingClientRect();
+                      return mapTextWidth[text] = r.width;
+                  }
+              };
+              this.clear = function(){
+                  mapTextWidth = {};
+              };
+          }
+          var glyphTextWidths;
+          function getGlyphTextWidths(){
+              if(!glyphTextWidths){
+                  glyphTextWidths = new TextWidths("glyph-box-word");
+              }
+              return glyphTextWidths;
+          }
+          function setGlyphTextWidth(wordSpan){
+              var word = wordSpan.firstChild.nodeValue;
+              var wordWidth = getGlyphTextWidths().getWidth(word);
+              if(wordWidth > GLYPH_BOX_WIDTH){
+                  wordSpan.style.transformOrigin = "0 50%";
+                  wordSpan.style.transform = "scale(" + (GLYPH_BOX_WIDTH / wordWidth) + ", 1.0)";
+              }
+              else{
+                  wordSpan.style.transform = "";
+              }
+          }
+          function updateGlyphTextWidth(){
               var spans = document.getElementsByClassName("glyph-box-word-span");
               for(var i = 0; i < spans.length; ++i){
-                  var span = spans[i];
-                  span.style.transform = "";
-                  var parentWidth = span.parentNode.clientWidth;
-                  var childWidth = span.clientWidth;
-                  if(childWidth > 0 && parentWidth > 0 && childWidth > parentWidth){
-                      span.style.transformOrigin = "0 50%";
-                      span.style.transform = "scale(" + (parentWidth / childWidth) + ", 1.0)";
-                  }
-              }
-          }
-          function stretchGlyphTextDelayedExec(){
-              if(stretchGlyphTextRequested){
-                  stretchGlyphTextRequested = false;
-                  if(stretchGlyphTextRequestedId !== null){
-                      clearTimeout(stretchGlyphTextRequestedId);
-                      stretchGlyphTextRequestedId = null;
-                  }
-                  stretchGlyphText();
-              }
-          }
-          function stretchGlyphTextDelayed(time){
-              if(!stretchGlyphTextRequested){
-                  stretchGlyphTextRequested = true;
-                  stretchGlyphTextRequestedId = setTimeout(function(){
-                      stretchGlyphTextRequestedId = null;
-                      stretchGlyphTextDelayedExec();}, time || 0);
+                  setGlyphTextWidth(spans[i]);
               }
           }
           if(document.fonts && document.fonts.ready){
-              document.fonts.ready.then(function(){
-                  stretchGlyphTextDelayed(500);
-              });
+              document.fonts.ready.then(function(){setTimeout(function(){
+                  getGlyphTextWidths().clear(); // font metrics changed?
+                  updateGlyphTextWidth();
+              }, 500)});
           }
 
+
+          //
 
           function hack(seq, lv){
               if(!seq){
