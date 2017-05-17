@@ -405,7 +405,7 @@
         [8], 20170106, ["interrupt", "message", "lose", "collective", "potential"], //https://fevgames.net/happy-new-glyph-year/
         [8], 0, ["liberate", "portal", "liberate", "human", "MIND"],
         [8], 0, ["liberate", "self", "liberate", "human", "CIVILIZATION"],
-        [8], 20170513, ["live again", "die", "repeat", "progress", "FUTURE"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
+        [8], 20170513, ["LIVE AGAIN", "DIE", "REPEAT", "EVOLUTION", "FUTURE"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["LOSE", "SHAPERS", "MESSAGE", "GAIN", "CHAOS"],
         [8], 0, ["MIND", "BODY", "SOUL", "PURE", "HUMAN"],
         [8], 20170513, ["MIND", "TECHNOLOGY", "CAPTURE", "HUMAN", "SOUL"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca (comment) https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
