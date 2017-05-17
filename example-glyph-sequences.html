@@ -364,6 +364,7 @@
               gm9igt.glyphGameRecord.updateCurrentTime();
               updateAllTableCells();
               sortAllTables();
+              stretchGlyphTextDelayedExec();
           }
           function updateLevelTable(level){
               if(gm9igt.glyphGameRecord.updateCurrentTime() > 0){
@@ -374,6 +375,7 @@
                   if(table){
                       updateTableCells(table);
                       table.sort();
+                      stretchGlyphTextDelayedExec();
                   }
               }
           }
