@@ -67,10 +67,15 @@
                   sequence.length = MAX_GLYPH_COUNT;
               }
               var gameObj = gm9igt.glyphGame.createGame();
-              gm9igt.getLastScriptNode().parentNode.appendChild(gameObj.element);
               gameObj.speakResultGlyphName = (qs.speak == "1");
+              var parentNode = gm9igt.getLastScriptNode().parentNode;
+              parentNode.appendChild(gameObj.element);
               gm9igt.controlViewportMetaElement(gameObj.element);
               var TIME_LIMIT = [20000, 20000, 18000, 16000, 15000];
+              gameObj.onEndGame = function(){
+                  parentNode.removeChild(gameObj.element);
+                  window.close();
+              };
               gameObj.hack(
                   sequence,
                   TIME_LIMIT[Math.min(sequence.length - 1, TIME_LIMIT.length - 1)]);
