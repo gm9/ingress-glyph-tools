@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="black.css" />
     <script type="text/javascript" src="glyph-tools.js" charset="utf-8"></script>
+    <script type="text/javascript" src="glyph-tools-ui.js" charset="utf-8"></script>
     <script type="text/javascript" src="glyph-dic.js" charset="utf-8"></script>
     <title>Glyph List - Ingress Glyph Tools</title>
     <style>
@@ -42,6 +43,7 @@
           //   s=clear,your,mind,creativity(1216274548597a9a),grow
           //
           var optSpeak = false;
+          var optUI = false;
           function getGlyphsFromQueryParams()
           {
               var MAX_GLYPH_COUNT = 64;
@@ -62,6 +64,7 @@
                       case "s": value.split(",").map(gm9igt.glyphDic.getWordGlyphFromString).forEach(function(wg){if(wg){addWordGlyph(wg.word, wg.glyph);}}); break;
                       // options
                       case "speak": optSpeak = (value == "1"); break;
+                      case "ui": optUI = (value == "1"); break;
                       }
                   }
               }
@@ -121,8 +124,12 @@
 
           gm9igt.getLastScriptNode().parentNode.appendChild(listDiv);
 
+
+          // Speech
+
+          var sequenceText = arrWordGlyph.map(function(wg){return wg.word;}).join(" ");
           if(optSpeak){
-              speakText(arrWordGlyph.map(function(wg){return wg.word;}).join(" "));
+              speakText(sequenceText);
           }
           function speakText(text){
               if(window.speechSynthesis && window.SpeechSynthesisUtterance){
@@ -131,6 +138,23 @@
                   msg.lang = 'en-US';
                   speechSynthesis.speak(msg);
               }
+          }
+
+          // UI
+          function openGlyphGame(){
+              window.location.href = "./example-glyph-game.html?" +
+                  "s=" + arrWordGlyph.map(function(wg){return wg.word + "(" + wg.glyph.toString() + ")";}).join(",") +
+                  (optSpeak ? "&speak=1" : "");
+          }
+          if(optUI){
+          var uibar = document.createElement("div");
+              if(window.speechSynthesis){
+                  gm9igt.ui.putButton(uibar, "Speak", function(){ speakText(sequenceText);});
+                  uibar.appendChild(document.createTextNode(" "));
+              }
+              gm9igt.ui.putButton(uibar, "Hack", function(){ openGlyphGame();});
+              uibar.appendChild(document.createTextNode(" "));
+              document.body.appendChild(uibar);
           }
       })();
       // ]]>
