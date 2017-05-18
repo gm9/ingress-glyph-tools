@@ -68,6 +68,7 @@
               }
               var gameObj = gm9igt.glyphGame.createGame();
               gm9igt.getLastScriptNode().parentNode.appendChild(gameObj.element);
+              gameObj.speakResultGlyphName = (qs.speak == "1");
               gm9igt.controlViewportMetaElement(gameObj.element);
               var TIME_LIMIT = [20000, 20000, 18000, 16000, 15000];
               gameObj.hack(
