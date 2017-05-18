@@ -170,6 +170,7 @@
         [2], 0, ["nourish", "journey"],
         [2], 0, ["openall", "truth"],
         [2], 0, ["path", "perfection"],
+        [2], 20170513, ["PORTAL", "PRESENCE"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [2], 0, ["pure", "body"],
         [2], 0, ["pure", "human"],
         [2], 0, ["pure", "truth"],
@@ -224,6 +225,7 @@
         [5], 0, ["LEAD", "ENLIGHTENMENT", "CIVILIZATION"],
         [5], 0, ["LIBERATE", "HUMAN", "FUTURE"],
         [5], 20161029, ["LIE", "EQUAL", "FUTURE"], //https://fevgames.net/new-ingress-glyphs/
+        [5], 20170513, ["N'ZEER", "technology", "perfection"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["PEACE", "SIMPLE", "JOURNEY"],
         [5], 20170513, ["peace","worth","more"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [5], 0, ["PERFECTION", "PATH", "PEACE"],
@@ -299,8 +301,10 @@
         [7], 20170513, ["live again","die","again","evolution"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 0, ["LOSE", "DANGER", "GAIN", "SAFETY"],
         [7], 0, ["NOURISH", "XM", "CREATE", "THOUGHT"],
+        [7], 20170513, ["N'ZEER", "legacy", "create", "future"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca (20170513? 20161029?)
         [7], 20161029, ["N'ZEER", "SHAPERS", "STRUGGLE", "KNOWLEDGE"], //https://fevgames.net/new-ingress-glyphs/
         [7], 20161029, ["N'ZEER", "TECHNOLOGY", "MIND", "EVOLUTION"], //https://fevgames.net/new-ingress-glyphs/
+        [7], 20170513, ["N'ZEER", "TECHNOLOGY", "perfection", "truth"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca (20170513? 20161029?)
         [7], 0, ["PAST", "AGAIN", "PRESENT", "AGAIN"],
         [7], 0, ["PATH", "RESTRAINT", "STRONG", "SAFETY"],
         [7], 0, ["PORTAL", "CHANGE", "CIVILIZATION", "END"],
@@ -448,7 +452,7 @@
         [8], 0, ["STRONG", "TOGETHER", "WAR", "TOGETHER", "CHAOS"],
         [8], 0, ["STRONG", "TOGETHER", "WAR", "TOGETHER", "DESTINY"],
         [8], 20151120, ["TECHNOLOGY", "INTELLIGENCE", "SEE", "ALL", "UNBOUNDED"],
-        [8], 20170513, ["TOGETHER", "evolution", "repair", "present", "JOURNEY"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
+        [8], 20170513, ["TOGETHER", "progress", "RECHARGE", "present", "JOURNEY"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment) https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [8], 0, ["use", "mind", "use", "courage", "CHANGE"],
         [8], 0, ["USE", "RESTRAINT", "FOLLOW", "EASY", "PATH"],
         [8], 20170513, ["WANT", "NEW", "DESTINATION", "IGNORE", "CONSEQUENCE"], // https://plus.google.com/108086824097369974579/posts/HWhW2461S2x (comment) https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
