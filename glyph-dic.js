@@ -134,6 +134,7 @@
                 ,"060927486789", ["Shapers","Collective"] //"Shaper"
                 //"060927373848676989", ["Shaper/Collective + Being/Human"]
                 ,"27344878", ["Share"]
+                ,"09377a9a", ["Signal"] //ref: http://decodeingress.me/2014/09/16/passcode-decoding-walkthrough-012/
                 ,"78", ["Simple"]
                 ,"373a676a", ["Soul"] //"Spirit","Life Force"
                 ,"274878", ["Stability", "Stay"]
