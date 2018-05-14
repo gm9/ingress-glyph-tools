@@ -266,7 +266,7 @@
         [7], 0, ["CREATE", "DISTANCE", "IMPURE", "PATH"],
         [7], 0, ["CREATE", "FUTURE", "NOT", "WAR"],
         [7], 20161029, ["CREATE", "NEW", "PORTAL", "POTENTIAL"], //https://fevgames.net/new-ingress-glyphs/
-        [7], 20170513, ["defend","human","n'zeer","lie"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
+        [7], 20170513, ["DEFEND","HUMAN","N'ZEER","LIE"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 0, ["DEFEND", "MESSAGE", "ANSWER", "IDEA"],
         [7], 0, ["DESTROY", "DESTINY", "HUMAN", "LIE"],
         [7], 0, ["DETERIORATE", "HUMAN", "WEAK", "REBEL"],
@@ -335,7 +335,7 @@
         [7], 0, ["TOGETHER", "DISCOVER", "HARMONY", "EQUAL"],
         [7], 0, ["TRUTH", "IDEA", "DISCOVER", "XM"],
         //[7], 20170106, ["UNITY", "TOGETHER", "END", "MYSTERY"], //https://fevgames.net/happy-new-glyph-year/ (unity?)
-        [7], 20170513, ["war","not","worth","consequence"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
+        [7], 20170513, ["WAR","NOT","WORTH","CONSEQUENCE"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/gwk8syewNr1 https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [7], 0, ["XM", "DIE", "CHAOS", "LIVE"],
         [7], 20170106, ["XM", "NOURISH", "STRONG", "CREATIVITY(1216274548597a9a)"], //https://fevgames.net/happy-new-glyph-year/
         [7], 20170513, ["xm","share","your","creativity"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
@@ -415,7 +415,7 @@
         [8], 20170513, ["MIND", "TECHNOLOGY", "CAPTURE", "HUMAN", "SOUL"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca (comment) https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["more", "data", "gain", "portal", "ADVANCE"],
         [8], 20170106, ["MYSTERY", "BEFORE", "PURE", "KNOWLEDGE", "AFTER"], //https://fevgames.net/happy-new-glyph-year/
-        [8], 20170513, ["N'ZEER", "HIDE", "us", "EQUAL", "THEM"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
+        [8], 20170513, ["N'ZEER", "HIDE", "US", "EQUAL", "THEM"], //https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
         [8], 0, ["old", "nature", "less", "strong", "present"],
         [8], 0, ["past", "chaos", "create", "future", "HARMONY"],
         [8], 0, ["PAST", "PATH", "CREATE", "FUTURE", "JOURNEY"],
@@ -452,7 +452,7 @@
         [8], 0, ["STRONG", "TOGETHER", "WAR", "TOGETHER", "CHAOS"],
         [8], 0, ["STRONG", "TOGETHER", "WAR", "TOGETHER", "DESTINY"],
         [8], 20151120, ["TECHNOLOGY", "INTELLIGENCE", "SEE", "ALL", "UNBOUNDED"],
-        [8], 20170513, ["TOGETHER", "progress", "RECHARGE", "present", "JOURNEY"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment) https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
+        [8], 20170513, ["TOGETHER", "PROGRESS", "RECHARGE", "present", "JOURNEY"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment) https://plus.google.com/116260179700704401059/posts/aDTm9pYj9ca
         [8], 0, ["use", "mind", "use", "courage", "CHANGE"],
         [8], 0, ["USE", "RESTRAINT", "FOLLOW", "EASY", "PATH"],
         [8], 20170513, ["WANT", "NEW", "DESTINATION", "IGNORE", "CONSEQUENCE"], // https://plus.google.com/108086824097369974579/posts/HWhW2461S2x (comment) https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)

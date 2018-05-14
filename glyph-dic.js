@@ -32,6 +32,7 @@
                 ,"3738676989", ["Being", "Human"]
                 ,"696a9a", ["Body", "Shell"]
                 ,"16596a9a", ["Breathe","Live"]
+                ,"099a", ["Call"] //ref: http://glyphtionary.com/ http://decodeingress.me/2014/09/16/passcode-decoding-walkthrough-012/ https://plus.google.com/u/0/+SteinLightman/posts/V84nKXZmVrh
                 ,"1734487a8a", ["Capture"]
                 ,"373a8a", ["Change","Modify"]
                 ,"01051638456a8a", ["Chaos","Disorder"]
@@ -121,6 +122,7 @@
                 ,"050a599a", ["Recharge","Repair"]
                 ,"2667", ["Reduce"] //"Contract"
                 ,"090a383a69", ["Resist","Resistance","Struggle"]
+                ,"377a", ["Response"] //ref: http://glyphtionary.com/ http://decodeingress.me/2014/09/16/passcode-decoding-walkthrough-012/ https://plus.google.com/u/0/+SteinLightman/posts/V84nKXZmVrh
                 ,"2327597a9a", ["Restraint"]
                 ,"0626", ["Retreat"]
                 ,"264969", ["Safety"]
