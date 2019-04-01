@@ -93,7 +93,7 @@
                 ,"676a7a899a", ["Lie"]
                 ,"16496a898a", ["Live Again", "Reincarnate"]
                 ,"17", ["Lose"]
-                ,"17497a9a", ["Message"]
+                ,"17497a9a", ["Message","Notification"]
                 ,"383a899a", ["Mind"] //"Idea","Thought"
                 ,"7a8a", ["More"]
                 ,"0609596989", ["Mystery"]
