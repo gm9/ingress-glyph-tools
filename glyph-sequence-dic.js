@@ -463,7 +463,51 @@
         [8], 0, ["XM", "PATH", "FUTURE", "DESTINY", "HARMONY"],
         [8], 20170513, ["XM", "PORTAL", "SHARE", "YOUR", "CREATIVITY"], //https://plus.google.com/+NikitaKorolevSPbRus/posts/RbZ93JYWPjH https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo
         [8], 20170106, ["YOU", "HIDE", "CHAOS", "INSIDE", "BODY"], //https://fevgames.net/happy-new-glyph-year/
-        [8], 20170513, ["your", "MESSAGE", "CLEAR", "USE", "CHAOS"] //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
+        [8], 20170513, ["your", "MESSAGE", "CLEAR", "USE", "CHAOS"], //https://plus.google.com/104078798708321963866/posts/eVHnzQUCsLo (comment)
+
+        //
+        // 2019-04-01 ~ 03?
+        //
+        [0], 20190401, ["TOASTY"],
+
+        [5], 20190401, ["BEFORE", "TOAST", "CHAOS"],
+        [5], 20190401, ["CREATE", "MORE", "TOAST"],
+        [5], 20190401, ["DEFEND", "TOASTY", "PERFECTION"],
+        [5], 20190401, ["HAVE", "MORE", "TOAST"],
+        [5], 20190401, ["IGNORE", "IMPURE", "TOAST"],
+        [5], 20190401, ["NEW", "TOASTY", "KNOWLEDGE"],
+        [5], 20190401, ["OPENALL", "TOAST", "NOTIFICATION"],
+        [5], 20190401, ["SEEK", "TOAST", "NOW"],
+        [5], 20190401, ["SEEK", "TOASTY", "CIVILIZATION"],
+        [5], 20190401, ["TOAST", "GROW", "CONFLICT"],
+        [5], 20190401, ["TOAST", "NOURISH", "CIVILIZATION"],
+        [5], 20190401, ["TOAST", "NOURISH", "HUMAN"],
+        [5], 20190401, ["TOAST", "SUSTAIN", "HUMAN"],
+        [5], 20190401, ["TOAST", "TOAST", "TOAST"],
+
+        [7], 20190401, ["DEFEND", "HUMAN", "toasty", "FUTURE"],
+        [7], 20190401, ["nourish", "human", "use", "toast"],
+        [7], 20190401, ["SAVE", "ALL", "FUTURE", "TOAST"],
+        [7], 20190401, ["TOAST", "CHANGE", "HUMAN", "PERSPECTIVE"],
+        [7], 20190401, ["toast", "toast", "toast", "toast"],
+        [7], 20190401, ["YOU", "SEE", "TOAST", "NOTIFICATION"],
+
+        [8], 20190401, ["ADVANCE", "CIVILIZATION", "PURSUE", "TOASTY", "PATH"],
+        [8], 20190401, ["ALL", "HUMAN", "AVOID", "IMPURE", "TOAST"],
+        [8], 20190401, ["CAPTURE", "TOAST", "DEFEND", "TOAST", "TOGETHER"],
+        [8], 20190401, ["CHANGE", "HUMAN", "POTENTIAL", "USE", "TOAST"],
+        [8], 20190401, ["HAVE", "TOAST", "BODY", "GROW", "UNBOUNDED"],
+        [8], 20190401, ["HAVE", "TOAST", "NOW", "FUTURE", "CONSEQUENCE"],
+        [8], 20190401, ["HAVE", "TOAST", "TOGETHER", "TOASTY", "FUTURE"],
+        [8], 20190401, ["JOURNEY", "INSIDE", "TOAST", "NOURISH", "MIND"],
+        [8], 20190401, ["SEE", "TOAST", "SEE", "FUTURE", "BEGIN"],
+        [8], 20190401, ["SHAPERS", "GAIN", "KNOWLEDGE", "AFTER", "TOAST"],
+        [8], 20190401, ["TOAST", "IMPROVE", "FUTURE", "HUMAN", "CIVILIZATION"],
+        [8], 20190401, ["TOAST", "INSIDE", "MORE", "MIND", "CONFLICT"],
+        [8], 20190401, ["TOAST", "NOURISH", "ALL", "HUMAN", "BODY"],
+        [8], 20190401, ["toast", "toast", "toast", "toast", "toast"],
+        [8], 20190401, ["USE", "TOAST", "GAIN", "MIND", "POTENTIAL"],
+
     ];
 
     var INFOS = [];
