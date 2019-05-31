@@ -468,6 +468,7 @@
         //
         // 2019-04-01 ~ 03?
         //
+        /*
         [0], 20190401, ["TOASTY"],
 
         [5], 20190401, ["BEFORE", "TOAST", "CHAOS"],
@@ -507,6 +508,7 @@
         [8], 20190401, ["TOAST", "NOURISH", "ALL", "HUMAN", "BODY"],
         [8], 20190401, ["toast", "toast", "toast", "toast", "toast"],
         [8], 20190401, ["USE", "TOAST", "GAIN", "MIND", "POTENTIAL"],
+        */
 
     ];
 
