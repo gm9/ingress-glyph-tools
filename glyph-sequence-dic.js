@@ -510,6 +510,8 @@
         [8], 20190401, ["USE", "TOAST", "GAIN", "MIND", "POTENTIAL"],
         */
 
+        // 2019-05-31 ~ ?
+        [8], 20190531, ["RESISTANCE", "GAIN", "ALL", "VICTORY", "OSIRIS"]
     ];
 
     var INFOS = [];
