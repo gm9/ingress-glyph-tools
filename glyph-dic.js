@@ -99,6 +99,7 @@
                 ,"0609596989", ["Mystery"]
                 ,"06090a3a6a9a", ["N'zeer"]
                 ,"2748676989", ["Nature"]
+                ,"1516242748596a7a8a9a", ["Nemesis"]
                 ,"2767", ["New"]
                 ,"6769", ["Not","Inside"] //"No", "Absent"
                 ,"343a488a", ["Nourish"]
