@@ -65,6 +65,7 @@
                 ,"0a899a", ["Evolution","Progress","Success"]
                 ,"0a676a", ["Failure"]
                 ,"176769", ["Fear"]
+                ,"1517373858", ["Field"]
                 ,"061216", ["Follow"]
                 ,"48", ["Forget"]
                 ,"162767", ["Future"] //"Forward-Time"
@@ -85,12 +86,14 @@
                 ,"16486a899a", ["Intelligence"]
                 ,"0a3a4548598a9a", ["Interrupt"]
                 ,"163445596a9a", ["Journey"]
+                ,"3a676a7a898a9a", ["Key"]
                 ,"36396a9a", ["Knowledge"]
                 ,"05384548", ["Lead"]
                 ,"0105162748596789", ["Legacy"]
                 ,"6a9a", ["Less"]
                 ,"0116496a9a", ["Liberate"]
                 ,"676a7a899a", ["Lie"]
+                ,"15", ["Link"]
                 ,"16496a898a", ["Live Again", "Reincarnate"]
                 ,"17", ["Lose"]
                 ,"17497a9a", ["Message","Notification"]
@@ -136,10 +139,12 @@
                 ,"060927486789", ["Shapers","Collective"] //"Shaper"
                 //"060927373848676989", ["Shaper/Collective + Being/Human"]
                 ,"27344878", ["Share"]
+                ,"060937386789", ["Shield"]
                 ,"09377a9a", ["Signal"] //ref: http://decodeingress.me/2014/09/16/passcode-decoding-walkthrough-012/
                 ,"78", ["Simple"]
                 ,"373a676a", ["Soul"] //"Spirit","Life Force"
                 ,"274878", ["Stability", "Stay"]
+                ,"0a16273a48596a7a8a9a", ["Star"]
                 ,"67697889", ["Strong"]
                 ,"0a1216273a6a7a", ["Sustain"]
                 ,"01050a12162327343a456a7a", ["Sustain All"]
