@@ -324,7 +324,7 @@
         [7], 0, ["IMPROVE", "BODY", "PURSUE", "JOURNEY"],
         [7], 0, ["INSIDE", "MIND", "JOURNEY", "PERFECTION"],
         [7], 20170106, ["INTERRUPT", "MESSAGE", "GAIN", "ADVANCE"], //https://fevgames.net/happy-new-glyph-year/
-        [7], 0, ["JOURNEY", "not", "IMPROVE", "SOUL"],
+        [7], 0, ["JOURNEY", "INSIDE", "IMPROVE", "SOUL"],
         [7], 20170106, ["KNOWLEDGE", "HELP", "GAIN", "VICTORY"], //https://fevgames.net/happy-new-glyph-year/
         [7], 0, ["LEAD", "PURSUE", "REACT", "DEFEND"],
         [7], 20190727, ["less", "shield", "more", "harm"],
@@ -344,6 +344,7 @@
         [7], 0, ["PATH", "RESTRAINT", "STRONG", "SAFETY"],
         [7], 0, ["PORTAL", "CHANGE", "CIVILIZATION", "END"],
         [7], 0, ["PORTAL", "DIE", "CIVILIZATION", "DIE"],
+        [7], 0, ["PORTAL", "HAVE", "TRUTH", "DATA"],
         [7], 0, ["QUESTION", "TRUTH", "GAIN", "FUTURE"],
         [7], 0, ["RESTRAINT", "FEAR", "AVOID", "DANGER"],
         [7], 0, ["RESTRAINT", "PATH", "GAIN", "HARMONY"],
