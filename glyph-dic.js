@@ -17,7 +17,9 @@
     // ref: https://plus.google.com/+NianticProject/posts/1b1aEfxWW4w
     var DIC =
             [
-                "1634486a8a", ["Abandon"]
+                "89", ["1"]
+                ,"696a787a", ["3"]
+                ,"1634486a8a", ["Abandon"]
                 ,"587a8a", ["Adapt"]
                 ,"0949", ["Advance"]
                 ,"1216276a7a", ["After"]
@@ -88,6 +90,7 @@
                 ,"163445596a9a", ["Journey"]
                 ,"3a676a7a898a9a", ["Key"]
                 ,"36396a9a", ["Knowledge"]
+                ,"7889", ["L"]
                 ,"05384548", ["Lead"]
                 ,"0105162748596789", ["Legacy"]
                 ,"6a9a", ["Less"]
@@ -100,6 +103,7 @@
                 ,"383a899a", ["Mind"] //"Idea","Thought"
                 ,"7a8a", ["More"]
                 ,"0609596989", ["Mystery"]
+                ,"677a899a", ["N"]
                 ,"06090a3a6a9a", ["N'zeer"]
                 ,"2748676989", ["Nature"]
                 ,"1516242748596a7a8a9a", ["Nemesis"]

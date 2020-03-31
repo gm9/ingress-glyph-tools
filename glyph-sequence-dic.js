@@ -560,7 +560,14 @@
         */
 
         // 2019-05-31 ~ ?
-        [8], 20190531, ["RESISTANCE", "GAIN", "ALL", "VICTORY", "OSIRIS"]
+        [8], 20190531, ["RESISTANCE", "GAIN", "ALL", "VICTORY", "OSIRIS"],
+
+        // 2020-04-01
+        [8], 20200401, ["toast", "nourish", "mind", "body", "SOUL"],
+        [8], 20200401, ["you", "see", "n", "l", "AGAIN"],
+        [8], 20200401, ["want", "1", "3", "3", "1"],
+        [8], 20200401, ["see", "n", "l", "pure", "PERFECTION"],
+        [8], 20200401, ["adapt", "create", "new", "future", "together"]
     ];
 
     var INFOS = [];
