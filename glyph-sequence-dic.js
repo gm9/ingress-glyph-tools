@@ -564,15 +564,26 @@
         [8], 20190531, ["RESISTANCE", "GAIN", "ALL", "VICTORY", "OSIRIS"],
 
         // 2020-04-01
-        [5], 20200401, ["see", "n", "L"],
-        [7], 20200401, ["lose", "key", "contemplate", "future"],
-        [7], 20200401, ["follow", "path", "see", "nature"],
-        [7], 20200401, ["now", "you", "all", "star"],
-        [8], 20200401, ["toast", "nourish", "mind", "body", "SOUL"],
-        [8], 20200401, ["you", "see", "n", "l", "AGAIN"],
-        [8], 20200401, ["want", "1", "3", "3", "1"],
-        [8], 20200401, ["see", "n", "l", "pure", "PERFECTION"],
-        [8], 20200401, ["adapt", "create", "new", "future", "together"]
+        [0], 20200401, ["N"],
+        [2], 20200401, ["AVOID", "CHAOS"], //new?
+        [2], 20200401, ["DISCOVER", "PATH"], //new?
+        [2], 20200401, ["N", "L"],
+        [2], 20200401, ["STAY", "TOGETHER"], //new?
+        [2], 20200401, ["USE", "KEY"], //new?
+        [5], 20200401, ["BEGIN", "NEW", "JOURNEY"], //new?
+        [5], 20200401, ["HELP", "CLEAR", "BARRIER"], //new?
+        [5], 20200401, ["HELP", "CLEAR", "PATH"], //new? PATH=>BARRIER?
+        [5], 20200401, ["REPAIR", "ALL", "LIVE AGAIN"], //new?
+        [5], 20200401, ["SEE", "N", "L"],
+        [7], 20200401, ["FOLLOW", "PATH", "SEE", "NATURE"],
+        [7], 20200401, ["LOSE", "KEY", "CONTEMPLATE", "FUTURE"],
+        [7], 20200401, ["MORE", "JOURNEY", "LESS", "DESTINATION"], //new?
+        [7], 20200401, ["NOW", "YOU", "ALL", "STAR"],
+        [8], 20200401, ["ADAPT", "CREATE", "NEW", "FUTURE", "TOGETHER"],
+        [8], 20200401, ["SEE", "N", "L", "PURE", "PERFECTION"],
+        [8], 20200401, ["TOAST", "NOURISH", "MIND", "BODY", "SOUL"],
+        [8], 20200401, ["WANT", "1", "3", "3", "1"],
+        [8], 20200401, ["YOU", "SEE", "N", "L", "AGAIN"]
     ];
 
     var INFOS = [];
