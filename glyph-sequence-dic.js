@@ -20,6 +20,7 @@
     // - 20190720 nemesis
     // - 20190727 field,key,link,shield,star
     //            https://fevgames.net/new-glyphs-in-ingress/
+    // - 20200401 n,l,1,3
 
 
     // レベル毎のグリフシーケンス
@@ -563,6 +564,10 @@
         [8], 20190531, ["RESISTANCE", "GAIN", "ALL", "VICTORY", "OSIRIS"],
 
         // 2020-04-01
+        [5], 20200401, ["see", "n", "L"],
+        [7], 20200401, ["lose", "key", "contemplate", "future"],
+        [7], 20200401, ["follow", "path", "see", "nature"],
+        [7], 20200401, ["now", "you", "all", "star"],
         [8], 20200401, ["toast", "nourish", "mind", "body", "SOUL"],
         [8], 20200401, ["you", "see", "n", "l", "AGAIN"],
         [8], 20200401, ["want", "1", "3", "3", "1"],
