@@ -21,6 +21,7 @@
     // - 20190727 field,key,link,shield,star
     //            https://fevgames.net/new-glyphs-in-ingress/
     // - 20200401 n,l,1,3
+    // - 20210618 Glyph the Planet(~20210626 ?)
 
 
     // レベル毎のグリフシーケンス
@@ -586,6 +587,21 @@
         [8], 20200401, ["WANT", "1", "3", "3", "1"],
         [8], 20200401, ["YOU", "SEE", "N", "L", "AGAIN"]
         */
+
+        // 2021-06-18 ~ 26?
+        [8], 20210618, ["ACCEPT", "HUMAN", "INSIDE", "N", "L"],
+        [8], 20210618, ["BEGIN", "NEW", "N", "L", "JOURNEY"],
+        [8], 20210618, ["CLEAR", "PATH", "HELP", "N", "L"],
+        [8], 20210618, ["DIFFICULT", "JOURNEY", "PURSUE", "N", "L"],
+        [8], 20210618, ["FOLLOW", "1", "3", "3", "1"],
+        [8], 20210618, ["HELP", "N", "L", "AVOID", "CAPTURE"],
+        [8], 20210618, ["N", "L", "PORTAL", "HAVE", "MESSAGE"],
+        [8], 20210618, ["OPEN", "N", "L", "SEARCH", "INSIDE"],
+        [8], 20210618, ["PAST", "PRESENT", "FUTURE", "N", "L"],
+        [8], 20210618, ["POTENTIAL", "NEW", "N", "L", "DESTINATION"],
+        [8], 20210618, ["PURSUE", "1", "3", "3", "1"],
+        [8], 20210618, ["REPAIR", "1", "3", "3", "1"],
+        [8], 20210618, ["SEE", "N", "L", "TOGETHER", "AGAIN"]
     ];
 
     var INFOS = [];
