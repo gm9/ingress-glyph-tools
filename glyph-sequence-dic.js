@@ -562,7 +562,7 @@
         */
 
         // 2019-05-31 ~ ?
-        [8], 20190531, ["RESISTANCE", "GAIN", "ALL", "VICTORY", "OSIRIS"],
+        [8], 20190531, ["RESISTANCE", "GAIN", "ALL", "VICTORY", "OSIRIS"]
 
         // 2020-04-01 ~ 3?
         /*
@@ -589,19 +589,23 @@
         */
 
         // 2021-06-18 ~ 26?
-        [8], 20210618, ["ACCEPT", "HUMAN", "INSIDE", "N", "L"],
-        [8], 20210618, ["BEGIN", "NEW", "N", "L", "JOURNEY"],
-        [8], 20210618, ["CLEAR", "PATH", "HELP", "N", "L"],
-        [8], 20210618, ["DIFFICULT", "JOURNEY", "PURSUE", "N", "L"],
-        [8], 20210618, ["FOLLOW", "1", "3", "3", "1"],
-        [8], 20210618, ["HELP", "N", "L", "AVOID", "CAPTURE"],
-        [8], 20210618, ["N", "L", "PORTAL", "HAVE", "MESSAGE"],
-        [8], 20210618, ["OPEN", "N", "L", "SEARCH", "INSIDE"],
-        [8], 20210618, ["PAST", "PRESENT", "FUTURE", "N", "L"],
-        [8], 20210618, ["POTENTIAL", "NEW", "N", "L", "DESTINATION"],
-        [8], 20210618, ["PURSUE", "1", "3", "3", "1"],
-        [8], 20210618, ["REPAIR", "1", "3", "3", "1"],
-        [8], 20210618, ["SEE", "N", "L", "TOGETHER", "AGAIN"]
+        /*
+        [8], 20210618, ["ACCEPT",  "HUMAN",  "INSIDE",  "N",  "L"],
+        [8], 20210618, ["BEGIN",  "NEW",  "N",  "L",  "JOURNEY"],
+        [8], 20210618, ["CLEAR",  "PATH",  "HELP",  "N",  "L"],
+        [8], 20210618, ["DIFFICULT",  "JOURNEY",  "PURSUE",  "N",  "L"],
+        [8], 20210618, ["DISCOVER",  "N",  "L",  "TECHNOLOGY",  "OUTSIDE"],
+        //[8], 20210618, ["FOLLOW",  "1",  "3",  "3",  "1"],
+        [8], 20210618, ["HELP",  "N",  "L",  "AVOID",  "CAPTURE"],
+        [8], 20210618, ["N",  "L",  "PORTAL",  "HAVE",  "MESSAGE"],
+        [8], 20210618, ["OPEN",  "N",  "L",  "SEARCH",  "INSIDE"],
+        [8], 20210618, ["PAST",  "PRESENT",  "FUTURE",  "N",  "L"],
+        [8], 20210618, ["POTENTIAL",  "NEW",  "N",  "L",  "DESTINATION"],
+        [8], 20210618, ["PURSUE",  "1",  "3",  "3",  "1"],
+        [8], 20210618, ["REPAIR",  "1",  "3",  "3",  "1"],
+        [8], 20210618, ["SEE",  "N",  "L",  "TOGETHER",  "AGAIN"],
+        [8], 20210618, ["XM",  "DATA",  "INSIDE",  "N",  "L"],
+      */
     ];
 
     var INFOS = [];
